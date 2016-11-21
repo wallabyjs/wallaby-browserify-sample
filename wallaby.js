@@ -15,7 +15,8 @@ module.exports = function () {
         // their browserified versions will be loaded instead
         files: [
             {pattern: 'src/*.js', load: false},
-            {pattern: 'main.js', load: false}
+            {pattern: 'main.js', load: false},
+            {pattern: 'index.html', load: false}
         ],
 
         tests: [
