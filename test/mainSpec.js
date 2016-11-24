@@ -24,18 +24,18 @@ describe('chpts', function () {
     it('should be node list', function () {
         isNodeList(chpts).should.be.true;
     });
-    it('should have children.', function () {
-        chpts.length.should.equal(5);
+    it('should have some children.', function () {
+        chpts.length.should.be.greaterThan(0);
     });
     it('should have a firstChild.', function () {
         chpts[0].should.exist;
     });
-    it('should have abbreviated head.innerHTML.', function () {
-        var TST = _.compose(
+    it('should have some innerHTML.', function () {
+        var someHTML = _.compose(
             _.slice(1, 8),
             _.prop('innerHTML'),
             _.head
         );
-        TST(chpts).should.equal("  1 And");
+        someHTML(chpts).should.equal("  1 And");
     });
 });
