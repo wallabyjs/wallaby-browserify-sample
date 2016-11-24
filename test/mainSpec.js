@@ -1,17 +1,8 @@
 var chai = require('chai');
-// var expect = chai.expect;
 var should = chai.should();
 var _ = require('ramda');
-
-function isNodeList(nodes) {
-    var stringRepr = Object.prototype.toString.call(nodes);
-
-    return typeof nodes === 'object' &&
-        /^\[object (HTMLCollection|NodeList|Object)\]$/.test(stringRepr) &&
-        (typeof nodes.length === 'number') &&
-        (nodes.length === 0 || (typeof nodes[0] === "object" && nodes[0].nodeType > 0));
-}
-
+//---------------------------
+var isNodeList = require('../src/isNodeList');
 describe('chpts', function () {
     var chpts;
     beforeEach(function () {
@@ -37,5 +28,10 @@ describe('chpts', function () {
             _.head
         );
         someHTML(chpts).should.equal("  1 And");
+    });
+});
+describe("..", function () {
+    it("should ..", function () {
+        true.should.be.true;
     });
 });
