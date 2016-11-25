@@ -1,7 +1,7 @@
 "use strict";
 
 var chai = require('chai');
-var before = chai.before;
+// var before = chai.before;
 var should = chai.should();
 var _ = require('ramda');
 //---------------------------
@@ -9,15 +9,16 @@ var isNodeList = require('../src/isNodeList');
 
 var chpts;
 describe(" index.html.", function () {
-    var chpts, span, _fontSizeLens;
-    beforeEach(function () {
+    var chpts, span, spanStyle, _fontSizeLens, _fontSizeStyleLens;
+    beforeEach(function defineObjOfInterest() {
         loadFixtures('index.html');
         chpts = document.querySelectorAll(".chptr span");
         span = chpts[0];
-        _fontSizeLens = _.lensPath(['style', 'fontSize']);
-
+        spanStyle = span.style;
+        _fontSizeLens = _.lensProp('fontSize');
+        _fontSizeStyleLens = _.lensPath(['style', 'fontSize']);
     });
-    describe('chpts', function () {
+    describe('chpts.', function () {
         it('should exist', function () {
             chpts.should.exist;
         });
@@ -39,7 +40,7 @@ describe(" index.html.", function () {
             someHTML(chpts).should.equal("  1 And");
         });
     });
-    describe("a Span", function () {
+    describe("a Span.", function () {
         it('should have some innerHTML.', function () {
             var someHTML = _.compose(
                 _.slice(1, 8),
@@ -52,16 +53,21 @@ describe(" index.html.", function () {
             span.style.fontSize.should.be.equal('');
         });
     });
-    describe("fontSize::span.style.fontSize", function () {
-        var span, _fontSizeLens;
-        beforeEach(function () {
-            _fontSizeLens = _.lensPath(['style', 'fontSize']);
-            loadFixtures('index.html');
-            span = document.querySelectorAll(".chptr span")[0];
-
+    describe("fontSize.", function () {
+        var fontSize;
+        beforeEach(function resetFontSize() {
+            fontSize = _.view(_fontSizeLens, spanStyle)
         });
         it("should exist.", function () {
-            _.view(_fontSizeLens, span).should.exist;
+            fontSize.should.exist;
+        });
+        it("should be empty.", function () {
+            fontSize.should.equal((''));
+        });
+        it("should be mutated.", function () {
+            var new_spanStyle = _.set(_fontSizeLens, "50%", spanStyle);
+            console.log("new_spanStyle:" + new_spanStyle.fontSize);
+            new_spanStyle.fontSize.should.equal(('50%'));
         });
     });
 });
