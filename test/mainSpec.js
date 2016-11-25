@@ -3,6 +3,11 @@ var should = chai.should();
 var _ = require('ramda');
 //---------------------------
 var isNodeList = require('../src/isNodeList');
+// var chpts;
+// chai.before(function () {
+//     loadFixtures('index.html');
+//     chpts = document.querySelectorAll(".chptr span");
+// });
 describe('chpts', function () {
     var chpts;
     beforeEach(function () {
@@ -30,8 +35,28 @@ describe('chpts', function () {
         someHTML(chpts).should.equal("  1 And");
     });
 });
-describe("..", function () {
-    it("should ..", function () {
-        true.should.be.true;
+describe("a Span", function () {
+    var span;
+    beforeEach(function () {
+        loadFixtures('index.html');
+        span = document.querySelectorAll(".chptr span")[0];
+    });
+    it("should exist.", function () {
+        span.should.exist;
+    });
+    it("should have empty style.fontSize", function () {
+        span.style.fontSize.should.be.equal('');
+    });
+});
+describe("fontSize::span.style.fontSize", function () {
+    var span, _fontSizeLens;
+    beforeEach(function () {
+        _fontSizeLens = _.lensPath(['style', 'fontSize']);
+        loadFixtures('index.html');
+        span = document.querySelectorAll(".chptr span")[0];
+
+    });
+    it("should exist.", function () {
+        _.view(_fontSizeLens, span).should.exist;
     });
 });
