@@ -30,6 +30,8 @@ module.exports = function () {
         setup: function () {
             jasmine.getFixtures().fixturesPath = '';
             // required to trigger tests loading
+
+
             window.__moduleBundler.loadTests();
         }
     };
