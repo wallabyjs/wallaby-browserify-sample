@@ -1,12 +1,14 @@
 "use strict";
 
+let mocha = require('mocha');
+let describe = mocha.describe;
+let it = mocha.it;
+let beforeEach = mocha.beforeEach;
+let before = mocha.before;
 let chai = require('chai');
-// let describe = chai.describe();
-// let it = chai.it;
-// let be = chai.be;
-// let before = chai.before;
-// let beforeEach = chai.beforeEach;
 let should = chai.should();
+// let be = chai.be;
+
 let _ = require('ramda');
 let compose = _.compose;
 let curry = _.curry;
@@ -56,7 +58,7 @@ describe("mutating Styles/", function () {
                 chptSpns[0].should.exist;
             });
             it('should have some innerHTML.', function () {
-                let someHTML = _.compose(
+                let someHTML = compose(
                     _.slice(1, 8),
                     _.prop('innerHTML'),
                     _.head
@@ -66,7 +68,7 @@ describe("mutating Styles/", function () {
         });
         describe("a Span/", function () {
             it('should have some innerHTML.', function () {
-                let someHTML = _.compose(
+                let someHTML = compose(
                     _.slice(1, 8),
                     _.prop('innerHTML'),
                     _.head
