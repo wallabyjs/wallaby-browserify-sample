@@ -32,7 +32,7 @@ var _setStylProp = curry(function (prop_str, val_str, a_dct) {
 // TESTS ----------------------------
 describe("mutating Styles/", function () {
     describe("access div.chptr spans in index.html/", function () {
-        var chptSpns, span, spanStyle, _fontSizeLens, _fontSizeStyleLens;
+        let chptSpns, span, spanStyle, _fontSizeLens, _fontSizeStyleLens;
         beforeEach(function defineObjOfInterest() {
             loadFixtures('index.html');
             chptSpns = document.querySelectorAll(".chptr span");

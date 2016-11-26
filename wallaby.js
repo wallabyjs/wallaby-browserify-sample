@@ -8,7 +8,7 @@ var wallabyPostprocessor = wallabify({
     // , b => b.exclude('mkdirp').transform(require('babelify'))
 );
 
-module.exports = function () {
+module.exports = function (wallaby) {
     // TODO: add babel for es6 coding.
     return {
         // set `load: false` to all of the browserified source files and tests,
@@ -26,6 +26,12 @@ module.exports = function () {
         tests: [
             {pattern: 'test/*Spec.js', load: false}
         ],
+
+        compilers: {
+            '**/*.js': wallaby.compilers.babel({
+                presets: ['es2015']
+            })
+        },
 
         postprocessor: wallabyPostprocessor,
 
