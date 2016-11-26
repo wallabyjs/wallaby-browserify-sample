@@ -8,8 +8,9 @@ var wallabyPostprocessor = wallabify({
     // , b => b.exclude('mkdirp').transform(require('babelify'))
 );
 
+// TODO GET RID OF ALL THE unresolved ramda and mocha lints
+
 module.exports = function (wallaby) {
-    // TODO: add babel for es6 coding.
     return {
         // set `load: false` to all of the browserified source files and tests,
         // as they should not be loaded in browser,

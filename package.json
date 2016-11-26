@@ -26,6 +26,8 @@
     "chai": "^2.3.0",
     "jasmine-jquery": "^2.1.1",
     "jquery": "^3.1.1",
+    "mocha": "^3.2.0",
+    "ramda": "^0.22.1",
     "wallabify": "0.0.14"
   }
 }
