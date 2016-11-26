@@ -9,6 +9,7 @@ var wallabyPostprocessor = wallabify({
 );
 
 module.exports = function () {
+    // TODO: add babel for es6 coding.
     return {
         // set `load: false` to all of the browserified source files and tests,
         // as they should not be loaded in browser,
@@ -31,8 +32,6 @@ module.exports = function () {
         setup: function () {
             jasmine.getFixtures().fixturesPath = '';
             // required to trigger tests loading
-
-
             window.__moduleBundler.loadTests();
         }
     };

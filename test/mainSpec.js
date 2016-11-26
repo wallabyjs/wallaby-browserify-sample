@@ -17,12 +17,12 @@ var _aStylDct = _.prop('style'); // D -> D.style
 var _viewStylProp = curry(function (prop_str, a_dct) {
     return _.view(_setStylPropLens(prop_str), _aStylDct(a_dct))
 }); // (S -> Lens) -> D -> S
-
-// var _setStylPropValue = function (ndx) {
-//     return ndx * 0.1
-// }; // N:ndx -> N:wt
+var _setStylPropValue = function (val) {
+    // TODO this will evole to N.ndx -> N.wt
+    return val
+}; // val -> val
 var _setStylProp = curry(function (prop_str, val_str, a_dct) {
-    return _.set(_setStylPropLens(prop_str), val_str, _aStylDct(a_dct))
+    return _.set(_setStylPropLens(prop_str), _setStylPropValue(val_str), _aStylDct(a_dct))
 });// S _> N -> D
 // var _setStyle = curry(
 //     function (styl_prop_name, span_ndx, chptSpns) {
