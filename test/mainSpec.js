@@ -8,25 +8,30 @@ var curry = _.curry;
 //---------------------------
 var isNodeList = require('../h/isNodeList');
 // TEST CODE --------------------------------
-var _slctSpanNdx = curry(function (span_ndx) {
+var _slctSpan_byNdx = curry(function (span_ndx) {
     return _.nth(span_ndx)
-});
+});// (N) -> L -> D
 var _stylePropName = _.prop('style');
-var _setStylePropLens = function (prop_name) {
-    return _.lensProp(prop_name)
-};
+var _setStylePropLens = _.lensProp;// S -> Lens
+var _aStylDct = _.prop('style');
+var _viewStyleProp = curry(function (prop_str, aDct) {
+    return _.view(_setStylePropLens(prop_str), _aStylDct(aDct))
+}); // (S -> Lens) -> D -> S
+
 var _setStylePropValue = function (ndx) {
     return ndx * 0.1
 }; // N:ndx -> N:wt
-var _setStyleProp = _.compose(_.set, _setStylePropValue, _setStylePropLens); // D:styleD ->
+var _setStyleProp = curry(function (prop_str, n, a_dct) {
+    return _.set(_setStylePropLens(prop_str), n, _aStylDct(a_dct))
+});// D:styleD ->
 var _setStyle = curry(
     function (styl_prop_name, span_ndx, chptSpns) {
         return _setStyleProp(styl_prop_name);
     });
 
 // TESTS ----------------------------
-describe("mutating Styles", function () {
-    describe("access div.chptr spans in index.html.", function () {
+describe("mutating Styles/", function () {
+    describe("access div.chptr spans in index.html/", function () {
         var chptSpns, span, spanStyle, _fontSizeLens, _fontSizeStyleLens;
         beforeEach(function defineObjOfInterest() {
             loadFixtures('index.html');
@@ -35,7 +40,7 @@ describe("mutating Styles", function () {
             spanStyle = span.style;
             _fontSizeLens = _.lensProp('fontSize');
         });
-        describe('chptSpns.', function () {
+        describe('chptSpns/', function () {
             it('should exist', function () {
                 chptSpns.should.exist;
             });
@@ -57,7 +62,7 @@ describe("mutating Styles", function () {
                 someHTML(chptSpns).should.equal("  1 And");
             });
         });
-        describe("a Span.", function () {
+        describe("a Span/", function () {
             it('should have some innerHTML.', function () {
                 var someHTML = _.compose(
                     _.slice(1, 8),
@@ -70,7 +75,7 @@ describe("mutating Styles", function () {
                 span.style.fontSize.should.be.equal('');
             });
         });
-        describe("fontSize.", function () {
+        describe("fontSize/", function () {
             var fontSize;
             beforeEach(function resetFontSize() {
                 fontSize = _.view(_fontSizeLens, spanStyle)
@@ -89,24 +94,39 @@ describe("mutating Styles", function () {
         });
     });
 
-    describe(" see a styleProp", function () {
-        var chptSpns, _CUT, CUT;
-        beforeEach(function get_chptSpns () {
+    describe(" see a span styleProp/", function () {
+        var chptSpns;
+        beforeEach(function get_chptSpns() {
             loadFixtures('index.html');
             chptSpns = document.querySelectorAll(".chptr span");
         });
-        describe("use a Span.", function () {
+        describe("use a Span using slctSpan_byNdx(0)/", function () {
             var aSpan, aNdx, aNL, aStylProp;
             beforeEach(function resetFontSize() {
                 chptSpns = document.querySelectorAll(".chptr span");
-                // aSpan = _slctSpanNdx(chptSpns);
+                aSpan = _slctSpan_byNdx(0)(chptSpns);
             });
-            it("should exist.", function () {
+            it("a Span should exist/", function () {
                 aSpan.should.exist;
             });
-            // it("should be empty.", function () {
-            //         aSpan.should.equal((''));
-            //     });
+            it("should NOT be empty/", function () {
+                aSpan.should.not.equal((''));
+            });
+        });
+        describe("view/set a Span.style using lens/", function () {
+            var aSpan, lens, styleProp;
+            beforeEach(function resetFontSize() {
+                chptSpns = document.querySelectorAll(".chptr span");
+                aSpan = _slctSpan_byNdx(0)(chptSpns);
+                lens = _setStylePropLens('fontSize');
+                styleProp = _viewStyleProp('fontSize', aSpan)
+            });
+            it("build a lens using _setStylePropLens(_stylePropName('fontSize'))", function () {
+                lens.should.exist;
+            });
+            it("span.style.prop.fontSize should be empty: using _viewStyleProp('fontSize')", function () {
+                styleProp.should.equal('');
+            });
             //     it("should be mutated.", function () {
             //         var new_spanStyle = _.set(_fontSizeLens, "50%", spanStyle);
             //         console.log("new_spanStyle:" + new_spanStyle.aSpan);
