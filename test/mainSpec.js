@@ -14,20 +14,20 @@ var _slctSpan_byNdx = curry(function (span_ndx) {
 var _stylePropName = _.prop('style');
 var _setStylePropLens = _.lensProp;// S -> Lens
 var _aStylDct = _.prop('style');
-var _viewStyleProp = curry(function (prop_str, aDct) {
-    return _.view(_setStylePropLens(prop_str), _aStylDct(aDct))
+var _viewStyleProp = curry(function (prop_str, a_dct) {
+    return _.view(_setStylePropLens(prop_str), _aStylDct(a_dct))
 }); // (S -> Lens) -> D -> S
 
-var _setStylePropValue = function (ndx) {
-    return ndx * 0.1
-}; // N:ndx -> N:wt
-var _setStyleProp = curry(function (prop_str, n, a_dct) {
-    return _.set(_setStylePropLens(prop_str), n, _aStylDct(a_dct))
-});// D:styleD ->
-var _setStyle = curry(
-    function (styl_prop_name, span_ndx, chptSpns) {
-        return _setStyleProp(styl_prop_name);
-    });
+// var _setStylePropValue = function (ndx) {
+//     return ndx * 0.1
+// }; // N:ndx -> N:wt
+var _setStyleProp = curry(function (prop_str, val_str, a_dct) {
+    return _.set(_setStylePropLens(prop_str), val_str, _aStylDct(a_dct))
+});// S _> N -> D
+// var _setStyle = curry(
+//     function (styl_prop_name, span_ndx, chptSpns) {
+//         return _setStyleProp(styl_prop_name);
+//     });
 
 // TESTS ----------------------------
 describe("mutating Styles/", function () {
@@ -113,7 +113,7 @@ describe("mutating Styles/", function () {
                 aSpan.should.not.equal((''));
             });
         });
-        describe("view/set a Span.style using lens/", function () {
+        describe("view || set a Span.style using lens/", function () {
             var aSpan, lens, styleProp;
             beforeEach(function resetFontSize() {
                 chptSpns = document.querySelectorAll(".chptr span");
@@ -124,14 +124,14 @@ describe("mutating Styles/", function () {
             it("build a lens using _setStylePropLens(_stylePropName('fontSize'))", function () {
                 lens.should.exist;
             });
-            it("span.style.prop.fontSize should be empty: using _viewStyleProp('fontSize')", function () {
+            it("span prop fontSize should be empty: using _viewStyleProp(S,D)", function () {
                 styleProp.should.equal('');
             });
-            //     it("should be mutated.", function () {
-            //         var new_spanStyle = _.set(_fontSizeLens, "50%", spanStyle);
-            //         console.log("new_spanStyle:" + new_spanStyle.aSpan);
-            //         new_spanStyle.aSpan.should.equal(('50%'));
-            //     });
+            it("should be mutated using _setStyleProp(S,N,D).", function () {
+                var new_spanStyle = _setStyleProp(lens, "50%", aSpan);
+                console.log("new_spanStyle:" + new_spanStyle);
+                new_spanStyle.fontSize.should.equal(('50%'));
+            });
         });
     });
 });
