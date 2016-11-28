@@ -1,10 +1,7 @@
 /**
- *  main  broadly I can write src/code files with test/code_Test files that Wallaby greatly assists with.
- *  These files when passed a functor enclosing DOM entities like HTML, Elements, etc WORK
- *  So I get wallaby help in most of my coding!!!
- *  161118.1609  STABLE
- // */
-// "use strict";
+ *  expect I can call mtt_Elt.mutate from main ans see effect in index.html
+ */
+"use strict";
 
 // var _ = require('ramda');
 // var R = require('ramda');
@@ -19,7 +16,7 @@
 // var assert = require('assert');
 
 //*********************************************
-var TRK = "main.js:w-b-s", RET;
+let TRK = "main.js:web-browser-Sample", RET;
 console.log("< IN >" + TRK);
 
 console.log('  OUT>' + TRK);
