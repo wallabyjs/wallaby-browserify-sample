@@ -1,6 +1,7 @@
 /**
- *  expect I can call src/mtt_Elt.mutateCSD from main ans see effect in index.html
+ *  expect I can call src/mtt_Elt.mutateCSD from main ans see effect in index.html,,,
  */
+
 "use strict";
 
 let _ = require('ramda');
@@ -12,16 +13,23 @@ let curry = _.curry;
 // let Maybe = P.Maybe;
 // let IO = P.IO.IO;
 // let runIO = P.IO.runIO;
-
 //*********************************************
 let TRK = "main.js:web-browser-Sample", RET;
 console.log("< IN >" + TRK);
 
 let chptSpns = document.querySelectorAll(".chptr span");
-let aSpan = _.nth(2)(chptSpns);
-let mutateCSD = require('./src/mutateElt').mutateCSD;
-let elt = mutateCSD('fontSize', "150%")(aSpan);
+let aRDiv = document.querySelector(".cur");
+let aSpan = _.nth(1)(chptSpns);
+// functions
+let mutateCSD = require('./src/mutateElt').mutateElt_CSD;
+let mutateParent = require('./src/mutateElt').mutateElt_parent;
+let _appendChld = require('./src/mutateElt')._appendChld;
 
-console.log(aSpan.innerHTML);
+let elt;
+elt = mutateCSD('fontSize', "120%")(aSpan);
+elt = mutateCSD('opacity', ".4")(elt);
+elt = mutateParent(aRDiv)( elt);
 
-console.log('  OUT>' + TRK);
+console.log(elt.innerHTML);
+
+// console.log('  OUT>' + TRK);
