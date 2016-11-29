@@ -1,5 +1,5 @@
 /**
- *  expect I can call src/mtt_Elt.mutate from main ans see effect in index.html
+ *  expect I can call src/mtt_Elt.mutateCSD from main ans see effect in index.html
  */
 "use strict";
 
@@ -19,8 +19,8 @@ console.log("< IN >" + TRK);
 
 let chptSpns = document.querySelectorAll(".chptr span");
 let aSpan = _.nth(2)(chptSpns);
-let mutate = require('./src/mutateElt');
-let elt = mutate('fontSize', "150%")(aSpan);
+let mutateCSD = require('./src/mutateElt').mutateCSD;
+let elt = mutateCSD('fontSize', "150%")(aSpan);
 
 console.log(aSpan.innerHTML);
 

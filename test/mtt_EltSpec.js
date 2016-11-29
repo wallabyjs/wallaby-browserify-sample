@@ -45,7 +45,6 @@ let _setStylPropLens = _.lensProp;// S -> Lens
  *  ..... mutateCSD( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
  *  USE:reset a specific HTML Style Object [CSD]  property and returns the mutated Element
  */
-let mutateCSD = require('../src/mutateElt').mutateCSD;
 // TESTS ----------------------------
 describe("mutating Styles/", function () {
     let chptSpns, aSpan, fontSizeProp;
@@ -55,8 +54,9 @@ describe("mutating Styles/", function () {
         aSpan = _.nth(0)(chptSpns);
         fontSizeProp = 'fontSize';
     });
-    describe(" mutate a span styleProp/", function () {
+    describe(" mutate a span CSD/", function () {
         describe("update an Elt.CSD object i.e.P elt.style}/", function () {
+            let mutateCSD = require('../src/mutateElt').mutateElt_CSD;
             it("should update the CSD object fontSize  USING _setEltCsd", function () {
                 let newVal = '40%'; // PLAN: this will be val=f(elt ndx relative to its siblings AND which readCls it is)
                 let newSpan = mutateCSD(fontSizeProp, newVal)(aSpan);
@@ -66,12 +66,18 @@ describe("mutating Styles/", function () {
         });
     });
     describe(" mutate a span parent: readCls/", function () {
-        describe("update an Elt.CSD object i.e.P elt.style}/", function () {
-            it("should move the spanElt into a divReadCls USING _setEltCsd", function () {
-                let newVal = '40%'; // PLAN: this will be val=f(elt ndx relative to its siblings AND which readCls it is)
-                // let newSpan = mutate(fontSizeProp, newVal)(aSpan);
-                // newSpan.style.fontSize.should.not.equal('');
-                // newSpan.style.fontSize.should.equal(newVal);
+        describe("move Elt to div.cur USING mutateElt_parent", function () {
+            /**
+             *  ..... mutateElt_parent::(Elt:to) -> Elt:me -> Elt:me
+             * mutates DOM: using js append and insertBefore.
+             */
+            let mutateElt_parent = require('../src/mutateElt').mutateElt_parent;
+
+            it("should move the spanElt into a div.ReadCls USING mutateElt_parent", function () {
+                let destElt = document.querySelector('.cur');
+                let _moveEltTo_cur = mutateElt_parent(destElt);
+                _moveEltTo_cur(aSpan).parentElement.tagName.should.equal('DIV');
+                _moveEltTo_cur(aSpan).parentElement.className.should.equal('cur');
             });
         });
     });
