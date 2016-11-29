@@ -1,6 +1,6 @@
 /**
  * describe(" mutate a span parent: readCls/"
- * describe(" mutateCSD a span styleProp/"
+ * describe(" mutate a span CSD a span styleProp/"
  * STABLE
  */
 
@@ -42,11 +42,11 @@ let _setStylPropLens = _.lensProp;// S -> Lens
 // });
 
 /**
- *  ..... mutateCSD( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
+ *  mutating an Element's CSD:Styles and Parents:RClss
  *  USE:reset a specific HTML Style Object [CSD]  property and returns the mutated Element
  */
 // TESTS ----------------------------
-describe("mutating Styles/", function () {
+describe("mutating an Element's CSD:Styles and Parents:RClss/", function () {
     let chptSpns, aSpan, fontSizeProp;
     beforeEach(() => {
         loadFixtures('index.html');
@@ -56,10 +56,11 @@ describe("mutating Styles/", function () {
     });
     describe(" mutate a span CSD/", function () {
         describe("update an Elt.CSD object i.e.P elt.style}/", function () {
-            let mutateCSD = require('../src/mutateElt').mutateElt_CSD;
+            let mutateElt_CSD = require('../src/mutateElt').mutateElt_CSD;
             it("should update the CSD object fontSize  USING _setEltCsd", function () {
                 let newVal = '40%'; // PLAN: this will be val=f(elt ndx relative to its siblings AND which readCls it is)
-                let newSpan = mutateCSD(fontSizeProp, newVal)(aSpan);
+                let newCsd = mutateElt_CSD(fontSizeProp, newVal);
+                let newSpan = newCsd(aSpan);
                 newSpan.style.fontSize.should.not.equal('');
                 newSpan.style.fontSize.should.equal(newVal);
             });
@@ -72,12 +73,31 @@ describe("mutating Styles/", function () {
              * mutates DOM: using js append and insertBefore.
              */
             let mutateElt_parent = require('../src/mutateElt').mutateElt_parent;
-
             it("should move the spanElt into a div.ReadCls USING mutateElt_parent", function () {
                 let destElt = document.querySelector('.cur');
                 let _moveEltTo_cur = mutateElt_parent(destElt);
                 _moveEltTo_cur(aSpan).parentElement.tagName.should.equal('DIV');
                 _moveEltTo_cur(aSpan).parentElement.className.should.equal('cur');
+            });
+        });
+    });
+    describe(" mutate a span given(elt, e_ndx, e_lst/", function () {
+        describe("build mutateElt()/ ", function () {
+            /**
+             *  ..... mutateElt::(elt, e_ndx, e_lst)
+             * USE: mutates DOM:
+             *  using mutate
+             *  the e_ndx is used in
+             */
+            let mutateElt;
+            mutateElt = () => {
+            };
+            // mutateElt = require('../src/mutateElt').mutateElt;
+            it("should expect parameters: (elt, e_ndx, e_lst) in this order ", function () {
+                let destElt = document.querySelector('.cur');
+                // let _moveEltTo_cur = mutateElt_parent(destElt);
+                // _moveEltTo_cur(aSpan).parentElement.tagName.should.equal('DIV');
+                // _moveEltTo_cur(aSpan).parentElement.className.should.equal('cur');
             });
         });
     });
