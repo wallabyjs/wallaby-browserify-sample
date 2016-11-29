@@ -4,14 +4,14 @@
 "use strict";
 
 let _ = require('ramda');
-var map = _.map;
-var compose = _.compose;
-var curry = _.curry;
-// var P = require('ramda-fantasy');// new
-// var Identity = P.Identity;
-// var Maybe = P.Maybe;
-// var IO = P.IO.IO;
-// var runIO = P.IO.runIO;
+let map = _.map;
+let compose = _.compose;
+let curry = _.curry;
+// let P = require('ramda-fantasy');// new
+// let Identity = P.Identity;
+// let Maybe = P.Maybe;
+// let IO = P.IO.IO;
+// let runIO = P.IO.runIO;
 
 //*********************************************
 let TRK = "main.js:web-browser-Sample", RET;
