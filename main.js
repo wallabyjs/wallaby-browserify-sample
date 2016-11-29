@@ -1,5 +1,5 @@
 /**
- *  expect I can call src/mtt_Elt.mutateCSD from main ans see effect in index.html,,,
+ *  I CAN CALL mutateParent AND .mutateCSD FROM main AND SEE effect IN index.html,,,
  */
 
 "use strict";
@@ -18,7 +18,7 @@ let TRK = "main.js:web-browser-Sample", RET;
 console.log("< IN >" + TRK);
 
 let chptSpns = document.querySelectorAll(".chptr span");
-let aRDiv = document.querySelector(".cur");
+let aRDiv = document.querySelector(".pst");
 let aSpan = _.nth(1)(chptSpns);
 // functions
 let mutateCSD = require('./src/mutateElt').mutateElt_CSD;
