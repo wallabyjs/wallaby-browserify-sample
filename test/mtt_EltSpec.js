@@ -1,4 +1,5 @@
 /**
+ * WIP ADDING a composite function - mutateElt(elt, ndx, nl) - to set its style obj [CSD] &&  its readingClss div.
  * describe(" mutate a span parent: readCls/"
  * describe(" mutate a span CSD a span styleProp/"
  * STABLE
@@ -41,8 +42,6 @@ let _viewStylProp = curry(function (prop_name, elt_dct) {
     return _.set(_setStylPropLens(prop_name), _setStylPropValue(prop_val), _aStylDct);
 });
 
-
-
 /**
  *  mutating an Element's CSD:Styles and Parents:RClss
  *  USE:reset a specific HTML Style Object [CSD]  property and returns the mutated Element
@@ -53,13 +52,13 @@ const mutateElt_CSD = require('../src/mutateElt').mutateElt_CSD;
 const mutateElt_parent = require('../src/mutateElt').mutateElt_parent;
 // const mutateElt = require('../src/mutateElt').mutateElt;
 
-describe("mutating an Element's CSD:Styles and Parents:RClss/",
+describe("mutating an Element's CSD:Styles and and its Parents:RClss/",
     function () {
-    let chptSpns, aSpan, fontSizeProp;
+    let chptSpns, anySpan, fontSizeProp;
     beforeEach(() => {
         loadFixtures('index.html');
         chptSpns = document.querySelectorAll(".chptr span");
-        aSpan = _.nth(0)(chptSpns);
+        anySpan = _.nth(0)(chptSpns);
         fontSizeProp = 'fontSize';
     });
     describe(" mutate a span CSD/", function () {
@@ -67,7 +66,7 @@ describe("mutating an Element's CSD:Styles and Parents:RClss/",
             it("should update the CSD object fontSize  USING _setEltCsd", function () {
                 let newVal = '40%'; // PLAN: this will be val=f(elt ndx relative to its siblings AND which readCls it is)
                 let newCsd = mutateElt_CSD(fontSizeProp, newVal);
-                let newSpan = newCsd(aSpan);
+                let newSpan = newCsd(anySpan);
                 newSpan.style.fontSize.should.not.equal('');
                 newSpan.style.fontSize.should.equal(newVal);
             });
@@ -82,38 +81,55 @@ describe("mutating an Element's CSD:Styles and Parents:RClss/",
             it("should move the spanElt into a div.ReadCls USING mutateElt_parent", function () {
                 let destElt = document.querySelector('.cur');
                 let _moveEltTo_cur = mutateElt_parent(destElt);
-                _moveEltTo_cur(aSpan).parentElement.tagName.should.equal('DIV');
-                _moveEltTo_cur(aSpan).parentElement.className.should.equal('cur');
-            });
-        });
-    });
-    describe(" mutate a span given(elt, e_ndx, e_lst/", function () {
-        beforeEach(() => {
-            loadFixtures('index.html');
-            chptSpns = document.querySelectorAll(".chptr span");
-            aSpan = _.nth(0)(chptSpns);
-        });
-        describe("build mutateElt():params (elt, e_ndx, e_lst) / ", function () {
-            /**
-             *  ..... mutateElt::(elt, e_ndx, e_lst)
-             */
-            let mutateElt;
-            mutateElt = (elt, e_ndx, e_lst) => {
-                // mutateElt_opacityCSD('opacity')
-                let prop_name = 'opacity';
-                // let _prop_val= (ndx, lst) => ndx / 10;// TODO use actual formatter
-                // return mutateElt_CSD(prop_name, _prop_val(e_ndx, e_lst), elt)
-             };
-            it("should provide args for mutateElt_CSD(e, e_ndx, e_lst)./", function () {
-                /** provide mutateElt_CSD params:
-                *  S:CSD_prop_name
-                *  a:CSD_prop_valu
-                *  Elt:elt
-                */
-
-                // _moveEltTo_cur(aSpan).parentElement.tagName.should.equal('DIV');
-                // _moveEltTo_cur(aSpan).parentElement.className.should.equal('cur');
+                _moveEltTo_cur(anySpan).parentElement.tagName.should.equal('DIV');
+                _moveEltTo_cur(anySpan).parentElement.className.should.equal('cur');
             });
         });
     });
 });
+describe("build a function:; mutateElt() an Element based on itsElt, itsNdx, itsNL/",
+    function () {
+        let chptSpns, anySpan, fontSizeProp;
+        beforeEach(() => {
+            loadFixtures('index.html');
+            chptSpns = document.querySelectorAll(".chptr span");
+            anySpan = _.nth(0)(chptSpns);
+        });
+        describe(" mutate a span given Fn::(elt, e_ndx, e_lst)/", function () {
+            beforeEach(() => {
+                loadFixtures('index.html');
+                chptSpns = document.querySelectorAll(".chptr span");
+                anySpan = _.nth(0)(chptSpns);
+            });
+            describe("initially confirm the returned Element  is unchanged./ ", function () {
+                /**
+                 *  ..... mutateElt::(elt, e_ndx, e_lst)
+                 */
+                let mutateElt;
+                mutateElt = (elt, e_ndx, e_lst) => {
+                    let prop_name = 'junk';
+                    let _prop_val= 'junk';
+                    return elt
+                };
+                it("should return the orig elt: /", function () {
+                    mutateElt(anySpan, 12345, [4,3,2,1,0]).should.equal(anySpan);
+                });
+            });
+            describe("now confirm it returns a mutated CSD:: style object/ ", function () {
+                /**
+                 *  ..... mutateElt::(elt, e_ndx, e_lst)
+                 */
+                let mutateElt;
+                mutateElt = (elt, e_ndx, e_lst) => {
+                    let prop_name = 'opacity';
+                    let _prop_val= (ndx, lst) => ndx / 10;// TODO use actual formatter
+                    elt.style["opacity"] = _prop_val(e_ndx, e_lst);
+                    return elt
+                };
+                it("should return a not empty style property: /", function () {
+                    let newElt = mutateElt(anySpan, 'opacity', [2,1,0]);
+                    newElt.should.exist;
+                });
+            });
+        });
+    });
