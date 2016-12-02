@@ -28,18 +28,18 @@ let _slctElt_byNdx = curry(function (elt_ndx) {// (N:lst_ndx) -> L:elts -> Elt: 
     return _.nth(elt_ndx)
 });
 let _setStylPropLens = _.lensProp;// S -> Lens
-// let _aStylDct = _.prop('style'); // D -> D.style
+let _aStylDct = _.prop('style'); // D -> D.style
 // functions TO BE USED in compose
-// let _setStylPropValue = val => {
-//     // TODO this will evolve to N.ndx -> a.wt
-//     return val
-// };
-// let _viewStylProp = curry(function (prop_name, elt_dct) {
-//     return _.view(_setStylPropLens(prop_name), _aStylDct(elt_dct))
-// });
-//  const _setEltCsd =  curry(function _setEltCsd (prop_name, prop_val, elt_dct) {// (S -> S) -> Elt -> Elt.CSD
-//     return _.set(_setStylPropLens(prop_name), _setStylPropValue(prop_val), _aStylDct);
-// });
+let _setStylPropValue = val => {
+    // TODO this will evolve to N.ndx -> a.wt
+    return val
+};
+let _viewStylProp = curry(function (prop_name, elt_dct) {
+    return _.view(_setStylPropLens(prop_name), _aStylDct(elt_dct))
+});
+ const _setEltCsd =  curry(function _setEltCsd (prop_name, prop_val, elt_dct) {// (S -> S) -> Elt -> Elt.CSD
+    return _.set(_setStylPropLens(prop_name), _setStylPropValue(prop_val), _aStylDct);
+});
 
 
 
@@ -51,8 +51,7 @@ let _setStylPropLens = _.lensProp;// S -> Lens
 // requires
 const mutateElt_CSD = require('../src/mutateElt').mutateElt_CSD;
 const mutateElt_parent = require('../src/mutateElt').mutateElt_parent;
-//const mutateElt = require('../src/mutateElt').mutateElt;
-
+// const mutateElt = require('../src/mutateElt').mutateElt;
 
 describe("mutating an Element's CSD:Styles and Parents:RClss/",
     function () {
