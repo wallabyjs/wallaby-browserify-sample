@@ -21,5 +21,8 @@ const mutateElt_CSD = curry((prop_name, prop_valu, elt) => {//( S:prop_name -> a
  */
 let _appendChld = curry(( to, me) => to.appendChild(me));
 let mutateElt_parent = curry(to => _appendChld(to));
+// is this compose
+let CUT = _.append;//HTML -> LST -> LST
+// let mutateElt_parent = curry(to => _appendChld(to));
 
-module.exports = {mutateElt_CSD, mutateElt_parent, _appendChld};
+module.exports = {mutateElt_CSD, mutateElt_parent, CUT};
