@@ -7,18 +7,17 @@ let compose = _.compose;
 let curry = _.curry;
 
 /**
- *  ..... mutateElt_CSD( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
+ *  ..... mutateSpan_Csd( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
  *  USE:reset a specific HTML Style Object [CSD]  property and returns the mutated Element
  */
-const mutateElt_CSD = curry((prop_name, prop_valu, elt) => {//( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
+const mutateSpan_Csd = curry((prop_name, prop_valu, elt) => {//( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
     elt.style[prop_name] = prop_valu;
     return elt
 });
 
 /**
- *      _appendChild:: Elt:div -> Elt:span -> Elt:mutated div
+ *      mutateSpan_rcParent:: Elt:div -> Elt:span -> Elt:mutated div
  */
-let _appendChild = curry((a_div, a_span) => a_div.appendChild(a_span));
-// let mutateElt_parent = curry(to => _appendChld(to));
+let mutateSpan_rcParent = curry((a_div, a_span) => a_div.appendChild(a_span));
 
-module.exports = {mutateElt_CSD, _appendChild};
+module.exports = {mutateSpan_Csd, mutateSpan_rcParent};

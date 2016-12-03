@@ -5,7 +5,7 @@
  *          which requires each CSD in each span in each readClssDiv to be mutated.
  *          the function: mutateElt(elt, e_ndx, e_lst) will be mapped onto each Elt:span.
  *
- *  161129 ->  CAN SEE effect IN index.html of INVOKING mutateElt_parent() AND .mutateElt_CSD() IN main().
+ *  161129 ->  CAN SEE effect IN index.html of INVOKING mutateElt_parent() AND .mutateSpan_Csd() IN main().
  *  NEXT subsume both of these in a  new function: mutateElt(elt, e_ndx, e_lst)
  */
 
@@ -28,13 +28,13 @@ let chptSpns = document.querySelectorAll(".chptr span");
 let aRDiv = document.querySelector(".pst");
 let aSpan = _.nth(1)(chptSpns);
 // functions
-let mutateElt_CSD = require('./src/mutateElt').mutateElt_CSD;
+let mutateSpan_Csd = require('./src/mutateElt').mutateSpan_Csd;
 let mutateElt_parent = require('./src/mutateElt').mutateElt_parent;
 let _appendChld = require('./src/mutateElt')._appendChld;
 
 let elt;
-elt = mutateElt_CSD('fontSize', "120%")(aSpan);
-elt = mutateElt_CSD('opacity', ".4")(elt);
+elt = mutateSpan_Csd('fontSize', "120%")(aSpan);
+elt = mutateSpan_Csd('opacity', ".4")(elt);
 elt = mutateElt_parent(aRDiv)( elt);
 
 console.log(elt.innerHTML);
