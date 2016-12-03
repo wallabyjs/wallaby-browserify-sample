@@ -62,7 +62,7 @@ let append_aChld = require('../src/mutateElt').CUT;
 
 describe("functions TO mutate an Element's CSD:Styles and its Parents:RClss/",
     function () {
-        let chptSpns, anySpan, fontSizeProp;
+        let chptSpns, anySpan, anyDiv, fontSizeProp;
         beforeEach(() => {
             loadFixtures('index.html');
             chptSpns = document.querySelectorAll(".chptr span");
@@ -81,32 +81,34 @@ describe("functions TO mutate an Element's CSD:Styles and its Parents:RClss/",
                 });
             });
         });
-        describe(" mutate a span's parent: readCls/", function () {
-            describe("move Elt to div.cur USING mutateElt_parent", function () {
-                /**
-                 *  ..... mutateElt_parent::(Elt:to) -> Elt:me -> Elt:me
-                 * mutates DOM: using js append and insertBefore.
-                 */
-                it("should move the spanElt into a div.ReadCls USING mutateElt_parent", function () {
-                    let destDiv = document.querySelector('.cur');
-                    let _moveEltTo_cur = mutateElt_parent(destDiv);
-                    _moveEltTo_cur(anySpan).parentElement.tagName.should.equal('DIV');
-                    _moveEltTo_cur(anySpan).parentElement.className.should.equal('cur');
+        describe(" mutate a span's parent:: div.ReadClss/", function () {
+            describe("use js appendChild() to move a span to div.cur.", function () {
+                beforeEach(() => {
+                    loadFixtures('index.html');
+                    chptSpns = document.querySelectorAll(".chptr span");
+                    anySpan = _.nth(0)(chptSpns);
+                    anyDiv = document.querySelector('.cur');
+                    fontSizeProp = 'fontSize';
                 });
-            });
-        });
 
-        describe(" another mutate a span parent: readCls/", function () {
-            describe("move Elt to div.cur USING _.invoker()", function () {
-                it("should MOVE the spanElt INTO a div.ReadCls USING js appendChild ", function () {
-                    let anyDiv = document.querySelector('.cur');
-                    let anySpan = _.nth(0)(chptSpns);
-                    let _appendedChild = anyDiv.appendChild(anySpan);// SPN -> DIV -> SPN
-                    _appendedChild.tagName.should.equal('SPAN');
-                    _appendedChild.parentElement.tagName.should.equal('DIV');
-                    _appendedChild.parentElement.className.should.equal('cur');
-                    _appendedChild.parentElement.childElementCount.should.equal(1);
+                it("should move, NOT MUTATE, a span", function () {
+                    // code
+                    let _appendChild = curry((a_div, a_span) => a_div.appendChild(a_span));
+                    // tests
+                    let appendedChild = _appendChild(anyDiv, anySpan);// SPN -> DIV -> SPN
+                    expect(appendedChild.tagName).to.equal('SPAN');
+                    expect(appendedChild).exists;
+                    expect(appendedChild).to.deep.equal(anySpan);
                 });
+                it("should MUTATE the readClss Div", function () {
+                    // code
+                    let _appendChild = curry((a_div, a_span) => a_div.appendChild(a_span));
+                    // tests
+                    let appendedChild = _appendChild(anyDiv, anySpan);// SPN -> DIV -> SPN
+                    expect(appendedChild.parentElement.tagName).is.equal('DIV');
+                    expect(appendedChild.parentElement.className).to.be.equal('cur');
+                    expect(appendedChild.parentElement.childElementCount).to.be.equal(1);
+                })
             });
         });
 
@@ -128,7 +130,7 @@ describe("build a function: mutateElt() to mutate an Element based on parameters
             describe("initially, confirm the returned Element is unchanged./ ", function () {
                 /**
                  *  ..... mutateElt::(elt, e_ndx, e_lst)
-                 *  I already have fn:
+                 *  I already have fn: mutateElt_CSD && mutateElt_parent
                  *
                  */
                 let mutateElt;
