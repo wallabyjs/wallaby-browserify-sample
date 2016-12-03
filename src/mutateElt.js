@@ -16,13 +16,9 @@ const mutateElt_CSD = curry((prop_name, prop_valu, elt) => {//( S:prop_name -> a
 });
 
 /**
- *  ..... mutateElt_parent::(Elt:to) -> Elt:me -> Elt:me
- * mutates DOM: using js append and insertBefore.
+ *      _appendChild:: Elt:div -> Elt:span -> Elt:mutated div
  */
-let _appendChld = curry(( to, me) => to.appendChild(me));
-let mutateElt_parent = curry(to => _appendChld(to));
-// is this compose
-let CUT = _.append;//HTML -> LST -> LST
+let _appendChild = curry((a_div, a_span) => a_div.appendChild(a_span));
 // let mutateElt_parent = curry(to => _appendChld(to));
 
-module.exports = {mutateElt_CSD, mutateElt_parent, CUT};
+module.exports = {mutateElt_CSD, _appendChild};
