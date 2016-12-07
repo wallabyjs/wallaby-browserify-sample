@@ -1,8 +1,25 @@
 /**
  * Broadly, a readEvent triggers everything.
- *      that event sets the  curRClss.beginNdx
- *          which refills the three readClssDiv containers with spanNLs
- *          which requires each CSD in each span in each readClssDiv to be mutated.
+ *      The event sets the var curRClss.beginNdx.
+ *      which
+ *      CAN (A) sliceChptsSpans:: N.curSiz -> N.curBeg -onto> NL.chptSpans -ret> LST.readDivLsts[L,L,L].
+ *      then map set_ReadDiv::  -onto> ReadDivLsts -ret> ReadDiv
+ *          (1) set ReadDiv.div:: S -ret> div,
+ *          (2) set ReadDiv.spanCsdConstants: weight_lo/hi, are there other constants??
+ *      Then map set_aSpanStyle::(elt, elt_ndx, elt_lst) -onto> ReadSpanLst -ret> Elt:mutated
+ *
+ *      OR (B) reset three ReadClass.Boundries.
+ *      then map update_eachChptSpan onto each ChptSpan
+ *          // ALERT MIXING functions w/ data below here.
+ *          SET
+ *          its readDiv.divName:: S:div -> S:
+ *          its readDiv.CsdConstants:: S -> N.beg; S->N.end
+ *          its readSpan.weight,
+ *          format using eltNdx && eltNL and constants
+ *          its CSD::              -> _set_readSpanCsd()
+ *          its readDiv:: S->Div     -> _set_readDiv()
+ *
+ *          CSD in each span in each readClssDiv to be mutated.
  *          the function: mutateElt(elt, e_ndx, e_lst) will be mapped onto each Elt:span.
  *
  *  161129 ->  CAN SEE effect IN index.html of INVOKING mutateElt_parent() AND .mutateSpan_Csd() IN main().
