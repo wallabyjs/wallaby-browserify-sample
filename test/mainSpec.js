@@ -26,7 +26,7 @@ let isNodeList = require('../h/isNodeList');
 
 // TEST CODE --------------------------------
 let mutate_aSpan = (spn, spn_ndx, spn_lst) => spn_lst;
-var mutateSpans = _.map(mutate_aSpan);
+let mutateSpans = _.map(mutate_aSpan);
 //TESTS
 describe(" main",
     function () {

@@ -1,5 +1,7 @@
-var wallabify = require('wallabify');
-var wallabyPostprocessor = wallabify({
+"use strict";
+
+let wallabify = require('wallabify');
+let wallabyPostprocessor = wallabify({
         // browserify options, such as
         // insertGlobals: false
     }
