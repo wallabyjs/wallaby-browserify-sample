@@ -45,7 +45,7 @@ let curry = _.curry;
 let LGG = require('../src/linearGradientEffect');
 
 describe("SeeTextPatterns:: make a linearGradientEffect for some CSD properties, CSS gradients for text are ponderous.", function () {
-    describe("try#1::LinearGradientGenerator a.k.a weighter) -> lst", function () {
+    describe("LinearGradientGenerator a.k.a weighter) -> lst", function () {
         let chptSpns;
         beforeEach(() => {
             loadFixtures('index.html');
@@ -61,5 +61,21 @@ describe("SeeTextPatterns:: make a linearGradientEffect for some CSD properties,
                 LGG(0, 3, 1)(1).should.equal(3);
             });
         });
+    });
+    describe("need Fn: mutate_styleCSD using a LGG, elem.style Property, element_properties", function () {
+        describe("Fn: (csd_prop, elem, elem_ndx, elem_sib_lst) -> mutated elem_style_csd.", function () {
+            it("should format style.opacity", function () {
+                //TODO stub only, insert actual FN return
+                ("0.12345").should.be.a("String").and.gte("0").and.lte("1");
+            });
+            it("should format style.fontSize", function () {
+                //TODO stub only, insert actual FN return
+                ("12.345%").should.be.a("string");
+                // have a "%" at end
+                // be gte some number
+            });
+
+        });
+
     });
 });
