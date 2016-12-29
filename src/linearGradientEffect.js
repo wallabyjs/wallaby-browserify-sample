@@ -11,6 +11,9 @@ let _ = require('ramda');
 let compose = _.compose;
 let curry = _.curry;
 
+/**
+ *  * describe("LGG:for ndx: 0 to ndx_max, LGG(wt_beg, wt_end, ndx_max, ndx) -> wt_value"
+ */
 module.exports = curry(
     (wt_beg, wt_end, ndx_max, ndx ) => wt_beg + ndx/ndx_max * (wt_end-wt_beg)
 );// N->N->N -> N  -> N
