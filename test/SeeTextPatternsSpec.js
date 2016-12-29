@@ -38,6 +38,10 @@ let _ = require('ramda');
 let compose = _.compose;
 let curry = _.curry;
 
+/**
+ *  * describe("LGG:for ndx: 0 to ndx_max, LGG(wt_beg, wt_end, ndx_max, ndx) -> wt_value"
+ * LGG = (wt_beg, wt_end, ndx_max) => ndx => wt_beg + n/ndx_max * (wt_end-wt_beg);
+ */
 let LGG = require('../src/linearGradientEffect');
 
 describe("SeeTextPatterns:: make a linearGradientEffect for some CSD properties, CSS gradients for text are ponderous.", function () {
@@ -47,8 +51,8 @@ describe("SeeTextPatterns:: make a linearGradientEffect for some CSD properties,
             loadFixtures('index.html');
             chptSpns = document.querySelectorAll(".chptr span");
         });
-        describe("LGG:for n: 0 to n_siz, LGG(n_beg, n_end, n_siz) -> n_weight", function () {
-            it("should be (n_beg, n_end, n_siz)(n_ndx) -> n_wt", function () {
+        describe("LGG = (wt_beg, wt_end, ndx_max) => ndx => wt_beg + n/ndx_max * (wt_end-wt_beg);", function () {
+            it("should be (wt_beg, wt_end, ndx_max)(ndx) -> wt", function () {
                 LGG(10, 90, 4)(0).should.equal(10);
                 LGG(10, 90, 4)(2).should.equal(50);
                 LGG(-10, 90, 4)(0).should.equal(-10);
