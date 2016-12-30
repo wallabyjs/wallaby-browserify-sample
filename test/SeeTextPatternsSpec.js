@@ -45,6 +45,7 @@ let curry = _.curry;
 let LGG = require('../src/linearGradientEffect');
 
 describe("SeeTextPatterns:: make a linearGradientEffect for some CSD properties, CSS gradients for text are ponderous.", function () {
+    let doSomethingToElem;
     describe("LinearGradientGenerator a.k.a weighter) -> lst", function () {
         let chptSpns;
         beforeEach(() => {
@@ -62,7 +63,27 @@ describe("SeeTextPatterns:: make a linearGradientEffect for some CSD properties,
             });
         });
     });
-    describe("need Fn: mutate_styleCSD using a LGG, elem.style Property, element_properties", function () {
+    describe("basic tests -> map(doSomethingToElem)(someSpans)-> someSpans.", function () {
+        let chptSpns;
+        beforeEach(() => {
+            loadFixtures('index.html');
+            chptSpns = document.querySelectorAll(".chptr span");
+        });
+        describe("result = map(doSomethingToElem, lst) -> lst", function () {
+            doSomethingToElem = curry((el, el_ndx, el_lst) => el.innerHTML=el_ndx);
+            it("should return a Lst.", function () {
+                let lst = _.slice(0,3,chptSpns);
+                _.addIndex(_.map)(doSomethingToElem, lst)
+                    .should.be.a('array').and.have.length(3);
+            });
+            it("should have the 3rd elem.style.opacity == the csd.", function () {
+                doSomethingToElem = curry((csd, el, el_ndx, el_lst) => el.style.opacity = csd);
+                let lst = _.slice(0,3,chptSpns);
+                _.addIndex(_.map)(doSomethingToElem('0.2'), lst)[2].should.equal('0.2');
+            });
+        });
+    });
+    describe("need doSomethingToElem: mutate_styleCSD using a LGG, elem.style Property, element_properties", function () {
         describe("Fn: (csd_prop, elem, elem_ndx, elem_sib_lst) -> mutated elem_style_csd.", function () {
             it("should format style.opacity", function () {
                 //TODO stub only, insert actual FN return
