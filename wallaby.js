@@ -14,11 +14,11 @@ module.exports = function () {
     // as they should not be loaded in browser, 
     // their browserified versions will be loaded instead
     files: [
-      {pattern: 'src/*.js', load: false}
+      {pattern: 'src/**/*.js', load: false}
     ],
 
     tests: [
-      {pattern: 'test/*Spec.js', load: false}
+      {pattern: 'test/**/*Spec.js', load: false}
     ],
 
     postprocessor: wallabyPostprocessor,
