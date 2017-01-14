@@ -1,5 +1,7 @@
 /**
- * Created by CLIF on 1/12/2017.
+ * composeWter_FormatterSpec
+ * composeWter_FormatterSpec.js
+ * CLEANED UP descriptions and names. Then continue to make a module that accepts Arguments: aLstOf_ReadClss_Verses, aDctOf_ReadClssLimits, theNdxOf_CurReadClss_Elems -> aLstOf_ReadClss_Verses
  */
 "use strict";
 
@@ -38,7 +40,7 @@ let formatFontSize = compose(concat(__, '%'), toString, multiply(100), _toFixedT
 
 // CODE
 let CsdLimits, _CsdLimits;
-describe("_CsdLimitsDCT: returns Dct of csd limits for each ReadingClss ", function () {
+describe("_CsdLimitsDCT:: returns Dct of csd limits for each ReadingClss ", function () {
     describe(`CsdLimits:: is just a TEST STUB -> DCT now; later use a 'require('CsdLimitsDct')`, function () {
         CsdLimits = {pst: {csdBeg: 0.2, csdEnd: 0.80}, cur: {}, fut: {}};
         _CsdLimits = always(CsdLimits);// -> DCT
@@ -53,7 +55,7 @@ describe("_CsdLimitsDCT: returns Dct of csd limits for each ReadingClss ", funct
 ;
 
 let _ReadClss_CsdLimits, Pst_CsdLimits;
-describe("_ReadClss_CsdLimits: returns a named read ReadClasses limits:: STR -> DCT", function () {
+describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLimits:: STR -> DCT", function () {
     _ReadClss_CsdLimits = compose(prop(__, CsdLimits));// S -> Dct
     describe("Pst_CsdLimits:: returned this specific( 'pst') ReadClss_CsdLimits.", function () {
         Pst_CsdLimits = _ReadClss_CsdLimits('pst');// DCT -> STR -> DCT
@@ -64,27 +66,26 @@ describe("_ReadClss_CsdLimits: returns a named read ReadClasses limits:: STR -> 
     });
 });
 
+let _ElemWtER, ReadClss_WtER, ElemFam_ReadClss_WtER, thisElem_WtER;
 
-
-// // and using a test ElemFamLst
-let ElFam = [0, 1, 2];//-> length:3
-
-let wt, wtER, ReadClss_WtER, ElemFam_ReadClss_WtER, thisElem_WtER;
-describe("build a procedural ElemWeightER:: D -> L -> N -> N", function () {
-    describe(`wt:: this_Elem's relative Weight asFnOf 
+describe("ElemWeightER:: D -> L -> N -> N", function () {
+    describe(`_ElemWtER:: this_Elem's relative Weight asFnOf 
         Its_ReadClss and
         Its_RelativePosition withIn Its ElemFamily.
     :: D -> L -> N -> N`, function () {
         let _beg = prop('csdBeg');// DCT -> a
         let _end = prop('csdEnd');// DCT -> a
         let _siz = length;// LST -> N
-        wt = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) / _siz(lst) * ndx + _beg(dct));
+        _ElemWtER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) / _siz(lst) * ndx + _beg(dct));
     });
 });
 
-ReadClss_WtER = wt(Pst_CsdLimits, __, __);// LST -> N -> N
+ReadClss_WtER = _ElemWtER(Pst_CsdLimits, __, __);// LST -> N -> N
 
-ElemFam_ReadClss_WtER = wt(Pst_CsdLimits, ElFam, __);// N -> N
+// and using a STUB ElemFamLst
+let ElFam = [0, 1, 2];//-> length:3
+
+ElemFam_ReadClss_WtER = _ElemWtER(Pst_CsdLimits, ElFam, __);// N -> N
 
 thisElem_WtER = compose(roundToTwoPlaces, ElemFam_ReadClss_WtER);// N -> N
 
