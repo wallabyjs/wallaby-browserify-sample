@@ -27,6 +27,7 @@ let only = mocha.only;
 let chai = require('chai');
 let should = chai.should();
 let expect = chai.expect;
+let have = chai.have;
 
 // HELPERS
 let roundToTwoPlaces = compose(
@@ -51,8 +52,7 @@ describe("_CsdLimitsDCT:: returns Dct of csd limits for each ReadingClss ", func
             _CsdLimits().should.have.property('fut');
         });
     });
-})
-;
+});
 
 let _ReadClss_CsdLimits, Pst_CsdLimits;
 describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLimits:: STR -> DCT", function () {
@@ -61,31 +61,47 @@ describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLi
         Pst_CsdLimits = _ReadClss_CsdLimits('pst');// DCT -> STR -> DCT
         it("should ..", function () {
             Pst_CsdLimits.should.have.property('csdBeg').and.equal(0.2);
-            Pst_CsdLimits.should.have.property('csdEnd');
+            Pst_CsdLimits.should.have.property('csdEnd').and.equal(0.8);
         });
     });
 });
 
-let _ElemWtER, ReadClss_WtER, ElemFam_ReadClss_WtER, thisElem_WtER;
+let _ElemWTER, ReadClss_WtER, ElemFam_ReadClss_WtER, thisElem_WtER;
 
-describe("ElemWeightER:: D -> L -> N -> N", function () {
-    describe(`_ElemWtER:: this_Elem's relative Weight asFnOf 
+describe("_ElemWTER:: D -> L -> N -> N", function () {
+    // Len: 0   1   2   3   4   5
+    // Del* 0   .50 .33 .25 .20 .17
+    //              .67 .50 .40 .33
+    //                      .60 .50
+    //                      .80 .67
+    //                          .83
+    describe(`_ElemWTER:: this_Elem's relative Weight asFnOf 
         Its_ReadClss and
-        Its_RelativePosition withIn Its ElemFamily.
-    :: D -> L -> N -> N`, function () {
+        Its_RelativePosition 
+            withIn Its ElemFamily::
+             D -> L -> N -> N`, function () {
         let _beg = prop('csdBeg');// DCT -> a
         let _end = prop('csdEnd');// DCT -> a
         let _siz = length;// LST -> N
-        _ElemWtER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) / _siz(lst) * ndx + _beg(dct));
+        _ElemWTER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) /
+            _siz(lst) * ndx + _beg(dct));
+    });// .2 + (((.8-.2) ->.6) / 2 * 1 -> .3) + .2
+});
+
+describe("_ElemWTER_wReadClssLimits.", function () {
+    let _ElemWTER_wReadClssLimits = curry(rclss_name => _ElemWTER(_ReadClss_CsdLimits(rclss_name), __, __));// S -> Fn
+    it("should return _ElemWTER w/ two arguments: L-> N -> N ..", function () {
+        _ElemWTER_wReadClssLimits('pst')([0,1])(0).should.equal(0.33);
+        _ElemWTER_wReadClssLimits('pst')([0,1],1).should.equal(0.67);
     });
 });
 
-ReadClss_WtER = _ElemWtER(Pst_CsdLimits, __, __);// LST -> N -> N
+ReadClss_WtER = _ElemWTER(Pst_CsdLimits, __, __);// LST -> N -> N
 
 // and using a STUB ElemFamLst
-let ElFam = [0, 1, 2];//-> length:3
+    let ElFam = [0, 1, 2];//-> length:3
 
-ElemFam_ReadClss_WtER = _ElemWtER(Pst_CsdLimits, ElFam, __);// N -> N
+ElemFam_ReadClss_WtER = _ElemWTER(Pst_CsdLimits, ElFam, __);// N -> N
 
 thisElem_WtER = compose(roundToTwoPlaces, ElemFam_ReadClss_WtER);// N -> N
 
