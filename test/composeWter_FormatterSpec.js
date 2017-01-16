@@ -42,7 +42,7 @@ let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
 let _formatOpacity = compose(_toFixedTwo);//a -> STR
 describe("_formatOpacity(a)->STR", function () {
     it("should return a STR:a", function () {
-        _formatOpacity(.4).should.equal('0.40');
+        _formatOpacity(.4027899).should.equal('0.40');
     });
 });
 
