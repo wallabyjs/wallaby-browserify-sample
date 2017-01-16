@@ -17,6 +17,7 @@ let prop = R.prop;
 let length = R.length;
 let curry = R.curry;
 let add = R.add;
+let toString = R.toString;
 //
 let mocha = require('mocha');
 let describe = mocha.describe;
@@ -34,15 +35,26 @@ let have = chai.have;
 let roundToTwoPlaces = compose(
     divide(__, 100), Math.round, multiply(100)
 );// N -> N
+let sayX = x => console.log('x is ' + x);
+let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
 
 let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
-let formatOpacity = compose(_toFixedTwo);//a -> STR
-//let formatFontSize = compose( append("%"), toString, multiply(100), _toFixedTwo);// N -> STR
-let formatFontSize = compose(concat(__, '%'), toString, multiply(100), _toFixedTwo);// N -> STR
+let _formatOpacity = compose(_toFixedTwo);//a -> STR
+describe("_formatOpacity(a)->STR", function () {
+    it("should return a STR:a", function () {
+        _formatOpacity(.4).should.equal('0.40');
+    });
+});
 
+let _formatFontSize = compose(concat(__, '%'), myTap, toString, multiply(100), roundToTwoPlaces);// N -> STR
+describe("_formatFontSize(a)-> a*100, toString + '%'", function () {
+    it("should return '46%' given 0.456  ", function () {
+        _formatFontSize( 0.456789).should.equal("46%");
+    });
+});
 // CODE
 let _CsdLimits, CsdLimits;
-describe("_CsdLimits():: returns Dct of csd limits for all ReadingClsses.", function () {
+describe("_CsdLimits(S)->DCT:: returns Dct of csd limits given a ReadingClss Name.", function () {
     describe(`_CsdLimits:: [a TEST STUB] has 3 read class Dct, each with a csdBeg and csdEnd value.')`, function () {
         CsdLimits = {
             pst: {csdBeg: 0.2, csdEnd: 1.0},
@@ -114,11 +126,14 @@ describe(`_ElemWTER:: this_Elem's relative Weight asFnOf
         _ElemWTER(_CsdLimits().pst)([0, 1])(0).should.equal(0.47);// .8 / 3 * 1 + .2 -> .47
         _ElemWTER(_CsdLimits().pst)([0, 1])(1).should.equal(0.73); //.8 / 3 * 2 + .2 -> .73
     });
+    it("should return weights[csdBeg, csdEnd] for lst.length:2", function () {
+        _ElemWTER(_CsdLimits().pst)([0, 1])(0).should.equal(0.47);// .8 / 3 * 1 + .2 -> .47
+        _ElemWTER(_CsdLimits().pst)([0,1,2,3,4])(4).should.equal(0.87);
+    });
 });
 
 // // ASSERTS
-// formatOpacity(.4);// .4 -> "0.4"
-// formatFontSize(.456);// .456 -> "46%"
+
 //
 // // NOW compose and make thisElem_FontSize
 // let thisElem_PstClss_FontSizeCSD = compose(formatFontSize, Elem_WT);// N -> S
