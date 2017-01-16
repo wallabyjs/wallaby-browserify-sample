@@ -41,15 +41,18 @@ let formatFontSize = compose(concat(__, '%'), toString, multiply(100), _toFixedT
 
 // CODE
 let CsdLimits, _CsdLimits;
-describe("_CsdLimitsDCT:: returns Dct of csd limits for each ReadingClss ", function () {
-    describe(`CsdLimits:: is just a TEST STUB -> DCT now; later use a 'require('CsdLimitsDct')`, function () {
+describe("_CsdLimitsDCT:: returns Dct of csd limits for all ReadingClsses.", function () {
+    describe(`_CsdLimits:: [a TEST STUB] has 3 read class Dct, each with a csdBeg and csdEnd value.')`, function () {
         CsdLimits = {pst: {csdBeg: 0.2, csdEnd: 0.80}, cur: {}, fut: {}};
         _CsdLimits = always(CsdLimits);// -> DCT
-
         it("should be a Dct with three keys..", function () {
             _CsdLimits().should.have.property('pst');
             _CsdLimits().should.have.property('cur');
             _CsdLimits().should.have.property('fut');
+        });
+        it("should have a pst:csdBeg:0.2 && csdEnd:0.8.", function () {
+            _CsdLimits().pst.csdBeg.should.equal(0.2);
+            _CsdLimits().pst.csdEnd.should.equal(0.8);
         });
     });
 });
@@ -85,14 +88,18 @@ describe("_ElemWTER:: D -> L -> N -> N", function () {
         let _siz = length;// LST -> N
         _ElemWTER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) /
             _siz(lst) * ndx + _beg(dct));
+        xit("should return a read class beginning weight[csdBeg] given any Lst and the index:0", function () {
+            _ElemWTER(_CsdLimits('pst'))([0,1])(0).should.equal(0.2);
+            _ElemWTER('pst')([0,1],1).should.equal(0.8);
+        });
     });// .2 + (((.8-.2) ->.6) / 2 * 1 -> .3) + .2
 });
 
 describe("_ElemWTER_wReadClssLimits.", function () {
     let _ElemWTER_wReadClssLimits = curry(rclss_name => _ElemWTER(_ReadClss_CsdLimits(rclss_name), __, __));// S -> Fn
-    it("should return _ElemWTER w/ two arguments: L-> N -> N ..", function () {
-        _ElemWTER_wReadClssLimits('pst')([0,1])(0).should.equal(0.33);
-        _ElemWTER_wReadClssLimits('pst')([0,1],1).should.equal(0.67);
+    xit("should return _ElemWTER w/ two arguments: L-> N -> N ..", function () {
+        _ElemWTER_wReadClssLimits('pst')([0,1])(0).should.equal(0.2);
+        _ElemWTER_wReadClssLimits('pst')([0,1],1).should.equal(0.8);
     });
 });
 
