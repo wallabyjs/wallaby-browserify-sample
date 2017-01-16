@@ -40,8 +40,8 @@ let formatOpacity = compose(_toFixedTwo);//a -> STR
 let formatFontSize = compose(concat(__, '%'), toString, multiply(100), _toFixedTwo);// N -> STR
 
 // CODE
-let CsdLimits, _CsdLimits;
-describe("_CsdLimitsDCT:: returns Dct of csd limits for all ReadingClsses.", function () {
+let _CsdLimits, CsdLimits;
+describe("_CsdLimits():: returns Dct of csd limits for all ReadingClsses.", function () {
     describe(`_CsdLimits:: [a TEST STUB] has 3 read class Dct, each with a csdBeg and csdEnd value.')`, function () {
         CsdLimits = {pst: {csdBeg: 0.2, csdEnd: 0.80}, cur: {}, fut: {}};
         _CsdLimits = always(CsdLimits);// -> DCT
@@ -57,80 +57,54 @@ describe("_CsdLimitsDCT:: returns Dct of csd limits for all ReadingClsses.", fun
     });
 });
 
-let _ReadClss_CsdLimits, Pst_CsdLimits;
-describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLimits:: STR -> DCT", function () {
-    _ReadClss_CsdLimits = compose(prop(__, CsdLimits));// S -> Dct
-    describe("Pst_CsdLimits:: returned this specific( 'pst') ReadClss_CsdLimits.", function () {
-        Pst_CsdLimits = _ReadClss_CsdLimits('pst');// DCT -> STR -> DCT
-        it("should ..", function () {
-            Pst_CsdLimits.should.have.property('csdBeg').and.equal(0.2);
-            Pst_CsdLimits.should.have.property('csdEnd').and.equal(0.8);
-        });
-    });
-});
-
-let _ElemWTER, ReadClss_WtER, ElemFam_ReadClss_WtER, thisElem_WtER;
-
-describe("_ElemWTER:: D -> L -> N -> N", function () {
-    // Len: 0   1   2   3   4   5
-    // Del* 0   .50 .33 .25 .20 .17
-    //              .67 .50 .40 .33
-    //                      .60 .50
-    //                      .80 .67
-    //                          .83
-    describe(`_ElemWTER:: this_Elem's relative Weight asFnOf 
+let _ElemWTER, Elem_WT;
+describe(`_ElemWTER:: this_Elem's relative Weight asFnOf 
         Its_ReadClss and
         Its_RelativePosition 
             withIn Its ElemFamily::
              D -> L -> N -> N`, function () {
-        let _beg = prop('csdBeg');// DCT -> a
-        let _end = prop('csdEnd');// DCT -> a
-        let _siz = length;// LST -> N
-        _ElemWTER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) /
-            _siz(lst) * ndx + _beg(dct));
-        xit("should return a read class beginning weight[csdBeg] given any Lst and the index:0", function () {
-            _ElemWTER(_CsdLimits('pst'))([0,1])(0).should.equal(0.2);
-            _ElemWTER('pst')([0,1],1).should.equal(0.8);
-        });
-    });// .2 + (((.8-.2) ->.6) / 2 * 1 -> .3) + .2
-});
 
-describe("_ElemWTER_wReadClssLimits.", function () {
-    let _ElemWTER_wReadClssLimits = curry(rclss_name => _ElemWTER(_ReadClss_CsdLimits(rclss_name), __, __));// S -> Fn
-    xit("should return _ElemWTER w/ two arguments: L-> N -> N ..", function () {
-        _ElemWTER_wReadClssLimits('pst')([0,1])(0).should.equal(0.2);
-        _ElemWTER_wReadClssLimits('pst')([0,1],1).should.equal(0.8);
+    let _beg = prop('csdBeg');// DCT -> a
+    let _end = prop('csdEnd');// DCT -> a
+    let _siz = length;// LST -> N
+    _ElemWTER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) / _siz(lst) * ndx + _beg(dct));
+
+    // some tests
+    // Len: 0    1   2   3   4   5
+    // Ndx: 0   .50 .33 .25 .20 .17
+    //      1       .67 .50 .40 .33
+    //      2               .60 .50
+    //      3               .80 .67
+    //      4                   .83
+    it("should return weights[csdBeg, csdEnd] for lst.length: 1", function () {
+        _ElemWTER(_CsdLimits().pst)([0])(0).should.equal(0.5);
     });
-});
-
-ReadClss_WtER = _ElemWTER(Pst_CsdLimits, __, __);// LST -> N -> N
-
-// and using a STUB ElemFamLst
-    let ElFam = [0, 1, 2];//-> length:3
-
-ElemFam_ReadClss_WtER = _ElemWTER(Pst_CsdLimits, ElFam, __);// N -> N
-
-thisElem_WtER = compose(roundToTwoPlaces, ElemFam_ReadClss_WtER);// N -> N
-
-// thisElem_WtER ASSERTS
-thisElem_WtER(3);// 3-> ~0.9
-// assert(thisElem_WtER(3)=== 0.8, "Exp:  thisElem_WtER(3)===0.8"); // yields "Error: Assert failed: Expected true" in console
-thisElem_WtER(0);// 0-> 0.2
-// assert(thisElem_WtER(0)=== 0.2, "Exp:  thisElem_WtER(0)===0.2"); // executes without problem
-thisElem_WtER(2);// 2-> 0.6
-// assert(thisElem_WtER(2)=== 0.6, "Exp:  thisElem_WtER(2)===0.6"); // yields "Error: Assert failed: Expected true" in console
-thisElem_WtER(1);// 1-> 0.4
-// assert(thisElem_WtER(1)=== 0.4, "Exp:  thisElem_WtER(1)===0.4"); // yields "Error: Assert failed: Expected true" in console
-// ASSERTS
-formatOpacity(.4);// .4 -> "0.4"
-formatFontSize(.456);// .456 -> "46%"
-
-// NOW compose and make thisElem_FontSize
-let thisElem_PstClss_FontSizeCSD = compose(formatFontSize, thisElem_WtER);// N -> S
-thisElem_PstClss_FontSizeCSD(3);// 3 -> "80%"
-
-describe("thisElem_PstClss_FontSizeCSD", function () {
-    xit("should ..", function () {
-        thisElem_PstClss_FontSizeCSD(3).should.equal('80%');
+    xit("should return weights[csdBeg, csdEnd] for lst.length: 2", function () {
+        _ElemWTER(_CsdLimits().pst)([0, 1])(0).should.equal(0.2);
+        _ElemWTER(_CsdLimits().pst)([0, 1])(1).should.equal(0.8);
     });
-});
+});// .2 + (((.8-.2) ->.6) / 2 * 1 -> .3) + .2 -> .5
+
+
+// Elem_WT ASSERTS
+// Elem_WT(3);// 3-> ~0.9
+// // assert(Elem_WT(3)=== 0.8, "Exp:  Elem_WT(3)===0.8"); // yields "Error: Assert failed: Expected true" in console
+// Elem_WT(0);// 0-> 0.2
+// // assert(Elem_WT(0)=== 0.2, "Exp:  Elem_WT(0)===0.2"); // executes without problem
+// Elem_WT(2);// 2-> 0.6
+// // assert(Elem_WT(2)=== 0.6, "Exp:  Elem_WT(2)===0.6"); // yields "Error: Assert failed: Expected true" in console
+// Elem_WT(1);// 1-> 0.4
+// // assert(Elem_WT(1)=== 0.4, "Exp:  Elem_WT(1)===0.4"); // yields "Error: Assert failed: Expected true" in console
+// // ASSERTS
+// formatOpacity(.4);// .4 -> "0.4"
+// formatFontSize(.456);// .456 -> "46%"
+//
+// // NOW compose and make thisElem_FontSize
+// let thisElem_PstClss_FontSizeCSD = compose(formatFontSize, Elem_WT);// N -> S
+// thisElem_PstClss_FontSizeCSD(3);// 3 -> "80%"
+//
+// describe("thisElem_PstClss_FontSizeCSD", function () {
+//     xit("should ..", function () {
+//         thisElem_PstClss_FontSizeCSD(3).should.equal('80%');
+//     });
+// });
