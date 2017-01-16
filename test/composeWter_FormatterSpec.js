@@ -16,6 +16,7 @@ let always = R.always;
 let prop = R.prop;
 let length = R.length;
 let curry = R.curry;
+let add = R.add;
 //
 let mocha = require('mocha');
 let describe = mocha.describe;
@@ -43,7 +44,10 @@ let formatFontSize = compose(concat(__, '%'), toString, multiply(100), _toFixedT
 let _CsdLimits, CsdLimits;
 describe("_CsdLimits():: returns Dct of csd limits for all ReadingClsses.", function () {
     describe(`_CsdLimits:: [a TEST STUB] has 3 read class Dct, each with a csdBeg and csdEnd value.')`, function () {
-        CsdLimits = {pst: {csdBeg: 0.2, csdEnd: 0.80}, cur: {}, fut: {}};
+        CsdLimits = {
+            pst: {csdBeg: 0.2, csdEnd: 1.0},
+            cur: {csdBeg:1, csdEnd:1},
+            fut: {csdBeg:1, csdEnd:.4}};
         _CsdLimits = always(CsdLimits);// -> DCT
         it("should be a Dct with three keys..", function () {
             _CsdLimits().should.have.property('pst');
@@ -52,10 +56,23 @@ describe("_CsdLimits():: returns Dct of csd limits for all ReadingClsses.", func
         });
         it("should have a pst:csdBeg:0.2 && csdEnd:0.8.", function () {
             _CsdLimits().pst.csdBeg.should.equal(0.2);
-            _CsdLimits().pst.csdEnd.should.equal(0.8);
+            // _CsdLimits().pst.csdEnd.should.equal(0.8);
         });
     });
 });
+
+let _ReadClss_CsdLimits, Pst_CsdLimits;
+describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLimits:: STR -> DCT", function () {
+    _ReadClss_CsdLimits = compose(prop(__, CsdLimits));// S -> Dct
+    describe("Pst_CsdLimits:: returned this specific( 'pst') ReadClss_CsdLimits.", function () {
+        Pst_CsdLimits = _ReadClss_CsdLimits('pst');// DCT -> STR -> DCT
+        it("should ..", function () {
+            Pst_CsdLimits.should.have.property('csdBeg').and.equal(0.2);
+            Pst_CsdLimits.should.have.property('csdEnd').and.equal(1);
+        });
+    });
+});
+
 
 let _ElemWTER, Elem_WT;
 describe(`_ElemWTER:: this_Elem's relative Weight asFnOf 
@@ -66,35 +83,39 @@ describe(`_ElemWTER:: this_Elem's relative Weight asFnOf
 
     let _beg = prop('csdBeg');// DCT -> a
     let _end = prop('csdEnd');// DCT -> a
-    let _siz = length;// LST -> N
-    _ElemWTER = curry((dct, lst, ndx) => (_end(dct) - _beg(dct)) / _siz(lst) * ndx + _beg(dct));
+    let _delta = dct => {return _end(dct) - _beg(dct)};
+    it("_delta(dct) should be 1-.2->.8", function () {
+        let PstCsd = _ReadClss_CsdLimits('pst');
+        _delta(PstCsd).should.equal(.8);
+    });
+    let _incLength = compose(add(1), length);// LST -> N
+    it("_incLength(['a']) should be 2", function () {
+        _incLength(['a']).should.equal(2);
+    });
+    let _incNdx = add(1);
 
-    // some tests
+    _ElemWTER = curry(
+        // (dct, lst, ndx) => _delta(dct) / _incLength(lst) * ( 1+ndx) + _beg(dct)
+        (dct, lst, ndx) => roundToTwoPlaces(_delta(dct) / _incLength(lst) * _incNdx(ndx) + _beg(dct))); //.8/2*1+.2 ->.6
+    //
+    // some tests for pst: {csdBeg: 0.2, csdEnd: 1.0}
     // Len: 0    1   2   3   4   5
-    // Ndx: 0   .50 .33 .25 .20 .17
-    //      1       .67 .50 .40 .33
-    //      2               .60 .50
-    //      3               .80 .67
-    //      4                   .83
-    it("should return weights[csdBeg, csdEnd] for lst.length: 1", function () {
-        _ElemWTER(_CsdLimits().pst)([0])(0).should.equal(0.5);
-    });
-    xit("should return weights[csdBeg, csdEnd] for lst.length: 2", function () {
-        _ElemWTER(_CsdLimits().pst)([0, 1])(0).should.equal(0.2);
-        _ElemWTER(_CsdLimits().pst)([0, 1])(1).should.equal(0.8);
-    });
-});// .2 + (((.8-.2) ->.6) / 2 * 1 -> .3) + .2 -> .5
+    // Ndx: 0   .6  .47 .40     0.33
+    //      1       .73 .60     0.47
+    //      2           .80     0.60
+    //      3                   0.73
+    //      4                   0.87
 
+    it("should return weights:PstCsdLimits:{csdBeg: 0.2, csdEnd: 1.0}, Lst:[0], ndx:0", function () {
+        // ((1 -.2 -> .8)/(0+2->2))-> .4 * (0+1->1) + .2 -> .6
+        _ElemWTER(Pst_CsdLimits, [0],0).should.equal(0.6);// .8/2*1 + .2  ->
+    });
+    it("should return weights[csdBeg, csdEnd] for lst.length:2", function () {
+        _ElemWTER(_CsdLimits().pst)([0, 1])(0).should.equal(0.47);// .8 / 3 * 1 + .2 -> .47
+        _ElemWTER(_CsdLimits().pst)([0, 1])(1).should.equal(0.73); //.8 / 3 * 2 + .2 -> .73
+    });
+});
 
-// Elem_WT ASSERTS
-// Elem_WT(3);// 3-> ~0.9
-// // assert(Elem_WT(3)=== 0.8, "Exp:  Elem_WT(3)===0.8"); // yields "Error: Assert failed: Expected true" in console
-// Elem_WT(0);// 0-> 0.2
-// // assert(Elem_WT(0)=== 0.2, "Exp:  Elem_WT(0)===0.2"); // executes without problem
-// Elem_WT(2);// 2-> 0.6
-// // assert(Elem_WT(2)=== 0.6, "Exp:  Elem_WT(2)===0.6"); // yields "Error: Assert failed: Expected true" in console
-// Elem_WT(1);// 1-> 0.4
-// // assert(Elem_WT(1)=== 0.4, "Exp:  Elem_WT(1)===0.4"); // yields "Error: Assert failed: Expected true" in console
 // // ASSERTS
 // formatOpacity(.4);// .4 -> "0.4"
 // formatFontSize(.456);// .456 -> "46%"
