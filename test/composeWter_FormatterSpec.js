@@ -42,7 +42,7 @@ let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
 let _formatOpacity = compose(_toFixedTwo);//a -> STR
 describe("_formatOpacity(a)->STR", function () {
     it("should return a STR:a", function () {
-        _formatOpacity(.4).should.equal('0.40');
+        _formatOpacity(.4027899).should.equal('0.40');
     });
 });
 
@@ -54,7 +54,8 @@ describe("_formatFontSize(a)-> a*100, toString + '%'", function () {
 });
 // CODE
 let _CsdLimits, CsdLimits;
-describe("_CsdLimits(S)->DCT:: returns Dct of csd limits given a ReadingClss Name.", function () {
+describe(`_CsdLimits(S)->DCT:: returns Dct of csd limits 
+   given a ReadingClss Name.`, function () {
     describe(`_CsdLimits:: [a TEST STUB] has 3 read class Dct, each with a csdBeg and csdEnd value.')`, function () {
         CsdLimits = {
             pst: {csdBeg: 0.2, csdEnd: 1.0},
@@ -74,7 +75,8 @@ describe("_CsdLimits(S)->DCT:: returns Dct of csd limits given a ReadingClss Nam
 });
 
 let _ReadClss_CsdLimits, Pst_CsdLimits;
-describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLimits:: STR -> DCT", function () {
+describe(`_ReadClss_CsdLimits(STR) -> DCT returns a named ReadClass limits,
+   e.g. Fut_CsdLimits:: `, function () {
     _ReadClss_CsdLimits = compose(prop(__, CsdLimits));// S -> Dct
     describe("Pst_CsdLimits:: returned this specific( 'pst') ReadClss_CsdLimits.", function () {
         Pst_CsdLimits = _ReadClss_CsdLimits('pst');// DCT -> STR -> DCT
@@ -85,13 +87,11 @@ describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLi
     });
 });
 
-
 let _ElemWTER, Elem_WT;
-describe(`_ElemWTER:: this_Elem's relative Weight asFnOf 
-        Its_ReadClss and
-        Its_RelativePosition 
-            withIn Its ElemFamily::
-             D -> L -> N -> N`, function () {
+describe(`_ElemWTER:: D -> L -> N -> N returns this_Elem's relative Weight 
+        asFnOf  Its_ReadClss 
+        and     Its_RelativePosition 
+            withIn Its ElemFamily`, function () {
 
     let _beg = prop('csdBeg');// DCT -> a
     let _end = prop('csdEnd');// DCT -> a
@@ -132,15 +132,13 @@ describe(`_ElemWTER:: this_Elem's relative Weight asFnOf
     });
 });
 
-// // ASSERTS
 
+//  NOW compose and make thisElem_FontSize
+let thisElem_PstClss_FontSizeCSD = compose(_formatFontSize, _ElemWTER);// N -> S
+thisElem_PstClss_FontSizeCSD(3);// 3 -> "80%"
 //
-// // NOW compose and make thisElem_FontSize
-// let thisElem_PstClss_FontSizeCSD = compose(formatFontSize, Elem_WT);// N -> S
-// thisElem_PstClss_FontSizeCSD(3);// 3 -> "80%"
-//
-// describe("thisElem_PstClss_FontSizeCSD", function () {
-//     xit("should ..", function () {
-//         thisElem_PstClss_FontSizeCSD(3).should.equal('80%');
-//     });
-// });
+describe("thisElem_PstClss_FontSizeCSD", function () {
+    xit("should ..", function () {
+        thisElem_PstClss_FontSizeCSD(3).should.equal('80%');
+    });
+});
