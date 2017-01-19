@@ -32,35 +32,18 @@ let should = chai.should();
 let expect = chai.expect;
 let have = chai.have;
 
-// HELPERS
-let roundToTwoPlaces = compose(
-    divide(__, 100), Math.round, multiply(100)
-);// N -> N
-let sayX = x => console.log('x is ' + x);
-let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
-
-let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
-let _formatOpacity = compose(_toFixedTwo);//a -> STR
-describe("_formatOpacity(a)->STR", function () {
-    it("should return a STR:a", function () {
-        _formatOpacity(.4027899).should.equal('0.40');
-    });
-});
-
-let _formatFontSize = compose(concat(__, '%'), myTap, toString, multiply(100), roundToTwoPlaces);// N -> STR
-describe("_formatFontSize(a)-> a*100, toString + '%'", function () {
-    it("should return '46%' given 0.456  ", function () {
-        _formatFontSize( 0.456789).should.equal("46%");
-    });
-});
-
-// DATA
-// let CsdLimits = require('../data/CsdLimits'); NOTE: already required in _ReadClss_CsdLimits
-
 // FUNCTIONS
 let _ReadClss_CsdLimits; // STR.readClssName -> DCT.readClss_CsdLimits
 _ReadClss_CsdLimits = require('../src/ReadClss_CsdLimits');
 
+let _formatOpacity; // a -> STR
+_formatOpacity = require('../src/Elem_Style_Formatters')._formatOpacity;
+
+let _formatFontSize;// N -> STR
+_formatFontSize = require('../src/Elem_Style_Formatters')._formatFontSize;
+
+
+// CODE UNDER TEST
 let _ElemWTER, Elem_WT;// D->L->N -> N
 xdescribe(`_ElemWTER:: D -> L -> N -> N returns this_Elem's relative Weight 
         asFnOf  Its_ReadClss 
