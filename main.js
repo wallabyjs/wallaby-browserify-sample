@@ -46,8 +46,8 @@ let chptSpns = document.querySelectorAll(".chptr span");
 let stubDiv = document.querySelector(".fut");
 let stubSpan = _.nth(1)(chptSpns);
 // functions
-let mutateSpan_Csd = require('./src/mutateElt').mutateSpan_Csd;
-let mutateSpan_rcParent = require('./src/mutateElt').mutateSpan_rcParent;
+let mutateSpan_Csd = require('./src/Elem_Style_Mutator').mutateSpan_Csd;
+let mutateSpan_rcParent = require('./src/Elem_Style_Mutator').mutateSpan_rcParent;
 
 let MUTATE_ELT =  compose(
     mutateSpan_Csd('fontSize', "75%"),

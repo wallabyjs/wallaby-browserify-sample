@@ -27,11 +27,11 @@ let isNodeList = require('../h/isNodeList');
 /**
  *      mutateSpan_Csd::( S:prop_name -> a:prop_valu -> Elt: HTML_elt)  -> Elt
  */
-const mutateSpan_Csd = require('../src/mutateElt').mutateSpan_Csd;
+const mutateSpan_Csd = require('../src/Elem_Style_Mutator').mutateSpan_Csd;
 /**
  *      mutateSpan_rcParent:: mutateSpan_rcParent:: Elt:div -> Elt:span -> Elt:mutated div
  */
-const mutateSpan_rcParent = require('../src/mutateElt').mutateSpan_rcParent;
+const mutateSpan_rcParent = require('../src/Elem_Style_Mutator').mutateSpan_rcParent;
 //TESTS
 describe("composes 2 functions that mutate a span's CSD:Styles and its Parent's div.RClss/",
     function () {

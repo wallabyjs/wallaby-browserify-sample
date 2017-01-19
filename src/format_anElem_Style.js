@@ -14,7 +14,7 @@ let _toFixedTwo = require('../h/_toFixedTwo');
 let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 // CUT
-let _formatOpacity = compose(_toFixedTwo);//a -> STR
+let _formatOpacity = compose(_toFixedTwo);//N -> STR
 
 let _formatFontSize = compose(R.concat(R.__, '%'), myTap, R.toString, R.multiply(100), roundToTwoPlaces);// N -> STR
 

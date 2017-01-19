@@ -34,11 +34,12 @@ describe("main: mutates each Chapter's Element's Style to reflect it's ReadingCl
 
             describe("each ReadClss has its own Elem Style Weighting Limits keys: csdBeg and csdEnd  ", function () {
                 describe(`Elem Style Weighting is a function of its
-                 relative position with its peers
-                and its ReadClss Weighting Limits.`, function () {
-                 xit(`should ..`, function () {
-                     (1).should.equal(0);
-                 });
+                    relative position with its peers
+                and its 
+                    ReadClss Weighting Limits.`, function () {
+                    xit(`should ..`, function () {
+                        (1).should.equal(0);
+                    });
                 });
             });
         });

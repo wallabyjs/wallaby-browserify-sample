@@ -9,36 +9,29 @@ let compose = R.compose;
 let mocha = require('mocha');
 let describe = mocha.describe;
 let it = mocha.it;
-let beforeEach = mocha.beforeEach;
-let before = mocha.before;
-let only = mocha.only;
+// let beforeEach = mocha.beforeEach;
+// let before = mocha.before;
+// let only = mocha.only;
 //
 let chai = require('chai'),
     expect = chai.expect,
     should =  chai.should();
 
-let _toFixedTwo = require('../h/_toFixedTwo');// a -> "a.xx":
-let roundToTwoPlaces = require('../h/roundToTwoPlaces');// N -> N
+let _formatOpacity; // N -> STR
+_formatOpacity = require('../src/format_anElem_Style')._formatOpacity;
 
-let sayX = x => console.log('x is ' + x);
-let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
-
-
-
-
-let _formatOpacity; // a -> STR
-_formatOpacity = require('../src/Elem_Style_Formatters')._formatOpacity;
-
-describe("_formatOpacity(a)->STR", function () {
+describe("_formatOpacity(N)->STR", function () {
     it("should return a STR:a", function () {
+        _formatOpacity(.4027899).should.be.a('String');
         _formatOpacity(.4027899).should.equal('0.40');
     });
 });
 
 let _formatFontSize;// N -> STR
-_formatFontSize = require('../src/Elem_Style_Formatters')._formatFontSize;
+_formatFontSize = require('../src/format_anElem_Style')._formatFontSize;
 describe("_formatFontSize(a)-> a*100, toString + '%'", function () {
     it("should return '46%' given 0.456  ", function () {
+        _formatFontSize( 0.456789).should.a('String');
         _formatFontSize( 0.456789).should.equal("46%");
     });
 });

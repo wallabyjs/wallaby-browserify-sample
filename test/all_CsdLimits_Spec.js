@@ -13,13 +13,13 @@ let before = mocha.before;
 let only = mocha.only;
 //
 let chai = require('chai'),
-expect = chai.expect,
-should =  chai.should();
+    expect = chai.expect,
+    should =  chai.should();
 
-let CsdLimits = require('../data/CsdLimits');
+let CsdLimits = require('../data/all_CsdLimits');
 // console.log(CsdLimits);
 
-describe(`CsdLimits:: returns a Dct w/ 3 read class each with a csdBeg and csdEnd value.`, function () {
+describe(`CsdLimits:: returns a Dct w/ all 3 read class keys: csdBeg and csdEnd value.`, function () {
     // CsdLimits = {
     //     pst: {csdBeg: 0.2, csdEnd: 1.0},
     //     cur: {csdBeg:1, csdEnd:1},
