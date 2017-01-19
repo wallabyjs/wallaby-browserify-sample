@@ -1,7 +1,3 @@
-/**
- *  STABLE Test BUT now NEED (1)  point-free style for the two mutateSpan class functions AND (2) just the 3 map returns( elt, eltNdx, eltNL)
- */
-
 "use strict";
 // REQUIRES
 let mocha = require('mocha');
@@ -10,8 +6,6 @@ let it = mocha.it;
 let beforeEach = mocha.beforeEach;
 let before = mocha.before;
 let only = mocha.only;
-// let skip = mocha.skip; // NOTE:this does not work as it.skip(...-> undefined is not a constructor (evaluating 'it.skip').
-// let skipped = mocha.skipped; // NOTE:this does not work as it.skipped(....
 let chai = require('chai');
 let should = chai.should();
 let expect = chai.expect;
@@ -24,25 +18,47 @@ let curry = _.curry;
 let isNodeList = require('../h/isNodeList');
 
 
-// TEST CODE --------------------------------
-let mutate_aSpan = (spn, spn_ndx, spn_lst) => spn_lst;
-let mutateSpans = _.map(mutate_aSpan);
-//TESTS
-describe(" main",
+describe("main: mutates each Chapter's Element's Style to reflect it's ReadingClss NAME and it's relative position within that ReadingClss list.",
     function () {
-        let chptSpns, MUTATED_SPANS;
-        beforeEach(() => {
-            loadFixtures('index.html');
-            chptSpns = document.querySelectorAll(".chptr span");
-            MUTATED_SPANS = mutateSpans(chptSpns);
-            // stub_curDiv = document.querySelector('.cur');
-            // anySpan = _.nth(0)(chptSpns);
-        });
-        describe(" map eachSpan ", function () {
-            it("mutateSpan:: LST -> LST", function () {
-                //TESTS
-                MUTATED_SPANS.should.exist;
-                MUTATED_SPANS.length.should.be.greaterThan(0);
+        // TODO continue to REFACT this.
+        describe("A Book has Chapter DIVs", function () {
+            describe(`each Book has a Dictionary of Style Properties DCT: 
+            typically opacity, fontSize, etc`, function () {
+
             });
+        });
+        describe(" A Chapter is a Lst of Spans segregated into three ReadClss DIV:['past', 'current', 'future']", function () {
+            describe(`each Chapter`, function () {
+
+            });
+
+            describe("each ReadClss has its own Elem Style Weighting Limits keys: csdBeg and csdEnd  ", function () {
+                describe(`Elem Style Weighting is a function of its
+                 relative position with its peers
+                and its ReadClss Weighting Limits.`, function () {
+                 xit(`should ..`, function () {
+                     (1).should.equal(0);
+                 });
+                });
+            });
+        });
+        describe("A ReadClss is a sub Lst of Spans determined by a reader's keyBoard Event", function () {
+            describe("The Current ReadingClss has two defining properties: begNdx and listLength.", function () {
+                describe("The begNdx is set by keyBoard Event Handler", function () {
+                    xit("should ..", function () {
+                        (1).should.equal(0);
+                    });
+                });
+                describe("The current list length is relatively fix by a curLen: key in Dct", function () {
+                    xit(`should ..`, function () {
+                        (1).should.equal(0);
+                    });
+                });
+            });
+            describe("The Past and Future ReadingClsses are defined relative to the Current RC", function () {
+            });
+        });
+        describe("A Elem Span Style is set ", function () {
+
         });
     });

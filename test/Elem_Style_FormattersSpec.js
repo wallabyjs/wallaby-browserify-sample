@@ -17,17 +17,18 @@ let chai = require('chai'),
     expect = chai.expect,
     should =  chai.should();
 
+let _toFixedTwo = require('../h/_toFixedTwo');// a -> "a.xx":
+let roundToTwoPlaces = require('../h/roundToTwoPlaces');// N -> N
+
 let sayX = x => console.log('x is ' + x);
 let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
 
-let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
-let roundToTwoPlaces = R.compose(
-    R.divide(R.__, 100), Math.round, R.multiply(100)
-);// N -> N
+
 
 
 let _formatOpacity; // a -> STR
 _formatOpacity = require('../src/Elem_Style_Formatters')._formatOpacity;
+
 describe("_formatOpacity(a)->STR", function () {
     it("should return a STR:a", function () {
         _formatOpacity(.4027899).should.equal('0.40');

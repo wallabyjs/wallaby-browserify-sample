@@ -14,6 +14,7 @@ const mutateSpan_Csd = curry((prop_name, prop_valu, elt) => {//( S:prop_name -> 
     elt.style[prop_name] = prop_valu;
     return elt
 });
+
 /**
  *  ..... mutateSpan_rcParent:: Elt:div -> Elt:span -> Elt:mutated div
  */

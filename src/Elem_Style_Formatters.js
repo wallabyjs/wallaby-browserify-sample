@@ -10,10 +10,8 @@ let compose = R.compose;
 let sayX = x => console.log('x is ' + x);
 let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
 
-let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
-let roundToTwoPlaces = R.compose(
-    R.divide(R.__, 100), Math.round, R.multiply(100)
-);// N -> N
+let _toFixedTwo = require('../h/_toFixedTwo');
+let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 // CUT
 let _formatOpacity = compose(_toFixedTwo);//a -> STR

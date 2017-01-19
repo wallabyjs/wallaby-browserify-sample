@@ -47,15 +47,16 @@ _formatFontSize = require('../src/Elem_Style_Formatters')._formatFontSize;
 let _ElemWTER, Elem_WT;// D->L->N -> N
 xdescribe(`_ElemWTER:: D -> L -> N -> N returns this_Elem's relative Weight 
         asFnOf  Its_ReadClss 
+                to set its Weight Limits
         and     Its_RelativePosition 
-            withIn Its ElemFamily`, function () {
+                withIn  Its ElemFamily`, function () {
 
     let _beg = prop('csdBeg');// DCT -> a
     let _end = prop('csdEnd');// DCT -> a
-    let _delta = dct => {return _end(dct) - _beg(dct)};
+    let _delta = dct => _end(dct) - _beg(dct);
+
     it("_delta(dct) should be 1-.2->.8", function () {
-        let PstCsd = _ReadClss_CsdLimits('pst');
-        _delta(PstCsd).should.equal(.8);
+        _delta({csdEnd:1, csdBeg:.2}).should.equal(.8);
     });
     let _incLength = compose(add(1), length);// LST -> N
     it("_incLength(['a']) should be 2", function () {
