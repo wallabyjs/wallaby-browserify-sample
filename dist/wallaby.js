@@ -15,7 +15,7 @@ module.exports = function (wallaby) {
         // set `load: false` to all of the browserified source files and tests,
         // as they should not be loaded in browser,
         // their browserified versions will be loaded instead
-        files: [{ pattern: 'node_modules/jquery/dist/jquery.js', instrument: false }, { pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js', instrument: false }, { pattern: 'src/*.js', load: false }, { pattern: 'h/*.js', load: false }, { pattern: 'main.js', load: false }, { pattern: 'index.html', load: false }],
+        files: [{ pattern: 'node_modules/jquery/dist/jquery.js', instrument: false }, { pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js', instrument: false }, { pattern: 'data/*.js', load: false }, { pattern: 'src/*.js', load: false }, { pattern: 'h/*.js', load: false }, { pattern: 'main.js', load: false }, { pattern: 'index.html', load: false }],
 
         tests: [{ pattern: 'test/*Spec.js', load: false }],
 

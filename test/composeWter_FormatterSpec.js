@@ -18,6 +18,7 @@ let length = R.length;
 let curry = R.curry;
 let add = R.add;
 let toString = R.toString;
+let identity = R.identity;
 //
 let mocha = require('mocha');
 let describe = mocha.describe;
@@ -31,67 +32,23 @@ let should = chai.should();
 let expect = chai.expect;
 let have = chai.have;
 
-// HELPERS
-let roundToTwoPlaces = compose(
-    divide(__, 100), Math.round, multiply(100)
-);// N -> N
-let sayX = x => console.log('x is ' + x);
-let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
+// FUNCTIONS
+let _ReadClss_CsdLimits; // STR.readClssName -> DCT.readClss_CsdLimits
+_ReadClss_CsdLimits = require('../src/ReadClss_CsdLimits');
 
-let _toFixedTwo = x => x.toFixed(2);// a -> "a.xx":
-let _formatOpacity = compose(_toFixedTwo);//a -> STR
-describe("_formatOpacity(a)->STR", function () {
-    it("should return a STR:a", function () {
-        _formatOpacity(.4027899).should.equal('0.40');
-    });
-});
+let _formatOpacity; // a -> STR
+_formatOpacity = require('../src/Elem_Style_Formatters')._formatOpacity;
 
-let _formatFontSize = compose(concat(__, '%'), myTap, toString, multiply(100), roundToTwoPlaces);// N -> STR
-describe("_formatFontSize(a)-> a*100, toString + '%'", function () {
-    it("should return '46%' given 0.456  ", function () {
-        _formatFontSize( 0.456789).should.equal("46%");
-    });
-});
-// CODE
-let _CsdLimits, CsdLimits;
-describe("_CsdLimits(S)->DCT:: returns Dct of csd limits given a ReadingClss Name.", function () {
-    describe(`_CsdLimits:: [a TEST STUB] has 3 read class Dct, each with a csdBeg and csdEnd value.')`, function () {
-        CsdLimits = {
-            pst: {csdBeg: 0.2, csdEnd: 1.0},
-            cur: {csdBeg:1, csdEnd:1},
-            fut: {csdBeg:1, csdEnd:.4}};
-        _CsdLimits = always(CsdLimits);// -> DCT
-        it("should be a Dct with three keys..", function () {
-            _CsdLimits().should.have.property('pst');
-            _CsdLimits().should.have.property('cur');
-            _CsdLimits().should.have.property('fut');
-        });
-        it("should have a pst:csdBeg:0.2 && csdEnd:0.8.", function () {
-            _CsdLimits().pst.csdBeg.should.equal(0.2);
-            // _CsdLimits().pst.csdEnd.should.equal(0.8);
-        });
-    });
-});
-
-let _ReadClss_CsdLimits, Pst_CsdLimits;
-describe("_ReadClss_CsdLimits:: returns a named ReadClass limits, e.g. Fut_CsdLimits:: STR -> DCT", function () {
-    _ReadClss_CsdLimits = compose(prop(__, CsdLimits));// S -> Dct
-    describe("Pst_CsdLimits:: returned this specific( 'pst') ReadClss_CsdLimits.", function () {
-        Pst_CsdLimits = _ReadClss_CsdLimits('pst');// DCT -> STR -> DCT
-        it("should ..", function () {
-            Pst_CsdLimits.should.have.property('csdBeg').and.equal(0.2);
-            Pst_CsdLimits.should.have.property('csdEnd').and.equal(1);
-        });
-    });
-});
+let _formatFontSize;// N -> STR
+_formatFontSize = require('../src/Elem_Style_Formatters')._formatFontSize;
 
 
-let _ElemWTER, Elem_WT;
-describe(`_ElemWTER:: this_Elem's relative Weight asFnOf 
-        Its_ReadClss and
-        Its_RelativePosition 
-            withIn Its ElemFamily::
-             D -> L -> N -> N`, function () {
+// CODE UNDER TEST
+let _ElemWTER, Elem_WT;// D->L->N -> N
+xdescribe(`_ElemWTER:: D -> L -> N -> N returns this_Elem's relative Weight 
+        asFnOf  Its_ReadClss 
+        and     Its_RelativePosition 
+            withIn Its ElemFamily`, function () {
 
     let _beg = prop('csdBeg');// DCT -> a
     let _end = prop('csdEnd');// DCT -> a
@@ -109,8 +66,8 @@ describe(`_ElemWTER:: this_Elem's relative Weight asFnOf
     _ElemWTER = curry(
         // (dct, lst, ndx) => _delta(dct) / _incLength(lst) * ( 1+ndx) + _beg(dct)
         (dct, lst, ndx) => roundToTwoPlaces(_delta(dct) / _incLength(lst) * _incNdx(ndx) + _beg(dct))); //.8/2*1+.2 ->.6
-    //
-    // some tests for pst: {csdBeg: 0.2, csdEnd: 1.0}
+    // wt = delta / (len+1) * (ndx+1)
+    // some pst tests for pst: {csdBeg: 0.2, csdEnd: 1.0}
     // Len: 0    1   2   3   4   5
     // Ndx: 0   .6  .47 .40     0.33
     //      1       .73 .60     0.47
@@ -132,15 +89,21 @@ describe(`_ElemWTER:: this_Elem's relative Weight asFnOf
     });
 });
 
-// // ASSERTS
+let _Elem_ReadClss_WTER;// S->L->N -> N
+xdescribe("_Elem_ReadClss_WTER(S,L,N) REFACTED w/ R.useWith from _ElemWTER(D,L,N) ", function () {
+    _Elem_ReadClss_WTER = R.useWith(_ElemWTER, [_ReadClss_CsdLimits, identity, identity]); // Str -> L, N -> N
+    it("should expect the 1st argument as a String", function () {
+        _Elem_ReadClss_WTER('pst')( ['a', 'b'], 0).should.equal(.47);
+        _Elem_ReadClss_WTER('pst')( ['a', 'b'], 1).should.equal(.73);
+        _Elem_ReadClss_WTER('fut')( ['a', 'b', 'c'], 0).should.equal(.4);// -.6/2*1+1
+    });
+});
 
-//
-// // NOW compose and make thisElem_FontSize
-// let thisElem_PstClss_FontSizeCSD = compose(formatFontSize, Elem_WT);// N -> S
-// thisElem_PstClss_FontSizeCSD(3);// 3 -> "80%"
-//
-// describe("thisElem_PstClss_FontSizeCSD", function () {
-//     xit("should ..", function () {
-//         thisElem_PstClss_FontSizeCSD(3).should.equal('80%');
-//     });
-// });
+
+let thisElem_PstClss_FontSizeCSD = compose(_formatFontSize, _ElemWTER);// N -> S
+thisElem_PstClss_FontSizeCSD(3);
+describe("thisElem_PstClss_FontSizeCSD", function () {
+    xit("should ..", function () {
+        thisElem_PstClss_FontSizeCSD(3).should.equal('80%');
+    });
+});
