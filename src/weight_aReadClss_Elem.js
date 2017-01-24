@@ -24,7 +24,7 @@ let identity = R.identity;
 let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 let _ReadClss_CsdLimits; // STR.readClssName -> DCT.readClss_CsdLimits
-_ReadClss_CsdLimits = require('../src/a_ReadClss_CsdLimits');
+_ReadClss_CsdLimits = require('../src/get_aReadClss_CsdLimits');
 //
 // let _formatOpacity; // a -> STR
 // _formatOpacity = require('../src/Elem_Style_Formatters')._formatOpacity;
@@ -39,19 +39,17 @@ let _ElemWTER;// D->L->N -> N
 //         asFnOf  Its_ReadClss
 //                 to set its Weight Limits
 //         and     Its_RelativePosition
-//                 withIn  Its ElemFamily`, function () {
 
-    let _beg = prop('csdBeg');// DCT -> a
-    let _end = prop('csdEnd');// DCT -> a
-    let _incLength = compose(add(1), length);// LST -> N
-    let _incNdx = add(1);
+let _beg = prop('csdBeg');// DCT -> a
+let _end = prop('csdEnd');// DCT -> a
+let _incLength = compose(add(1), length);// LST -> N
+let _incNdx = add(1);
 
-    _ElemWTER = curry(// (dct, lst, ndx) => _delta(dct) / _incLength(lst) * ( 1+ndx) + _beg(dct)
-        (dct, lst, ndx) => roundToTwoPlaces((_end(dct) - _beg(dct)) / _incLength(lst) * _incNdx(ndx) + _beg(dct))
-    ); //.8/2*1+.2 ->.6
-// });
+_ElemWTER = curry(// (dct, lst, ndx) => _delta(dct) / _incLength(lst) * ( 1+ndx) + _beg(dct)
+    (dct, lst, ndx) => roundToTwoPlaces((_end(dct) - _beg(dct)) / _incLength(lst) * _incNdx(ndx) + _beg(dct))
+); //.8/2*1+.2 ->.6
 
-let _Elem_ReadClss_WTER;// S->L->N -> N
-_Elem_ReadClss_WTER = R.useWith(_ElemWTER, [_ReadClss_CsdLimits, identity, identity]); // Str -> L, N -> N
+let weight_aReadClss_Elem;// S->L->N -> N
+weight_aReadClss_Elem = R.useWith(_ElemWTER, [_ReadClss_CsdLimits, identity, identity]); // Str -> L, N -> N
 
-module.exports = {_ElemWTER, _Elem_ReadClss_WTER};
+module.exports = {weight_aReadClss_Elem, _ElemWTER};
