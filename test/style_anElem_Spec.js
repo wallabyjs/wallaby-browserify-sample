@@ -25,10 +25,10 @@ _formatOpacity = require('../src/format_anElem_Style')._formatOpacity;
 let _style_anElem;// N -> STR
 _style_anElem = R.curry(
     () => {
-});
+    });
 // _style_anElem = require('../src/style_anElem');
 
-describe(`_style_anElem:: STR,ELEM,LST,NUM -> ELEM`, ()=>{
+describe(`_style_anElem:: STR,ELEM,LST,NUM -> ELEM`, () => {
     /**
      * mutate an ELEM's style object.
      * first get an elems style object: style =
@@ -42,19 +42,25 @@ describe(`_style_anElem:: STR,ELEM,LST,NUM -> ELEM`, ()=>{
         aStyle = anElem.style;
 
     });
-        //test data
+    //test data
     let Elem_styleProps = {opacity: '1', fontSize: '100%'};
     let clssLimitsStr = 'pst';
     let elemNdx = 0;
     let elemLst = ['a', 'b'];
-        // tests
-    describe(`an Elem has a style object: a CSD.`, ()=>{
+    // tests
+    describe(`an Elem.style is a CSSStyleDeclaration - a CSD`, () => {
         it(`should exist and be an object`, () => {
             aStyle.should.exist.and.be.a('Object');
         });
-        it(`should be settable`, ()=>{
+        it(`should be settable`, () => {
             aStyle.setProperty("color", 'red');
             aStyle.getPropertyValue("color").should.equal('red');
         });
     });
+    describe(` a CSD:: defines an Elem style as a function of its: readClss and its ndx with in its elem family..`, () => {
+        xit(`should have a parent readClss.`, () => {
+            (1).should.equal(0)
+        });
+    });
 });
+//
