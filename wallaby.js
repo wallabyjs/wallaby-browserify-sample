@@ -12,9 +12,6 @@ let wallabyPostprocessor = wallabify({
 
 module.exports = function (wallaby) {
     return {
-        // set `load: false` to all of the browserified source files and tests,
-        // as they should not be loaded in browser,
-        // their browserified versions will be loaded instead
         files: [
             {pattern: 'node_modules/jquery/dist/jquery.js', instrument: false},
             {pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js', instrument: false},
