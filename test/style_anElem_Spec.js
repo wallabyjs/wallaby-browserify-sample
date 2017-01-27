@@ -57,10 +57,10 @@ describe(`_style_anElem:: STR,ELEM,LST,NUM -> ELEM`, () => {
             aStyle.getPropertyValue("color").should.equal('red');
         });
     });
-    describe(` a CSD:: defines an Elem style as a function of its: readClss and its ndx with in its elem family..`, () => {
-        xit(`should have a parent readClss.`, () => {
-            (1).should.equal(0)
-        });
-    });
+    // describe(` a CSD:: defines an Elem style as a function of its: readClss and its ndx with in its elem family..`, () => {
+    //     xit(`should have a parent readClss.`, () => {
+    //         (1).should.equal(0)
+    //     });
+    // });
 });
 //
