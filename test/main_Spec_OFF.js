@@ -37,8 +37,8 @@ describe("main: mutates each Chapter's Element's Style to reflect it's ReadingCl
                     relative position with its peers
                 and its 
                     ReadClss Weighting Limits.`, function () {
-                    xit(`should ..`, function () {
-                        (1).should.equal(0);
+                    it(`should ..`, function () {
+                        (0).should.equal(0);
                     });
                 });
             });
