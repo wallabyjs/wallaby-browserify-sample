@@ -5,6 +5,6 @@ let R = require('ramda');
 //*********************************************
 let TRK = "wbSample/main.js";
 console.log("< IN >" + TRK);
-let _mutate = require('./mutateTheDOM');
+let _mutate = require('./src/mutateTheDOM');
 _mutate(document);
 console.log('  OUT>' + TRK);
