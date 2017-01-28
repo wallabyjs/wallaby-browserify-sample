@@ -14,6 +14,8 @@ let chai = require('chai'),
     expect = chai.expect,
     should = chai.should();
 
+// let jasmine = require('jasmine-jquery');
+
 // let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 let weight_aReadClss_Elem; // S->L->N -> N
@@ -40,7 +42,6 @@ describe(`_style_anElem:: STR,ELEM,LST,NUM -> ELEM`, () => {
         chptSpns = document.querySelectorAll(".chptr span");
         anElem = R.nth(0)(chptSpns);
         aStyle = anElem.style;
-
     });
     //test data
     let Elem_styleProps = {opacity: '1', fontSize: '100%'};
@@ -48,6 +49,12 @@ describe(`_style_anElem:: STR,ELEM,LST,NUM -> ELEM`, () => {
     let elemNdx = 0;
     let elemLst = ['a', 'b'];
     // tests
+    describe('an Elem, in this case th first Chpt.Span - ', ()=>{
+        it('should have some innerText', ()=>{
+            anElem.should.exist;
+            anElem.innerText.slice(0, 5).should.equal('1 And');
+        })
+    });
     describe(`an Elem.style is a CSSStyleDeclaration - a CSD`, () => {
         it(`should exist and be an object`, () => {
             aStyle.should.exist.and.be.a('Object');
