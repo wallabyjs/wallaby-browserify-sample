@@ -25,9 +25,7 @@ describe("_mutate:: Doc -> Doc.", function () {
         _mutate(dom);
         dom.querySelector('#theFirst').style.color.should.equal('red');
     });
-    xit("should mutate the DOM and return it.", function () {
-        _mutate(dom);
-    });
+
 });
 
 

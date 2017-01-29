@@ -8,7 +8,6 @@ module.exports =  dom => {
     let elt = dom.querySelector('#theFirst');
     let eltStyle = elt.style;
     let csd = {fontSize:"45%",opacity:"0.3",color:"green"};
-    Object.assign(eltStyle, csd);
-    return dom
+    return Object.assign(eltStyle, csd);
 };
 
