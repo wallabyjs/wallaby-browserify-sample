@@ -13,6 +13,7 @@ let R = require('ramda'),
 module.exports = curry(
     doc => {
         let ver_str = '0.0.3';
+        //TODO: reuire this from some data/version object
         let title = doc.querySelector('title');
         title.innerHTML = `wbSample ver:${ver_str}`;
         return doc

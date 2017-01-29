@@ -16,6 +16,6 @@ let styleTheFirstLine = require('../src/styleTheFirstLine');
 let setVersionNum = require('../src/setVersionNumOnIndexHTML');
 
 module.exports = curry(
-    dom => styleTheFirstLine(dom)
-    // dom => setVersionNum(dom)
+    // dom => styleTheFirstLine(dom)
+    dom => setVersionNum(dom)
 );
