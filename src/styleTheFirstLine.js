@@ -3,21 +3,25 @@
  */
 "use strict";
 
-let R = require('ramda');
+let R = require('ramda'),
+    curry = R.curry;
 
 // styleTheFirstLine:: DOC -> DOC
-module.exports =  doc => {
-    let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
-    let elt = doc.querySelector('#theFirst');
-    let styleCSD = elt.style;
-    styleCSD.backgroundColor = 'pink';
-    styleCSD.opacity = '0.73';
-    styleCSD.color = 'red';
-    styleCSD.setProperty('color', 'green', '');// this works
-    // // LETS TRY invoker
-    let styleColor = R.invoker(2, 'setProperty')('color');
-    styleColor('green', styleCSD);
-    let styleOpacity = R.invoker(2, 'setProperty')('opacity');
-    styleOpacity('.4', styleCSD);
-};
+module.exports = curry(
+    doc => {
+        // let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
+        let elt = doc.querySelector('#theFirst');
+        let styleCSD = elt.style;
+        styleCSD.backgroundColor = 'pink';
+        // styleCSD.opacity = '0.73';
+        // styleCSD.color = 'red';
+        styleCSD.setProperty('color', 'green', '');// this works
+        // // LETS TRY invoker
+        let styleColor = R.invoker(2, 'setProperty')('color');
+        styleColor('green', styleCSD);
+        let styleOpacity = R.invoker(2, 'setProperty')('opacity');
+        styleOpacity('.4', styleCSD);
+        return doc
+    }
+);
 
