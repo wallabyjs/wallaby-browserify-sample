@@ -18,7 +18,7 @@ module.exports =  dom => {
     let styleColor = R.invoker(2, 'setProperty')('color');
     styleColor('green', styleCSD);
     let styleOpacity = R.invoker(2, 'setProperty')('opacity');
-    styleOpacity('0.4', styleCSD);
+    styleOpacity('.4', styleCSD);
     //let // lets try lens
     // let colorLens = R.lensProp('color');
     // R.set(colorLens, 'green', styleCSD);
