@@ -15,14 +15,14 @@ let chai = require('chai'),
 
 let _mutate = require('../src/mutateTheDOM');
 
-describe("_mutate:: Doc -> Doc.", function () {
+describe("_mutate:: Dom -> Dom.", function () {
     let dom, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
         anElem = dom.querySelector('#theFirst');
     });
-    it("should mutate the DOM.", function () {
+    xit("should mutate the DOM.", function () {
         _mutate(dom);
         anElem.style.color.should.equal('green');
         anElem.style.opacity.should.equal('0.4');
