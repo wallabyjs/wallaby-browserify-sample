@@ -13,7 +13,7 @@ let chai = require('chai'),
     expect = chai.expect,
     should =  chai.should();
 
-let _mutate = require('../src/mutateTheDOM');
+let _mutate = require('../src/styleTheFirstLine');
 
 describe("_mutate:: Dom -> Dom.", function () {
     let dom, anElem;

@@ -24,7 +24,7 @@ describe(`setVersion:: Dom -> Dom `, ()=>{
     });
     it(`should reset the <title> w/ a version number.`, ()=>{
         setVersion(dom);
-        dom.querySelector('title').innerHTML.should.equal('version 0.0.2');
+        dom.querySelector('title').innerHTML.should.equal('wbSample ver:0.0.3');
     })
 });
 

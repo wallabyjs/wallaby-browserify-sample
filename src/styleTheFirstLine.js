@@ -5,10 +5,10 @@
 
 let R = require('ramda');
 
-// greenFirstLine
-module.exports =  dom => {
+// styleTheFirstLine:: DOC -> DOC
+module.exports =  doc => {
     let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
-    let elt = dom.querySelector('#theFirst');
+    let elt = doc.querySelector('#theFirst');
     let styleCSD = elt.style;
     styleCSD.backgroundColor = 'pink';
     styleCSD.opacity = '0.73';
@@ -19,15 +19,5 @@ module.exports =  dom => {
     styleColor('green', styleCSD);
     let styleOpacity = R.invoker(2, 'setProperty')('opacity');
     styleOpacity('.4', styleCSD);
-    //let // lets try lens
-    // let colorLens = R.lensProp('color');
-    // R.set(colorLens, 'green', styleCSD);
-    // lets try assoc
-    // R.assoc('color', 'green', styleCSD);
-    // let sty =  (num, key, obj) =>  obj.key = num  ;
-    // R.mapObjIndexed(sty, csd)(styleCSD);
-    // LETS TRY
-    // Object.assign(styleCSD, csd);
-    // return dom // SEEMINGLY NOT NEEDED!!
 };
 
