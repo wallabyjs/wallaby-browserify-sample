@@ -8,6 +8,6 @@
  * @return {Element}
  */
 
-let greenFirstLine = require('../src/greenFirstLine');
+let styleTheFirstLine = require('../src/styleTheFirstLine');
 
-module.exports = dom => greenFirstLine(dom);
+module.exports = dom => styleTheFirstLine(dom);
