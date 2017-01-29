@@ -7,8 +7,10 @@
  * @param dom
  * @return {Element}
  */
-module.exports  = dom => {
-    let elt = dom.querySelector('.This');
-    elt.setAttribute("style", "color: purple");
-    return dom
-};
+// let setOpacity = require('../src/format_anElem_Style')._formatOpacity;// N -> STR
+// let setFontSize = require('../src/format_anElem_Style')._formatFontSize;// N -> STR
+
+let greenFirstLine = require('../src/greenFirstLine');
+
+module.exports =  dom => {
+    greenFirstLine(dom)};

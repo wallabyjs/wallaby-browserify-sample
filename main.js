@@ -1,8 +1,6 @@
 "use strict";
 
-let R = require('ramda');
-
-//*********************************************
+//******************** main *************************
 let TRK = "wbSample/main.js";
 console.log("< IN >" + TRK);
 let _mutate = require('./src/mutateTheDOM');
