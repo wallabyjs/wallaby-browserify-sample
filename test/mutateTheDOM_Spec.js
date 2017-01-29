@@ -16,14 +16,16 @@ let chai = require('chai'),
 let _mutate = require('../src/mutateTheDOM');
 
 describe("_mutate:: Doc -> Doc.", function () {
-    let dom;
+    let dom, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
+        anElem = dom.querySelector('#theFirst');
     });
-    it("should mutate the DOM and return it.", function () {
+    it("should mutate the DOM.", function () {
         _mutate(dom);
-        dom.querySelector('#theFirst').style.color.should.equal('red');
+        anElem.style.color.should.equal('green');
+        anElem.style.opacity.should.equal('0.73');
     });
 
 });
