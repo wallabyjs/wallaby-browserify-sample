@@ -25,7 +25,7 @@ describe("_mutate:: Doc -> Doc.", function () {
     it("should mutate the DOM.", function () {
         _mutate(dom);
         anElem.style.color.should.equal('green');
-        anElem.style.opacity.should.equal('0.73');
+        anElem.style.opacity.should.equal('0.4');
     });
 
 });
