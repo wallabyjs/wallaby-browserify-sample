@@ -13,8 +13,9 @@ let R = require('ramda'),
  */
 
 let styleTheFirstLine = require('../src/styleTheFirstLine');
-let setVersionNum = require('../src/setVersionNumOnIndexHTML');
+let setVersionNum = require('../src/setVersionNumOnIndexHTML')('0.0.3');
 
 module.exports = curry(
     dom => styleTheFirstLine(dom)
+    // dom => setVersionNum(dom)
 );

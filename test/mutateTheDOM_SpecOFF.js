@@ -22,7 +22,7 @@ describe("_mutate:: Dom -> Dom.", function () {
         dom = document;
         anElem = dom.querySelector('#theFirst');
     });
-    xit("should mutate the DOM.", function () {
+    it("should mutate the DOM.", function () {
         _mutate(dom);
         anElem.style.color.should.equal('green');
         anElem.style.opacity.should.equal('0.4');

@@ -5,13 +5,15 @@
 "use strict";
 
 let R = require('ramda'),
-curry = R.curry;
+    curry = R.curry;
 /**
  * setVersionNumOnIndexHTML:: DOM -> DOM
- * @param dom
+ * @param doc
  */
-module.exports =  curry(
-    (ver_str, dom ) => {
-    let title = dom.querySelector('title');
-    title.innerHTML = `version ${ver_str}`
-});
+module.exports = curry(
+    doc => {
+        let ver_str = '0.0.3';
+        let title = doc.querySelector('title');
+        title.innerHTML = `version ${ver_str}`;
+        return doc
+    });

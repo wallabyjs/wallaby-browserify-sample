@@ -14,19 +14,21 @@ let chai = require('chai'),
     should = chai.should();
 
 //********************************
-let setVersionOnIndex = require('../src/setVersionNumOnIndexHTML');
+let setVersion = require('../src/setVersionNumOnIndexHTML');
 
-describe(`setVersionOnIndex:: Dom -> Str -> Dom `, ()=>{
+describe(`setVersion:: Dom -> Dom `, ()=>{
     let dom;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
     });
     it(`should reset the <title> w/ a version number.`, ()=>{
-        setVersionOnIndex('0.0.2')(dom);
+        setVersion(dom);
         dom.querySelector('title').innerHTML.should.equal('version 0.0.2');
     })
 });
+
+
 
 
 
