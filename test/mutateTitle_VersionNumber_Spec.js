@@ -14,17 +14,18 @@ let chai = require('chai'),
     should = chai.should();
 
 //********************************
-let setVersion = require('../src/mutateTitle_VersionNumber');
+let mutateTitle_VersionNumber = require('../src/mutateTitle_VersionNumber');
+const VersionDct = require('../data/VersionDct');
 
-describe(`setVersion:: Doc -> Doc `, ()=>{
-    let dom;
+describe(`mutateTitle_VersionNumber:: Doc -> Doc `, ()=>{
+    let doc;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
-        dom = document;
+        doc = document;
     });
     it(`should reset the <title> w/ a version number.`, ()=>{
-        setVersion(dom);
-        dom.querySelector('title').innerHTML.should.equal('wbSample ver: 0.0.3');
+        mutateTitle_VersionNumber(doc);
+        doc.querySelector('title').innerHTML.should.equal('wbSample ver: ' + VersionDct.version);
     })
 });
 
