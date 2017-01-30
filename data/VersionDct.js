@@ -6,4 +6,4 @@
  *  ..... VersionDct:: {k:v}
  * @type {{version: string}}
  */
-module.exports = {version: '0.0.3'};
+module.exports = {version: '0.0.4'};

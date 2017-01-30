@@ -19,5 +19,6 @@ let mutateTitle = require(
  * @return {Element}
  */
 module.exports =
+// both below work!!
 // compose(mutateTheFirstLine, mutateTitle);
-compose(mutateTitle, mutateTheFirstLine); // both this and the above work!!
+    compose(mutateTitle, mutateTheFirstLine);
