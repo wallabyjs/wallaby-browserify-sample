@@ -8,10 +8,10 @@ let R = require('ramda'),
     compose = R.compose;
 
 
-let styleTheFirstLine = require(
-    '../src/styleTheFirstLine');
-let setVersionNum = require(
-    '../src/setVersionNumOnIndexHTML');
+let mutateTheFirstLine = require(
+    '../src/mutateTheFirstLine');
+let mutateTitle = require(
+    '../src/mutateTitle_VersionNumber');
 
 /**
  * mutateTheDOM::
@@ -19,5 +19,5 @@ let setVersionNum = require(
  * @return {Element}
  */
 module.exports =
-// compose(styleTheFirstLine, setVersionNum);
-compose(setVersionNum, styleTheFirstLine); // both this and the above work!!
+// compose(mutateTheFirstLine, mutateTitle);
+compose(mutateTitle, mutateTheFirstLine); // both this and the above work!!

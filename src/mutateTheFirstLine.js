@@ -6,7 +6,7 @@
 let R = require('ramda'),
     curry = R.curry;
 
-// styleTheFirstLine:: DOC -> DOC
+// mutateTheFirstLine:: DOC -> DOC
 module.exports = curry(
     doc => {
         // let csd = {fontSize: "45%", opacity: "0.3", color: "green"};

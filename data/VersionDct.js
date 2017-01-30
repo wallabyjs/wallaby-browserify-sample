@@ -3,7 +3,7 @@
  */
 "use strict";
 /**
- * version: -> S
+ *  ..... VersionDct:: {k:v}
  * @type {{version: string}}
  */
 module.exports = {version: '0.0.3'};
