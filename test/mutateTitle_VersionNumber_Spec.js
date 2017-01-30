@@ -14,9 +14,9 @@ let chai = require('chai'),
     should = chai.should();
 
 //********************************
-let setVersion = require('../src/setVersionNumOnIndexHTML');
+let setVersion = require('../src/mutateTitle_VersionNumber');
 
-describe(`setVersion:: Dom -> Dom `, ()=>{
+describe(`setVersion:: Doc -> Doc `, ()=>{
     let dom;
     mocha.beforeEach(() => {
         loadFixtures('index.html');

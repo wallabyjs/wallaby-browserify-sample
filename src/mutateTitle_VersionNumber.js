@@ -21,6 +21,11 @@ let getVersionStr = R.compose(formatVersion, getVersion);
  *  ..... getTheTitleElem:: DOC -> Elem
  */
 let getTheTitleElem = R.invoker(1, 'querySelector')('title');//DOC -> ELEM
+/**
+ * ..... setInnerHTML_value:: Elem -> Elem
+ */
+let setInnerHTML = el => el.innerHTML = getVersionStr(VersionDct)
+    ;// EL -> EL
 
 /**
  * ..... mutateTitle_VersionNumber:: DOC -> DOC
@@ -31,21 +36,7 @@ let getTheTitleElem = R.invoker(1, 'querySelector')('title');//DOC -> ELEM
  * setInnerHTML_value:: Elem -> Elem
  * @param doc
  */
-module.exports = curry(
-    doc => {
-        /**
-         * .... setInnerHTML_value:: Elem -> Elem
-         */
-        let setInnerHTML = curry(
-            el => el.innerHTML = getVersionStr(VersionDct)
-        );// EL -> EL
-        compose(R.tap(cb), setInnerHTML, getTheTitleElem)(doc);
-
-        /**
-         * ..... mutateTitle:: DOC -> DOC
-         */
-        const mutateTitle_VersionNumber = compose(setInnerHTML, getTheTitleElem); // DOC -> DOC
-        // compose(R.tap(cb), mutateTitle_VersionNumber)(doc);
-
-        return doc
-    });
+module.exports = doc => {
+    compose(R.tap(cb), setInnerHTML, getTheTitleElem)(doc);
+    return doc
+};
