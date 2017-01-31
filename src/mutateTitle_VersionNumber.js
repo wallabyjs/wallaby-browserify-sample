@@ -11,22 +11,27 @@ let R = require('ramda'),
 let VersionDct = require('../data/VersionDct');
 // ***************************
 let cb = x => console.log('   -> ' + x);
-let getVersion = R.prop('version');// DCT -> STR
-let formatVersion = vers_str => "wbSample ver: " + vers_str;// STR -> STR
 /**
  * ..... getVersionStr:: DCT -> STR
  */
-let getVersionStr = R.compose(formatVersion, getVersion);
+let getVersionStr = () => {
+    let getVersion = R.prop('version');// DCT -> STR
+    let formatVersion = vers_str => "wbSample ver: " + vers_str;// STR -> STR
+    return R.compose(formatVersion, getVersion)(VersionDct)
+};
+/**
+ *  ..... pureElemQuery:: DOC -> STR -> ELEM
+ */
+let pureElemQuery = R.invoker(1, 'querySelector'); // N-> STR -> (DICT -> ELEM);
 /**
  *  ..... getTheTitleElem:: DOC -> Elem
  */
-let getTheTitleElem = R.invoker(1, 'querySelector')('title');//DOC -> ELEM
+let getTheTitleElem = pureElemQuery('title');//DICT -> ELEM
 /**
  * ..... setInnerHTML_value:: Elem -> Elem
  */
-let setInnerHTML = el => el.innerHTML = getVersionStr(VersionDct)
+let setInnerHTML = el => el["innerHTML"] = getVersionStr()
     ;// EL -> EL
-
 /**
  * ..... mutateTitle_VersionNumber:: DOC -> DOC
  *      sets document titleElement to
@@ -37,7 +42,7 @@ let setInnerHTML = el => el.innerHTML = getVersionStr(VersionDct)
  * @param doc
  */
 module.exports = doc => {
-    //DONE_TODO null R.tap() instead of R.tap(cb)
-    compose(R.tap(), setInnerHTML, getTheTitleElem)(doc);
+    // compose(R.tap(cb), setInnerHTML, R.tap(cb), getTheTitleElem)(doc);
+    compose(setInnerHTML, getTheTitleElem)(doc);
     return doc
 };
