@@ -9,7 +9,7 @@ let R = require('ramda'),
     compose = R.compose;
 // ***************************
 let VersionDct = require('../data/VersionDct');
-
+// ***************************
 let cb = x => console.log('   -> ' + x);
 let getVersion = R.prop('version');// DCT -> STR
 let formatVersion = vers_str => "wbSample ver: " + vers_str;// STR -> STR
@@ -37,6 +37,7 @@ let setInnerHTML = el => el.innerHTML = getVersionStr(VersionDct)
  * @param doc
  */
 module.exports = doc => {
-    compose(R.tap(cb), setInnerHTML, getTheTitleElem)(doc);
+    //DONE_TODO null R.tap() instead of R.tap(cb)
+    compose(R.tap(), setInnerHTML, getTheTitleElem)(doc);
     return doc
 };

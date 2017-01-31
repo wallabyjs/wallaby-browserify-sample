@@ -33,7 +33,7 @@ let _viewStylProp = curry(function (prop_str, a_dct) {
     return _.view(_setStylPropLens(prop_str), _aStylDct(a_dct))
 }); // (S -> Lens) -> D -> S
 let _setStylPropValue = function (val) {
-    // TODO this will evole to N.ndx -> N.wt
+    // ODO this will evole to N.ndx -> N.wt
     return val
 }; // val -> val
 let _setStylProp = curry(function (prop_str, val_str, a_dct) {

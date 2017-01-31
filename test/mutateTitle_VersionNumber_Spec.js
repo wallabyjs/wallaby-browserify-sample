@@ -18,15 +18,18 @@ let mutateTitle_VersionNumber = require('../src/mutateTitle_VersionNumber');
 const VersionDct = require('../data/VersionDct');
 
 describe(`mutateTitle_VersionNumber:: Doc -> Doc `, ()=>{
-    let doc;
+    let doc, dct;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         doc = document;
+        dct = require('../data/VersionDct');
+
     });
     it(`should reset the <title> to include the data/VersionDct.version: value.`, ()=>{
+        dct.version = '1_2_3';
         mutateTitle_VersionNumber(doc);
-        doc.querySelector('title').innerHTML.should.equal('wbSample ver: ' + VersionDct.version);
-    })
+        doc.querySelector('title').innerHTML.should.equal('wbSample ver: ' + '1_2_3');
+    });
 });
 
 

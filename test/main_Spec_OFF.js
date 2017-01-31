@@ -20,7 +20,7 @@ let isNodeList = require('../h/isNodeList');
 
 describe("main: mutates each Chapter's Element's Style to reflect it's ReadingClss NAME and it's relative position within that ReadingClss list.",
     function () {
-        // TODO continue to REFACT this.
+        // ODO continue to REFACT this.
         describe("A Book has Chapter DIVs", function () {
             describe(`each Book has a Dictionary of Style Properties DCT: 
             typically opacity, fontSize, etc`, function () {

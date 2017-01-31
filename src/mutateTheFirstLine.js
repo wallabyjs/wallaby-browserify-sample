@@ -6,17 +6,27 @@
 let R = require('ramda'),
     curry = R.curry;
 
-// mutateTheFirstLine:: DOC -> DOC
+
+
+/**
+ *  ..... mutateTheFirstLine:: DOC -> DOC
+ */
 module.exports = curry(
     doc => {
         // let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
         let elt = doc.querySelector('#theFirst');
         let styleCSD = elt.style;
-        styleCSD.backgroundColor = 'pink';
-        // styleCSD.opacity = '0.73';
-        // styleCSD.color = 'red';
-        styleCSD.setProperty('color', 'green', '');// this works
+
+    // object.setProperty (propertyName, propertyValue, priority)
+
+    // BEFORE: hard code
+        elt.style.backgroundColor = 'pink';
+        styleCSD.opacity = '0.73';
+        styleCSD.color = 'red';
+    // AFTER: using ramda invoker
+    //     styleCSD.setProperty('color', 'green', '');// this works
         // // LETS TRY invoker
+
         let styleColor = R.invoker(2, 'setProperty')('color');
         styleColor('green', styleCSD);
         let styleOpacity = R.invoker(2, 'setProperty')('opacity');

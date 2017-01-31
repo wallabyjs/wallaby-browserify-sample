@@ -46,7 +46,7 @@ describe("composes 2 functions that mutate a span's CSD:Styles and its Parent's 
             it("should compose (mutateSpan_rcParent() && mutateSpan_Csd) -> Spn -> mutatedSpn", function () {
                 //TEST DATA
                 let stub_curDiv = document.querySelector('.cur');
-                // CODE UNDER TEST: PLAN TO add fn:for current stubValues to make it point_free
+                // CODE UNDER TEST: LAN TO add fn:for current stubValues to make it point_free
                 let mutate_aSpan = compose(
                     mutateSpan_rcParent(stub_curDiv),// SPN -> SPN
                     mutateSpan_Csd('fontSize', '125%'),
