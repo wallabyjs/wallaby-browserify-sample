@@ -11,14 +11,12 @@ let R = require('ramda'),
 let VersionDct = require('../data/VersionDct');
 // ***************************
 let cb = x => console.log('   -> ' + x);
-/**
- * ..... getVersionStr:: DCT -> STR
- */
-let getVersionStr = () => {
     let getVersion = R.prop('version');// DCT -> STR
     let formatVersion = vers_str => "wbSample ver: " + vers_str;// STR -> STR
-    return R.compose(formatVersion, getVersion)(VersionDct)
-};
+/**
+ * ..... getVersionStr:: DICT -> STR
+ */
+let getVersionStr = R.compose(formatVersion, getVersion);// DICT -> STR
 /**
  *  ..... pureElemQuery:: DOC -> STR -> ELEM
  */
@@ -30,8 +28,7 @@ let getTheTitleElem = pureElemQuery('title');//DICT -> ELEM
 /**
  * ..... setInnerHTML_value:: Elem -> Elem
  */
-let setInnerHTML = el => el["innerHTML"] = getVersionStr()
-    ;// EL -> EL
+let setInnerHTML = el => el["innerHTML"] = getVersionStr(VersionDct);// EL -> EL
 /**
  * ..... mutateTitle_VersionNumber:: DOC -> DOC
  *      sets document titleElement to
