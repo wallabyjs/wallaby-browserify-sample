@@ -20,7 +20,6 @@ describe("mutateElemStyleProp:: Dom -> Dom.", function () {
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
-        stubCsd = {fontSize: "45%", opacity: "0.4", color: "green"};
         anElem = dom.querySelector('#theFirst');
     });
     it("should mutate the DOM.", function () {
