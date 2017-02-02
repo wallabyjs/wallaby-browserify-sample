@@ -22,7 +22,7 @@ const getElemStyleCsd = elt => elt.style;
 /**
  *  ..... resetTheCsd:: CSD -> CSD
  */
-        let invokeSetProperty2 = R.invoker(2, 'setProperty');
+let invokeSetProperty2 = R.invoker(2, 'setProperty');
 
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC
@@ -39,12 +39,18 @@ module.exports = curry(
         // Color
         let stylePropColor = invokeSetProperty2('color');//
         let styleThisColor = R.flip(stylePropColor);
-        _styleColor  = compose(styleThisColor, getElemStyleCsd, getTheFirstElem)(doc);
+        // BROKEN - TRY AGAIN IN
+        // let styleThisColor = R.compose(R.flip, stylePropColor, invokeSetProperty2)('color');
+        // _styleThisColor = (prop_name, csd)=>{csd.prop_};// STR.propName -> CSD -> CSD
+        _styleColor = compose(styleThisColor, getElemStyleCsd, getTheFirstElem)(doc);
         //TODO  WHAT  about passing the CSD; then at the end reset the elem.style
+
+
+        //
         // Opacity
         let stylePropOpacity = invokeSetProperty2('opacity');//
         let styleThisOpacity = R.flip(stylePropOpacity);
-        _styleOpacity  = compose(styleThisOpacity, getElemStyleCsd, getTheFirstElem)(doc);
+        _styleOpacity = compose(styleThisOpacity, getElemStyleCsd, getTheFirstElem)(doc);
 
         _styleColor('green');
         _styleOpacity(0.4);

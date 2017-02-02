@@ -22,7 +22,7 @@ let weight_aReadClss_Elem; // S->L->N -> N
 weight_aReadClss_Elem = require('../src/weight_aReadClss_Elem');
 
 let _formatOpacity; // a -> STR
-_formatOpacity = require('../src/format_anElem_Style')._formatOpacity;
+_formatOpacity = require('../test/format_anElem_Style')._formatOpacity;
 
 let _style_anElem;// N -> STR
 _style_anElem = R.curry(

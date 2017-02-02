@@ -4,8 +4,7 @@
 
 "use strict";
 
-let R = require('ramda');
-let compose = R.compose;
+let R = require('ramda'), compose = R.compose;
 
 let sayX = x => console.log('x is ' + x);
 let myTap = R.tap(sayX);// a => a and 'x is a' in console.log
