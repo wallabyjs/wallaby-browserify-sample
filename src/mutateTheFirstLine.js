@@ -14,11 +14,15 @@ let pureElemQuery1 = R.invoker(1, 'querySelector'); // N-> STR -> (DICT -> ELEM)
 /**
  *  ..... getTheFirstElem:: DOC -> Elem
  */
-let getTheFirstElem = pureElemQuery1('#theFirst');//DICT -> ELEM
+let getTheFirstElem = pureElemQuery1('#theFirst');//DOC -> ELEM
 /**
  *  ..... getElemStyleCsd = elt=>elt.style;// ELEM -> CSD
  */
 const getElemStyleCsd = elt => elt.style;
+/**
+ *  ..... def:: CSD -> CSD
+ */
+
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC
  */
@@ -26,17 +30,28 @@ module.exports = curry(
     doc => {
         // let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
 
+
+
         let elt;
-        elt = compose(getTheFirstElem)(doc);// .querySelector('#theFirst');
+        elt = compose(getTheFirstElem)(doc);// DOC -> ELEM
         let styleCSD;
         styleCSD = compose(getElemStyleCsd, getTheFirstElem)(doc);
+        // Color
+        let _styleColor, _styleOpacity;
 
-        let _styleColor = R.flip(R.invoker(2, 'setProperty')('color'))(styleCSD);
-        let _styleOpacity = R.flip(R.invoker(2, 'setProperty')('opacity'))(styleCSD);
+        let invokeSetProperty2 = R.invoker(2, 'setProperty');
 
-        // AFTER: using ramda invoker
+        let stylePropColor = invokeSetProperty2('color');//
+        let styleThisColor = R.flip(stylePropColor);
+        _styleColor  = compose(styleThisColor, getElemStyleCsd, getTheFirstElem)(doc);
+
+        // Opacity
+        let stylePropOpacity = invokeSetProperty2('opacity');//
+        let styleThisOpacity = R.flip(stylePropOpacity);
+        _styleOpacity  = compose(styleThisOpacity, getElemStyleCsd, getTheFirstElem)(doc);
+
         _styleColor('green');
-        _styleOpacity(0.4);// BUT NOT compose(_styleColor, _styleColor)
+        _styleOpacity(0.4);
         return doc
     }
 );
