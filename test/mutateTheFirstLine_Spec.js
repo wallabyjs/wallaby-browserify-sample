@@ -14,7 +14,7 @@ let chai = require('chai'),
 let _mutate = require('../src/mutateTheFirstLine');
 
 describe("mutateElemStyleProp:: Dom -> Dom.", function () {
-    let dom;//, anElem;
+    let dom, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
