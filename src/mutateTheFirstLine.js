@@ -44,7 +44,7 @@ module.exports = curry(
         let stylePropColor = invokeSetProperty2('color');//
         let styleThisColor = R.flip(stylePropColor);
         _styleColor  = compose(styleThisColor, getElemStyleCsd, getTheFirstElem)(doc);
-
+//TODO  CHAIN THE TWO _styleColor and _styleOpacity and some existing csd to mutate/set the CSD
         // Opacity
         let stylePropOpacity = invokeSetProperty2('opacity');//
         let styleThisOpacity = R.flip(stylePropOpacity);
