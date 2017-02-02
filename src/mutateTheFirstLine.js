@@ -20,31 +20,27 @@ let getTheFirstElem = pureElemQuery1('#theFirst');//DOC -> ELEM
  */
 const getElemStyleCsd = elt => elt.style;
 /**
- *  ..... def:: CSD -> CSD
+ *  ..... resetTheCsd:: CSD -> CSD
  */
+        let invokeSetProperty2 = R.invoker(2, 'setProperty');
 
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC
  */
 module.exports = curry(
     doc => {
-        // let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
 
-
-
-        let elt;
-        elt = compose(getTheFirstElem)(doc);// DOC -> ELEM
+        // let elt;
+        // elt = compose(getTheFirstElem)(doc);// DOC -> ELEM
         let styleCSD;
-        styleCSD = compose(getElemStyleCsd, getTheFirstElem)(doc);
-        // Color
+        styleCSD = compose(getElemStyleCsd, getTheFirstElem)(doc);// DOC -> CSD
+
         let _styleColor, _styleOpacity;
-
-        let invokeSetProperty2 = R.invoker(2, 'setProperty');
-
+        // Color
         let stylePropColor = invokeSetProperty2('color');//
         let styleThisColor = R.flip(stylePropColor);
         _styleColor  = compose(styleThisColor, getElemStyleCsd, getTheFirstElem)(doc);
-//TODO  CHAIN THE TWO _styleColor and _styleOpacity and some existing csd to mutate/set the CSD
+        //TODO  WHAT  about passing the CSD; then at the end reset the elem.style
         // Opacity
         let stylePropOpacity = invokeSetProperty2('opacity');//
         let styleThisOpacity = R.flip(stylePropOpacity);
