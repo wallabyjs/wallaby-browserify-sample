@@ -4,34 +4,37 @@
 "use strict";
 
 let R = require('ramda'),
-    curry = R.curry;
+    curry = R.curry,
+    compose = R.compose;
 
 /**
  *  ..... pureElemQuery:: DOC -> STR -> ELEM
  */
 let pureElemQuery1 = R.invoker(1, 'querySelector'); // N-> STR -> (DICT -> ELEM);
-let pureElemQuery2 = R.invoker(2, 'querySelector'); // N-> STR -> (DICT -> ELEM);
 /**
- *  ..... getTheTitleElem:: DOC -> Elem
+ *  ..... getTheFirstElem:: DOC -> Elem
  */
-let getTheTitleElem = pureElemQuery1('title');//DICT -> ELEM
-
+let getTheFirstElem = pureElemQuery1('#theFirst');//DICT -> ELEM
+/**
+ *  ..... getElemStyleCsd = elt=>elt.style;// ELEM -> CSD
+ */
+const getElemStyleCsd = elt => elt.style;
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC
  */
 module.exports = curry(
     doc => {
         // let csd = {fontSize: "45%", opacity: "0.3", color: "green"};
-        let elt = doc.querySelector('#theFirst');
-        let styleCSD = elt.style;
+
+        let elt;
+        elt = compose(getTheFirstElem)(doc);// .querySelector('#theFirst');
+        let styleCSD;
+        styleCSD = compose(getElemStyleCsd, getTheFirstElem)(doc);
+
         let _styleColor = R.flip(R.invoker(2, 'setProperty')('color'))(styleCSD);
         let _styleOpacity = R.flip(R.invoker(2, 'setProperty')('opacity'))(styleCSD);
 
-    // BEFORE: hard code
-        elt.style.backgroundColor = 'pink';
-        styleCSD.opacity = '0.99';
-        styleCSD.color = 'red';
-    // AFTER: using ramda invoker
+        // AFTER: using ramda invoker
         _styleColor('green');
         _styleOpacity(0.4);// BUT NOT compose(_styleColor, _styleColor)
         return doc

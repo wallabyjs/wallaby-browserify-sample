@@ -14,14 +14,18 @@ let chai = require('chai'),
 let _mutate = require('../src/mutateTheFirstLine');
 
 describe("mutateElemStyleProp:: Dom -> Dom.", function () {
-    let dom, anElem;
+    let dom;//, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
-        anElem = dom.querySelector('#theFirst');
     });
     it("should mutate the DOM.", function () {
-        _mutate(dom);
+        let anElem = dom.querySelector('#theFirst');
+        // BEFORE: hard code
+        anElem.style.backgroundColor = 'pink';
+        anElem.style.opacity = '0.99';
+        anElem.style.color = 'red';
+         _mutate(dom);
         anElem.style.color.should.equal('green');
         anElem.style.opacity.should.equal('0.4');
     });
