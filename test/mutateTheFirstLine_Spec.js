@@ -3,20 +3,18 @@
  */
 "use strict";
 let R = require('ramda');
-let compose = R.compose;
 
 let mocha = require('mocha'),
     describe = mocha.describe,
     it = mocha.it;
 
 let chai = require('chai'),
-    expect = chai.expect,
     should =  chai.should();
 
 let _mutate = require('../src/mutateTheFirstLine');
 
 describe("mutateElemStyleProp:: Dom -> Dom.", function () {
-    let dom, anElem, stubCsd;
+    let dom, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
