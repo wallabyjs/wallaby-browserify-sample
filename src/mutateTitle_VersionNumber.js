@@ -10,9 +10,9 @@ let R = require('ramda'),
 // ***************************
 let VersionDct = require('../data/VersionDct');
 // ***************************
-let cb = x => console.log('   -> ' + x);
-    let getVersion = R.prop('version');// DCT -> STR
-    let formatVersion = vers_str => "wbSample ver: " + vers_str;// STR -> STR
+// let cb = x => console.log('   -> ' + x);
+let getVersion = R.prop('version');// DCT -> STR
+let formatVersion = vers_str => "wbSample ver: " + vers_str;// STR -> STR
 /**
  * ..... getVersionStr:: DICT -> STR
  */

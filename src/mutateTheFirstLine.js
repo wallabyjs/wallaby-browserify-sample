@@ -8,22 +8,35 @@ let R = require('ramda'),
     compose = R.compose;
 
 /**
+ *      ..... myTap::
+ */
+const myTap = require('../h/myTap');
+/**
  *  ..... pureElemQuery1:: STR -> (DOC -> ELEM)
  */
 let pureElemQuery1 = require('../h/pureElemQuery1'); // STR -> (DOC -> ELEM);
-
 /**
  *  ..... getTheFirstElem:: DOC -> Elem
  */
 let getTheFirstElem = pureElemQuery1('#theFirst');//DOC -> ELEM
+
 /**
- *  ..... getElemStyleCsd = elt=>elt.style;// ELEM -> CSD
+ *  ..... getElem_styleOBJ = elt=>elt.style;// ELEM -> CSD
  */
-const getElemStyleCsd = elt => elt.style;
+const getElem_styleOBJ = elt => elt.style;
+
 /**
- *  ..... resetTheCsd:: CSD -> CSD
+ *  ..... restyle_aCSD:: LST.propName -> LST. propValu  -> DICT.CSD
+ *
  */
-let invokeSetProperty2 = R.invoker(2, 'setProperty');
+const restyle_aCSD = require('../src/restyle_aCSD');
+
+
+let styleObj;
+styleObj = compose(getElem_styleOBJ, getTheFirstElem);// DOC -> CSD
+let csdKeys = ['opacity', 'color'];
+let csdVals = ['0.774', 'green'];
+let CSD = restyle_aCSD(csdKeys, csdVals);// -> OBJ:CSD
 
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC
@@ -31,30 +44,8 @@ let invokeSetProperty2 = R.invoker(2, 'setProperty');
 module.exports = curry(
     doc => {
 
-        // let elt;
-        // elt = compose(getTheFirstElem)(doc);// DOC -> ELEM
-        let styleCSD;
-        styleCSD = compose(getElemStyleCsd, getTheFirstElem)(doc);// DOC -> CSD
+        console.log('should be a CSD.color: ' + CSD.color);
 
-        let _styleColor, _styleOpacity;
-        // Color
-        let stylePropColor = invokeSetProperty2('color');//
-        let styleThisColor = R.flip(stylePropColor);
-        // BROKEN - TRY AGAIN IN
-        // let styleThisColor = R.compose(R.flip, stylePropColor, invokeSetProperty2)('color');
-        // _styleThisColor = (prop_name, csd)=>{csd.prop_};// STR.propName -> CSD -> CSD
-        _styleColor = compose(styleThisColor, getElemStyleCsd, getTheFirstElem)(doc);
-        //TODO  WHAT  about passing the CSD; then at the end reset the elem.style
-
-
-        //
-        // Opacity
-        let stylePropOpacity = invokeSetProperty2('opacity');//
-        let styleThisOpacity = R.flip(stylePropOpacity);
-        _styleOpacity = compose(styleThisOpacity, getElemStyleCsd, getTheFirstElem)(doc);
-
-        _styleColor('green');
-        _styleOpacity(0.4);
         return doc
     }
 );
