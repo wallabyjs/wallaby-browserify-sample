@@ -12,25 +12,24 @@ let mocha = require('mocha'),
 let chai = require('chai'),
     should =  chai.should();
 
-const restyle_ = require('../src/restyle_aCSD');
-// const restyle_ = curry(
-//     (prop_lst, valu_lst) => R.zipObj(prop_lst, valu_lst));
+const restyler = require('../src/restyle_aCSD');// LST -> LST -> DICT.CSD
 
-describe(`restyle_aCSD:: {key, valu} -> CSD -> CSD`, ()=>{
-    let dom, anElemStyle;
+describe(`restyleraCSD:: LST.propName -> LST. propValu -> CSD -> CSD`, ()=>{
+    let dom, anElem_styleObj;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
     });
     it("should alter key:values.", function () {
-        let anElemStyle = dom.querySelector('#theFirst').style;
+        let anElem_styleObj = dom.querySelector('#theFirst').style;
         // BEFORE: hard code
-        anElemStyle.backgroundColor = 'pink';
-        anElemStyle.opacity = '0.99';
-        anElemStyle.color = 'red';
-        let oldCsd = restyle_(['opacity', 'color']);
-        anElemStyle = oldCsd(['0.4', 'green']);
-        anElemStyle.opacity.should.equal('0.4');
-        anElemStyle.color.should.equal('green');
+        anElem_styleObj.backgroundColor = 'pink';
+        anElem_styleObj.opacity = '0.99';
+        anElem_styleObj.color = 'red';
+        let baseCSD = ['opacity', 'color'];
+        let restyleTo = restyler(baseCSD);
+        anElem_styleObj = restyleTo(['0.4', 'green']);
+        anElem_styleObj.opacity.should.equal('0.4');
+        anElem_styleObj.color.should.equal('green');
     })
 });

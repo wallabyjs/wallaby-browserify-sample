@@ -21,13 +21,15 @@ describe("mutateElemStyleProp:: Dom -> Dom.", function () {
     });
     it("should mutate the DOM.", function () {
         let anElem = dom.querySelector('#theFirst');
-        // BEFORE: hard code
+        // BEFORE: hard code anElem
         anElem.style.backgroundColor = 'pink';
         anElem.style.opacity = '0.99';
         anElem.style.color = 'red';
          _mutate(dom);
         anElem.style.color.should.equal('green');
         anElem.style.opacity.should.equal('0.4');
+        anElem.style.fontSize.should.equal('60%');
+        // anElem.style.background.should.equal('rgb(255, 192, 203)');
     });
 
 });
