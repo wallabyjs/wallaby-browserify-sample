@@ -30,9 +30,6 @@ let invokeSetProperty2 = R.invoker(2, 'setProperty');
  */
 module.exports = curry(
     doc => {
-
-        // let elt;
-        // elt = compose(getTheFirstElem)(doc);// DOC -> ELEM
         let styleCSD;
         styleCSD = compose(getElemStyleCsd, getTheFirstElem)(doc);// DOC -> CSD
 

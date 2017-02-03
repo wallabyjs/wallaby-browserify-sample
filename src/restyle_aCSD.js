@@ -3,7 +3,6 @@
  */
 
 "use strict";
-
 let R = require('ramda'), compose = R.compose;
 
 /**
