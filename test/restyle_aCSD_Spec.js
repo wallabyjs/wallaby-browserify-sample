@@ -12,9 +12,9 @@ let mocha = require('mocha'),
 let chai = require('chai'),
     should =  chai.should();
 
-// const restyle_ = require('../src/restyle_aCSD');
-const restyle_ = curry(
-    (prop_lst, valu_lst) => R.zipObj(prop_lst, valu_lst));
+const restyle_ = require('../src/restyle_aCSD');
+// const restyle_ = curry(
+//     (prop_lst, valu_lst) => R.zipObj(prop_lst, valu_lst));
 
 describe(`restyle_aCSD:: {key, valu} -> CSD -> CSD`, ()=>{
     let dom, anElemStyle;
@@ -29,8 +29,8 @@ describe(`restyle_aCSD:: {key, valu} -> CSD -> CSD`, ()=>{
         anElemStyle.opacity = '0.99';
         anElemStyle.color = 'red';
         let oldCsd = restyle_(['opacity', 'color']);
-        let newCsd =oldCsd(['0.4', 'green']);
-        newCsd.opacity.should.equal('0.4');
-        newCsd.color.should.equal('green');
+        anElemStyle = oldCsd(['0.4', 'green']);
+        anElemStyle.opacity.should.equal('0.4');
+        anElemStyle.color.should.equal('green');
     })
 });

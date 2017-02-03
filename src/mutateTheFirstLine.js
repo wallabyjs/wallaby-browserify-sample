@@ -8,9 +8,10 @@ let R = require('ramda'),
     compose = R.compose;
 
 /**
- *  ..... pureElemQuery:: DOC -> STR -> ELEM
+ *  ..... pureElemQuery1:: STR -> (DOC -> ELEM)
  */
-let pureElemQuery1 = R.invoker(1, 'querySelector'); // N-> STR -> (DICT -> ELEM);
+let pureElemQuery1 = require('../h/pureElemQuery1'); // STR -> (DOC -> ELEM);
+
 /**
  *  ..... getTheFirstElem:: DOC -> Elem
  */
