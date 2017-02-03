@@ -26,9 +26,10 @@ describe("mutateElemStyleProp:: Dom -> Dom.", function () {
         anElem.style.opacity = '0.99';
         anElem.style.color = 'red';
          _mutate(dom);
-        anElem.style.background.should.equal('rgb(255, 192, 203)');
         anElem.style.color.should.equal('green');
-        // anElem.style.opacity.should.equal('0.4');
+        anElem.style.opacity.should.equal('0.4');
+        anElem.style.fontSize.should.equal('60%');
+        // anElem.style.background.should.equal('rgb(255, 192, 203)');
     });
 
 });

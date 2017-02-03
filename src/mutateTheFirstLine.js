@@ -32,20 +32,21 @@ const getElem_styleOBJ = elt => elt.style;
 const restyle_aCSD = require('../src/restyle_aCSD');
 
 
-let styleObj;
-styleObj = compose(getElem_styleOBJ, getTheFirstElem);// DOC -> CSD
-let csdKeys = ['opacity', 'color'];
-let csdVals = ['0.774', 'green'];
-let CSD = restyle_aCSD(csdKeys, csdVals);// -> OBJ:CSD
-
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC
  */
 module.exports = curry(
     doc => {
+        let csdKeys = ['opacity', 'color', 'fontSize'];
+        let csdVals = ['0.4', 'green', '60%'];
+        let CSD = restyle_aCSD(csdKeys, csdVals);// -> DICT:CSD
 
-        console.log('should be a CSD.color: ' + CSD.color);
+        //NOTE use of font-size, not fontSize in setAttribute string!!
+        let strCSS = `opacity:${CSD.opacity}; color: ${CSD.color};  font-size: ${CSD.fontSize}`;
 
+        let elem = compose(getTheFirstElem)(doc);
+        elem.setAttribute('style', strCSS);
+        // elem.setAttribute('style', 'opacity: 0.4; color: green; font-size: 60%');
         return doc
     }
 );
