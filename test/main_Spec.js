@@ -17,18 +17,35 @@ let R = require('ramda'),
     compose = R.compose;
 //---------------------------
 let isNodeList = require('../h/isNodeList');
+let _mutate = require('../src/mutateTheFirstLine');
 
 
-describe("main: mutates each Chapter's Element's Style to reflect it's ReadingClss NAME and it's relative position within that ReadingClss list.",
-    function () {
-        // ODO continue to REFACT this.
-        describe("A Book has Chapter DIVs", function () {
+
+describe("main: mutates each Chapter's Element's Style to reflect it's ReadingClss NAME and it's relative position within that ReadingClss list.", function () {
+    let dom, anElem;
+    mocha.beforeEach(() => {
+        loadFixtures('index.html');
+        dom = document;
+    });
+    it("should .", function () {
+        let anElem = dom.querySelector('span');
+        // BEFORE: hard code anElem
+        anElem.style.backgroundColor = 'pink';
+        anElem.style.opacity = '0.99';
+        anElem.style.color = 'red';
+        _mutate(dom);
+        anElem.style.color.should.equal('green');
+        anElem.style.opacity.should.equal('0.4');
+        anElem.style.fontSize.should.equal('60%');
+        // anElem.style.background.should.equal('rgb(255, 192, 203)');
+    });
+        xdescribe("A Book has Chapter DIVs", function () {
             describe(`each Book has a Dictionary of Style Properties DCT: 
             typically opacity, fontSize, etc`, function () {
 
             });
         });
-        describe(" A Chapter is a Lst of Spans segregated into three ReadClss DIV:['past', 'current', 'future']", function () {
+        xdescribe(" A Chapter is a Lst of Spans segregated into three ReadClss DIV:['past', 'current', 'future']", function () {
             describe(`each Chapter`, function () {
 
             });
@@ -44,7 +61,7 @@ describe("main: mutates each Chapter's Element's Style to reflect it's ReadingCl
                 });
             });
         });
-        describe("A ReadClss is a sub Lst of Spans determined by a reader's keyBoard Event", function () {
+        xdescribe("A ReadClss is a sub Lst of Spans determined by a reader's keyBoard Event", function () {
             describe("The Current ReadingClss has two defining properties: begNdx and listLength.", function () {
                 describe("The begNdx is set by keyBoard Event Handler", function () {
                     xit("should ..", function () {
@@ -60,7 +77,7 @@ describe("main: mutates each Chapter's Element's Style to reflect it's ReadingCl
             describe("The Past and Future ReadingClsses are defined relative to the Current RC", function () {
             });
         });
-        describe("A Elem Span Style is set ", function () {
+        xdescribe("A Elem Span Style is set ", function () {
 
         });
     });
