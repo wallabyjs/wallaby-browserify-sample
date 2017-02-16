@@ -1,15 +1,13 @@
 "use strict";
 // REQUIRES
-let mocha = require('mocha');
-let describe = mocha.describe;
-let it = mocha.it;
-let beforeEach = mocha.beforeEach;
-let before = mocha.before;
-let only = mocha.only;
-let chai = require('chai');
-let should = chai.should();
-let expect = chai.expect;
-// let be = chai.be;
+let mocha = require('mocha'),
+    describe = mocha.describe,
+    it = mocha.it,
+    beforeEach = mocha.beforeEach,
+    before = mocha.before;
+let chai = require('chai'),
+    should = chai.should(),
+    expect = chai.expect;
 
 let R = require('ramda'),
     curry = R.curry,
@@ -26,33 +24,48 @@ describe(`a Chptr has span Verses`, function () {
         dom = document;
     });
     it("document.querySelectorAll('span') should be a nodeList of spans.", function () {
-        nl = document.querySelectorAll('span');//
+        let nl = document.querySelectorAll('span');
+        nl.should.be.a('object');
+        nl.should.not.be.an('array');
         isNodeList(nl).should.be.true;
+        R.isArrayLike(nl).should.be.true;
     });
     it("document.querySelector('.chptr').children should be a nodeList and arrayLike.", function () {
-        nl = document.querySelector('.chptr').children;
+        let nl = document.querySelector('.chptr').children;
+        nl.should.be.a('object');
+        nl.should.not.be.an('array');
         isNodeList(nl).should.be.true;
         R.isArrayLike(nl).should.be.true;
     });
 });
 
-describe("main: mutates each Chapter's Element's Style to reflect it's ReadingClss NAME and it's relative position within that ReadingClss list.", function () {
-    let dom, anElem;
+describe("Verses are a Chapter's spans.", function () {
+    let dom, verses, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
-        dom = document;
+        // dom = document;
+        verses = document.querySelectorAll('span');
     });
-    it("should mutate the DOM.", function () {
-        let anElem = dom.querySelector('#theFirst');
-        // BEFORE: hard code anElem
-        anElem.style.backgroundColor = 'pink';
-        anElem.style.opacity = '0.99';
-        anElem.style.color = 'red';
-        _mutate(dom);
-        anElem.style.color.should.equal('green');
-        anElem.style.opacity.should.equal('0.4');
-        anElem.style.fontSize.should.equal('60%');
-        // anElem.style.background.should.equal('rgb(255, 192, 203)');
+    it(`mutateToColor:: S->El -> El should mutate aVerseStyle.
+      mutateToColor(color,verse)->verse') `, function () {
+        let aVerseStyle = verses[10].style;
+        aVerseStyle.backgroundColor.should.not.equal('red');
+        //
+        let mutateToColor = curry((color, vs) => vs.backgroundColor = color);
+        let mutateToRed = mutateToColor('red')(aVerseStyle);
+        aVerseStyle.backgroundColor.should.equal('red');
     });
+    it(`backgroundColorIs() should mutate aVerseStyle`, () => {
+        let aVerse = verses[6];
+        let aVerseStyle = aVerse.style;
+        aVerseStyle.backgroundColor.should.not.equal('red');// El.style -> El.style
+        //
+        let backgroundColorIs = curry((color, v_s) => R.assoc('backgroundColor', color, v_s));// El -> El
+        let backgroundColorIsRed = backgroundColorIs('red');
+
+        aVerseStyle = backgroundColorIsRed(aVerseStyle);
+        aVerseStyle.backgroundColor.should.equal('red');
+    });
+
 });
 
