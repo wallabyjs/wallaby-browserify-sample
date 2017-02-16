@@ -19,7 +19,22 @@ let R = require('ramda'),
 let isNodeList = require('../h/isNodeList');
 let _mutate = require('../src/mutateTheFirstLine');
 
-
+describe(`a Chptr has span Verses`, function () {
+    let dom, nl, verses;
+    mocha.beforeEach(() => {
+        loadFixtures('index.html');
+        dom = document;
+    });
+    it("document.querySelectorAll('span') should be a nodeList of spans.", function () {
+        nl = document.querySelectorAll('span');//
+        isNodeList(nl).should.be.true;
+    });
+    it("document.querySelector('.chptr').children should be a nodeList and arrayLike.", function () {
+        nl = document.querySelector('.chptr').children;
+        isNodeList(nl).should.be.true;
+        R.isArrayLike(nl).should.be.true;
+    });
+});
 
 describe("main: mutates each Chapter's Element's Style to reflect it's ReadingClss NAME and it's relative position within that ReadingClss list.", function () {
     let dom, anElem;
@@ -27,8 +42,8 @@ describe("main: mutates each Chapter's Element's Style to reflect it's ReadingCl
         loadFixtures('index.html');
         dom = document;
     });
-    it("should .", function () {
-        let anElem = dom.querySelector('span');
+    it("should mutate the DOM.", function () {
+        let anElem = dom.querySelector('#theFirst');
         // BEFORE: hard code anElem
         anElem.style.backgroundColor = 'pink';
         anElem.style.opacity = '0.99';
@@ -39,45 +54,5 @@ describe("main: mutates each Chapter's Element's Style to reflect it's ReadingCl
         anElem.style.fontSize.should.equal('60%');
         // anElem.style.background.should.equal('rgb(255, 192, 203)');
     });
-        xdescribe("A Book has Chapter DIVs", function () {
-            describe(`each Book has a Dictionary of Style Properties DCT: 
-            typically opacity, fontSize, etc`, function () {
+});
 
-            });
-        });
-        xdescribe(" A Chapter is a Lst of Spans segregated into three ReadClss DIV:['past', 'current', 'future']", function () {
-            describe(`each Chapter`, function () {
-
-            });
-
-            describe("each ReadClss has its own Elem Style Weighting Limits keys: csdBeg and csdEnd  ", function () {
-                describe(`Elem Style Weighting is a function of its
-                    relative position with its peers
-                and its 
-                    ReadClss Weighting Limits.`, function () {
-                    it(`should ..`, function () {
-                        (0).should.equal(0);
-                    });
-                });
-            });
-        });
-        xdescribe("A ReadClss is a sub Lst of Spans determined by a reader's keyBoard Event", function () {
-            describe("The Current ReadingClss has two defining properties: begNdx and listLength.", function () {
-                describe("The begNdx is set by keyBoard Event Handler", function () {
-                    xit("should ..", function () {
-                        (1).should.equal(0);
-                    });
-                });
-                describe("The current list length is relatively fix by a curLen: key in Dct", function () {
-                    xit(`should ..`, function () {
-                        (1).should.equal(0);
-                    });
-                });
-            });
-            describe("The Past and Future ReadingClsses are defined relative to the Current RC", function () {
-            });
-        });
-        xdescribe("A Elem Span Style is set ", function () {
-
-        });
-    });
