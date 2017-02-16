@@ -11,9 +11,10 @@ let should = chai.should();
 let expect = chai.expect;
 // let be = chai.be;
 
-let _ = require('ramda');
-let compose = _.compose;
-let curry = _.curry;
+let R = require('ramda'),
+    curry = R.curry,
+    pipe = R.pipe,
+    compose = R.compose;
 //---------------------------
 let isNodeList = require('../h/isNodeList');
 
