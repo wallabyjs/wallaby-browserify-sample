@@ -17,7 +17,7 @@ let R = require('ramda'),
 let isNodeList = require('../h/isNodeList');
 let _mutate = require('../src/mutateTheFirstLine');
 
-describe(`a Chptr has span Verses`, function () {
+describe(`Chptr Verses [spans] can be accessed by querySelector & querySelectorAll`, function () {
     let dom, nl, verses;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
@@ -38,34 +38,55 @@ describe(`a Chptr has span Verses`, function () {
         R.isArrayLike(nl).should.be.true;
     });
 });
-
-describe("Verses are a Chapter's spans.", function () {
+describe("Verse.style Objects can be changed with backgroundColorIs().", function () {
     let dom, verses, anElem;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         // dom = document;
         verses = document.querySelectorAll('span');
     });
-    it(`mutateToColor:: S->El -> El should mutate aVerseStyle.
-      mutateToColor(color,verse)->verse') `, function () {
-        let aVerseStyle = verses[10].style;
-        aVerseStyle.backgroundColor.should.not.equal('red');
+    it(`should mutate aVerseStyleObj; in this case backgroundColor.
+      backgroundColorIs(color,OBJ.verse)-> OBJ.verse').
+      NOTE: the arguments are verse.style`, function () {
+        let aVerseStyleObj = verses[10].style;
+        aVerseStyleObj.backgroundColor.should.not.equal('red');
         //
-        let mutateToColor = curry((color, vs) => vs.backgroundColor = color);
-        let mutateToRed = mutateToColor('red')(aVerseStyle);
-        aVerseStyle.backgroundColor.should.equal('red');
+        let backgroundColorIs = curry((color, vs) => vs.backgroundColor = color);
+        let backgroundColorIsRed = backgroundColorIs('red');
+        //
+        aVerseStyleObj = backgroundColorIsRed(aVerseStyleObj);
     });
-    it(`backgroundColorIs() should mutate aVerseStyle`, () => {
+    it(`backgroundColorIs() should mutate aVerseStyleObj`, () => {
         let aVerse = verses[6];
-        let aVerseStyle = aVerse.style;
-        aVerseStyle.backgroundColor.should.not.equal('red');// El.style -> El.style
+        let aVerseStyleObj = aVerse.style;
+        aVerseStyleObj.backgroundColor.should.not.equal('red');// El.style -> El.style
         //
         let backgroundColorIs = curry((color, v_s) => R.assoc('backgroundColor', color, v_s));// El -> El
         let backgroundColorIsRed = backgroundColorIs('red');
-
-        aVerseStyle = backgroundColorIsRed(aVerseStyle);
-        aVerseStyle.backgroundColor.should.equal('red');
+        //
+        aVerseStyleObj = backgroundColorIsRed(aVerseStyleObj);
+        aVerseStyleObj.backgroundColor.should.equal('red');
     });
-
 });
+describe(`CHANGE backgroundColorIs parameters TO (str, LST.elems) FROM  (str, Obj.elemStyle)`, function () {
+    let backgroundColorIs = curry((color) => compose(
+        R.assoc('backgroundColor', color), R.prop('style'))
+    );// El -> El
+    let verses;
+    mocha.beforeEach(() => {
+        loadFixtures('index.html');
+        verses = document.querySelectorAll('span');
+    });
+    it(`backgroundColorIs() should mutate aVerseStyleObj`, () => {
+        let aVerse = verses[1];
+        let aVerseStyleObj = aVerse.style;
+        aVerseStyleObj.backgroundColor.should.not.equal('red');// El.style -> El.style
+        //
+        let backgroundColorIsRed = backgroundColorIs('red');
+        aVerseStyleObj = backgroundColorIsRed(aVerse);
+        //
+        aVerseStyleObj.backgroundColor.should.equal('red');
+    });
+});
+
 
