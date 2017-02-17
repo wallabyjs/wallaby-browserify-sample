@@ -68,24 +68,114 @@ describe("Verse.style Objects can be changed with backgroundColorIs().", functio
         aVerseStyleObj.backgroundColor.should.equal('red');
     });
 });
-describe(`CHANGE backgroundColorIs parameters TO (str, LST.elems) FROM  (str, Obj.elemStyle)`, function () {
-    let backgroundColorIs = curry((color) => compose(
+describe(`Fn::new_backgroundColorIs() returns a new CSD.
+    it NOW has a parameter HTML.elem FROM  Obj.elemStyles.
+    the new Fn signature is STR.color -> HTML.span -> HTML.span.style`, function () {
+    let new_backgroundColorIs = curry((color) => compose(
         R.assoc('backgroundColor', color), R.prop('style'))
-    );// El -> El
+    );// STR->EL -> EL.style
     let verses;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         verses = document.querySelectorAll('span');
     });
-    it(`backgroundColorIs() should mutate aVerseStyleObj`, () => {
-        let aVerse = verses[1];
+    it(`new_backgroundColorIs() should return a new aVerseStyleObj i.e a new CSD: CSSStyleDeclaration.`, () => {
+        let aVerse = verses[1];// any arbitrary span
+        aVerse.style.backgroundColor.should.not.equal('red');// El.style -> El.style
+        // create a new CSD
+        let new_backgroundColorIsRed = new_backgroundColorIs('red');
         let aVerseStyleObj = aVerse.style;
-        aVerseStyleObj.backgroundColor.should.not.equal('red');// El.style -> El.style
-        //
-        let backgroundColorIsRed = backgroundColorIs('red');
-        aVerseStyleObj = backgroundColorIsRed(aVerse);
-        //
+        aVerseStyleObj = new_backgroundColorIsRed(aVerse);
+        // confirm
         aVerseStyleObj.backgroundColor.should.equal('red');
+    });
+});
+describe(`Fn::new_backgroundColorIs() returns a new CSD. NOT a new Verse`, function () {
+    let new_backgroundColorIs = curry((color) => compose(
+        R.assoc('backgroundColor', color), R.prop('style'))
+    );// STR -> EL -> EL.style
+    let verses;
+    mocha.beforeEach(() => {
+        loadFixtures('index.html');
+        verses = document.querySelectorAll('span');
+    });
+    it(`a new aVerseStyleObj (span) return a CSD i.e aVerseStyleObj
+    `, () => {
+        let aVerse = verses[1];// any arbitrary span
+        aVerse.style.backgroundColor.should.not.equal('red');// El.style -> El.style
+        // create a new CSD
+        let new_backgroundColorIsRed = new_backgroundColorIs('red');
+        let aVerseStyleObj = aVerse.style;
+        aVerseStyleObj = new_backgroundColorIsRed(aVerse);
+        // confirm
+        aVerseStyleObj.backgroundColor.should.equal('red');
+    });
+    it(`a new aVerseStyleObj  must be applied to a span`, () => {
+        let aVerse = verses[1];// any arbitrary span
+        aVerse.style.backgroundColor.should.not.equal('red');// El.style -> El.style
+        // create a new CSD
+        let new_backgroundColorIsRed = new_backgroundColorIs('red');
+        let aVerseStyleObj = aVerse.style;
+        aVerseStyleObj = new_backgroundColorIsRed(aVerse);
+        // confirm
+        aVerseStyleObj.backgroundColor.should.equal('red');
+
+        aVerse.style.backgroundColor.should.not.equal('red');
+        aVerse.style.backgroundColor.should.equal('');
+    });
+    it(`new_backgroundColorIs() should create a newVerse with a new CSD`, () => {
+        // repeating the above it
+        let aVerse = verses[1];
+        let new_backgroundColorIsRed = new_backgroundColorIs('red');
+        let aVerseStyleObj = aVerse.style;
+        aVerseStyleObj = new_backgroundColorIsRed(aVerse);
+        aVerseStyleObj.backgroundColor.should.equal('red');
+        // new narrow function
+        let _newVerse = curry( (csd, vers) => { return vers.style = csd });
+        let _newRedVerse = _newVerse(aVerseStyleObj);
+        aVerse = _newRedVerse(aVerse);
+        //
+        aVerse.style.backgroundColor.should.equal('red');
+    });
+});
+describe(`Fn::new_backgroundColorIs() does not return a new Verse.style`, function () {
+    let new_backgroundColorIs = curry((color) => compose(
+        R.assoc('backgroundColor', color), R.prop('style'))
+    );// STR -> EL -> EL.style
+    let verses, aVerse, aVerseStyleObj;
+    mocha.beforeEach(() => {
+        loadFixtures('index.html');
+        verses = document.querySelectorAll('span');
+        aVerse = verses[1];// any arbitrary span
+        aVerseStyleObj = aVerse.style;
+    });
+    it(`a new aVerseStyleObj (span) return a CSD i.e aVerseStyleObj
+    `, () => {
+        aVerse.style.backgroundColor.should.not.equal('red');// El.style -> El.style
+        // NEW
+        let new_backgroundColorIsRed = new_backgroundColorIs('red');
+        aVerseStyleObj = new_backgroundColorIsRed(aVerse);
+        // confirm
+        aVerseStyleObj.backgroundColor.should.equal('red');
+    });
+    it(`a new aVerseStyleObj has not been applied to aVerse`, () => {
+        let new_backgroundColorIsRed = new_backgroundColorIs('red');
+        aVerse.style.backgroundColor.should.not.equal('red');
+        aVerse.style.backgroundColor.should.equal('');
+    });
+});
+describe(`THIS SETS A style property!!! aVerse.style['backgroundColor'] =  'purple'`, () => {
+    let verses, aVerse, aVerseStyleObj;
+    mocha.beforeEach(() => {
+        loadFixtures('index.html');
+        verses = document.querySelectorAll('span');
+        aVerse = verses[2];// any arbitrary span
+        aVerseStyleObj = aVerse.style;
+    });
+    it(`should set a elem.style[property]`, () => {
+        // THIS SETS A STYLE!! NOW
+        aVerse.style['backgroundColor'] =  'purple';
+        aVerse.style.backgroundColor.should.equal('purple');
     });
 });
 
