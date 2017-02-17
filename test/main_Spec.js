@@ -90,7 +90,7 @@ describe(`Fn::new_backgroundColorIs() returns a new CSD.
         aVerseStyleObj.backgroundColor.should.equal('red');
     });
 });
-describe(`Fn::new_backgroundColorIs() returns a new CSD. NOT a new Verse`, function () {
+xdescribe(`Fn::new_backgroundColorIs() returns a new CSD. NOT a new Verse`, function () {
     let new_backgroundColorIs = curry((color) => compose(
         R.assoc('backgroundColor', color), R.prop('style'))
     );// STR -> EL -> EL.style
