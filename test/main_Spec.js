@@ -8,7 +8,6 @@ let mocha = require('mocha'),
 let chai = require('chai'),
     should = chai.should(),
     expect = chai.expect;
-
 let R = require('ramda'),
     curry = R.curry,
     pipe = R.pipe,
@@ -16,21 +15,26 @@ let R = require('ramda'),
 //---------------------------
 let isNodeList = require('../h/isNodeList');
 
-describe(`try Node.childNodes:: `, () => {
-    let doc;
+describe("THREE different ways to ", function () {
+    let dom, parent, children;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
-        let doc = document
+        dom = document;
+        // THIS WORKS
+        parent = dom.getElementById('chptr');
+        children = parent.children;
+        // THESE TWO ALSO WORK
+        // children = dom.querySelectorAll('chptr, span'); // THIS works
+        children = dom.querySelectorAll('span'); // this WORKS
     });
-    let parent =  document.getElementById('chptr');
-    it(`should. be a div`, () => {
+    it("parent should be a div", function () {
         parent.should.be.an('object');
     });
 
-    // let children = parent.children;
-    //     it(`should be a live collection`, () => {
-    //     (children.length).should.equal(0);
-    // });
+    it(`children should be a NodeList: a deadCollection`, () => {
+        isNodeList(children).should.be.True;
+        children.should.be.an('object').with.lengthOf(52);
+    });
 });
 
 

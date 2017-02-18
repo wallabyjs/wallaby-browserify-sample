@@ -3,14 +3,11 @@
  */
 "use strict";
 let R = require('ramda');
-
 let mocha = require('mocha'),
     describe = mocha.describe,
     it = mocha.it;
-
 let chai = require('chai'),
     should =  chai.should();
-
 let _mutate = require('../src/mutateTheFirstLine');
 
 describe("mutateElemStyleProp:: Dom -> Dom.", function () {
