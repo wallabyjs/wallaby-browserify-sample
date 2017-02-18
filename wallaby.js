@@ -23,7 +23,7 @@ module.exports = function (wallaby) {
         ],
 
         tests: [
-            {pattern: 'test/*Spec.js', load: true}
+            {pattern: 'test/*Spec.js', load: false}
         ],
 
         compilers: {

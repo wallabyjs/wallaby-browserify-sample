@@ -20,17 +20,17 @@ describe(`try Node.childNodes:: `, () => {
     let doc;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
-        doc = document
+        let doc = document
     });
-    let parent = document.querySelector('div .chptr');
-        it(`should.BREAK.`, ()=>{
-                (parent).should.be.an('object');
-        });
+    let parent =  document.getElementById('chptr');
+    it(`should. be a div`, () => {
+        parent.should.be.an('object');
+    });
 
-    let children = parent.children;
-        it(`should be a live collection`, () => {
-        (children.length).should.equal(0);
-    });
+    // let children = parent.children;
+    //     it(`should be a live collection`, () => {
+    //     (children.length).should.equal(0);
+    // });
 });
 
 
