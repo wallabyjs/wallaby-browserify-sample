@@ -1,4 +1,5 @@
 /**
+ * TODO 2/20/2017 THIS NEED to generalize it
  * Created by CLIF on 1/29/2017.
  */
 "use strict";
@@ -29,7 +30,7 @@ const getElem_styleOBJ = elt => elt.style;
  *  ..... restyle_aCSD:: LST.propName -> LST. propValu  -> DICT.CSD
  *
  */
-const restyle_aCSD = require('../src/restyle_aCSD');
+const restyle_aCSD = require('./restyle_aCSD');
 
 
 /**

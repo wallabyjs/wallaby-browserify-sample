@@ -26,7 +26,7 @@ describe(`mutateTheDOM:: (Fn -> Dom) -> Dom.
     });
 
     it(`should affect the document/dom object but still be the orig dom object..
-    it is not clear what this test.
+        it is not clear what this test.
         apparently the document object is the same event though internally some elements have changed.`
         , function () {
         dom.should.equal(document);
@@ -34,9 +34,7 @@ describe(`mutateTheDOM:: (Fn -> Dom) -> Dom.
         dom1.should.equal(document);
     });
 
-    it(`should mutate at least some elements of the DOM.
-    in this test there are two stub mutate_ functions:
-        mutateTheFirstLine() and mutateTitle_VersionNumber.`, function () {
+    it(`should invoke mutateTheFirstLine() and see firstLine style changes.`, function () {
         let anElem = dom.querySelector('#theFirst');
         // BEFORE: anElem defaults
         anElem.style.backgroundColor.should.equal('');

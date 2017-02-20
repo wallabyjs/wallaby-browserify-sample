@@ -1,4 +1,5 @@
-/**
+/**\
+ * 2/20/2017 THIS NEED to be declarative
  * Created by CLIF on 1/28/2017.
  */
 "use strict";
@@ -8,6 +9,7 @@ let mocha = require('mocha'),
     it = mocha.it;
 let chai = require('chai'),
     should =  chai.should();
+
 let _mutate = require('../src/mutateTheFirstLine');
 
 describe(`mutateElemStyleProp:: Dom -> Dom.

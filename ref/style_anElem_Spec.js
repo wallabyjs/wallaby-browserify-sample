@@ -19,7 +19,7 @@ let chai = require('chai'),
 // let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 let weight_aReadClss_Elem; // S->L->N -> N
-weight_aReadClss_Elem = require('../src/weight_aReadClss_Elem');
+weight_aReadClss_Elem = require('weight_aReadClss_Elem');
 
 let _formatOpacity; // a -> STR
 _formatOpacity = require('../test/format_anElem_Style')._formatOpacity;

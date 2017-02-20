@@ -18,7 +18,7 @@ let chai = require('chai'),
     should =  chai.should();
 
 let _formatOpacity; // N -> STR
-_formatOpacity = require('../src/format_anElem_Style')._formatOpacity;
+_formatOpacity = require('format_anElem_Style')._formatOpacity;
 
 describe("_formatOpacity(N)->STR", function () {
     it("should return a STR:a", function () {
@@ -28,7 +28,7 @@ describe("_formatOpacity(N)->STR", function () {
 });
 
 let _formatFontSize;// N -> STR
-_formatFontSize = require('../src/format_anElem_Style')._formatFontSize;
+_formatFontSize = require('format_anElem_Style')._formatFontSize;
 describe("_formatFontSize(a)-> a*100, toString + '%'", function () {
     it("should return '46%' given 0.456  ", function () {
         _formatFontSize( 0.456789).should.a('String');

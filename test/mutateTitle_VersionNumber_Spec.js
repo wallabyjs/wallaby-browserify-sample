@@ -16,7 +16,6 @@ let chai = require('chai'),
 
 //********************************
 let mutateTitle_VersionNumber = require('../src/mutateTitle_VersionNumber');
-
 const VersionDct = require('../data/VersionDct');
 
 describe(`the fn: mutateTitle_VersionNumber:: Doc -> Doc `, ()=>{
