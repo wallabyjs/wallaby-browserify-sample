@@ -22,16 +22,10 @@ let pureElemQuery1 = require('../h/pureElemQuery1'); // STR -> (DOC -> ELEM);
 let getTheFirstElem = pureElemQuery1('#theFirst');//DOC -> ELEM
 
 /**
- *  ..... getElem_styleOBJ = elt=>elt.style;// ELEM -> CSD
- */
-const getElem_styleOBJ = elt => elt.style;
-
-/**
  *  ..... restyle_aCSD:: LST.propName -> LST. propValu  -> DICT.CSD
  *
  */
 const restyle_aCSD = require('./restyle_aCSD');
-
 
 /**
  *  ..... mutateTheFirstLine:: DOC -> DOC

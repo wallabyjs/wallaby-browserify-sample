@@ -1,6 +1,5 @@
-/**\
- * 2/20/2017 THIS NEED to be declarative
- * Created by CLIF on 1/28/2017.
+/*
+ *  * I like this declarative set of tests:: 2/20/17
  */
 "use strict";
 let R = require('ramda');
