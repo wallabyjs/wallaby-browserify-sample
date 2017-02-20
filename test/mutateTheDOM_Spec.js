@@ -37,14 +37,17 @@ describe(`mutateTheDOM:: (Fn -> Dom) -> Dom.
     it(`should invoke mutateTheFirstLine() and see firstLine style changes.`, function () {
         let anElem = dom.querySelector('#theFirst');
         // BEFORE: anElem defaults
-        anElem.style.backgroundColor.should.equal('');
-        anElem.style.color.should.equal('');
+        let bC = anElem.style.backgroundColor;
+        bC.should.equal('');
+        let c = anElem.style.color;
+        c.should.equal('');
         _mutate(dom);
         // AFTER _mutate
-        anElem.style.backgroundColor.should.equal('');  // unchanged
-        anElem.style.color.should.equal('red');         // changed
-        anElem.style.opacity.should.equal('0.4');
-        anElem.style.fontSize.should.equal('60%');
+        anElem.style.backgroundColor.should.equal(bC);  // unchanged
+        anElem.style.color.should.not.equal(c);         // changed
+    });
+    it(`should invoke mutateTitle_VersionNumber() see a .`, function () {
+        let anElem = dom.querySelector('#theFirst');
     });
 });
 
