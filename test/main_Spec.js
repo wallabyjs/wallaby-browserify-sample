@@ -14,8 +14,9 @@ let R = require('ramda'),
     compose = R.compose;
 //---------------------------
 let isNodeList = require('../h/isNodeList');
+// let main = require('main');
 
-describe("THREE different ways to ", function () {
+describe("THREE different ways to get a List/an Array of Spans", function () {
     let dom, parent, children;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
@@ -27,14 +28,8 @@ describe("THREE different ways to ", function () {
         // children = dom.querySelectorAll('chptr, span'); // THIS works
         children = dom.querySelectorAll('span'); // this WORKS
     });
-    it("parent should be a div", function () {
-        parent.should.be.an('object');
-    });
 
-    it(`children should be a NodeList: a deadCollection`, () => {
-        isNodeList(children).should.be.True;
-        children.should.be.an('object').with.lengthOf(52);
-    });
+
 });
 
 

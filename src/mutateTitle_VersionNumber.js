@@ -5,7 +5,9 @@
 "use strict";
 
 let R = require('ramda'),
+    map = R.map,
     curry = R.curry,
+    pipe = R.pipe,
     compose = R.compose;
 // ***************************
 let VersionDct = require('../data/VersionDct');
@@ -29,6 +31,7 @@ let getTheTitleElem = pureElemQuery('title');//DICT -> ELEM
  * ..... setInnerHTML_value:: Elem -> Elem
  */
 let setInnerHTML = el => el["innerHTML"] = getVersionStr(VersionDct);// EL -> EL
+
 /**
  * ..... mutateTitle_VersionNumber:: DOC -> DOC
  *      sets document titleElement to

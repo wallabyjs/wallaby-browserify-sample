@@ -5,8 +5,8 @@
 
 let R = require('ramda'),
     curry = R.curry,
+    pipe = R.pipe,
     compose = R.compose;
-
 
 let mutateTheFirstLine = require(
     '../src/mutateTheFirstLine');
@@ -14,11 +14,12 @@ let mutateTitle = require(
     '../src/mutateTitle_VersionNumber');
 
 /**
- * mutateTheDOM::
+ * mutateTheDOM:: (FN -> DOCUMENT) -> DOCUMENT.
+ * It returns a function when applied to a html document changed some of its nodes.
  * @param dom
  * @return {Element}
  */
 module.exports =
 // both below work!!
-// compose(mutateTheFirstLine, mutateTitle);
-    compose(mutateTitle, mutateTheFirstLine);
+compose(mutateTheFirstLine, mutateTitle);
+    // compose(mutateTitle, mutateTheFirstLine);

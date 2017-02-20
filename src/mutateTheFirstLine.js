@@ -11,7 +11,7 @@ let R = require('ramda'),
  *      ..... myTap::
  */
 const myTap = require('../h/myTap');
-/**
+/*
  *  ..... pureElemQuery1:: STR -> (DOC -> ELEM)
  */
 let pureElemQuery1 = require('../h/pureElemQuery1'); // STR -> (DOC -> ELEM);
@@ -38,7 +38,7 @@ const restyle_aCSD = require('../src/restyle_aCSD');
 module.exports = curry(
     doc => {
         let csdKeys = ['opacity', 'color', 'fontSize'];
-        let csdVals = ['0.4', 'green', '60%'];
+        let csdVals = ['0.4', 'red', '60%'];
         let CSD = restyle_aCSD(csdKeys, csdVals);// -> DICT:CSD
 
         //NOTE use of font-size, not fontSize in setAttribute string!!
