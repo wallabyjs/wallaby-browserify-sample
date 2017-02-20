@@ -1,5 +1,5 @@
 /**
- * Created by CLIF on 1/28/2017.
+ * I like this declarative set of tests
  */
 "use strict";
 let R = require('ramda');
