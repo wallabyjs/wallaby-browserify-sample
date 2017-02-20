@@ -37,6 +37,7 @@ module.exports = curry(
         let CSD = restyle_aCSD(csdKeys, csdVals);// -> DICT:CSD
 
         //NOTE use of font-size, not fontSize in setAttribute string!!
+        // this is too complex; FIND another way to
         let strCSS = `opacity:${CSD.opacity}; color: ${CSD.color};  font-size: ${CSD.fontSize}`;
 
         let elem = compose(getTheFirstElem)(doc);
