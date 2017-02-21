@@ -31,7 +31,7 @@ describe(`the fn: mutateTitle_VersionNumber:: Doc -> Doc `, ()=>{
         (fn).should.be.a('function');
     });
     it(`should return a document object.`, () => {
-        doc.should.be.a('object').equal(doc)        ;
+        doc.should.be.deep.equal(doc)        ;
     });
     it(`should always return a title including 'wbSample ver:`, () => {
         R.prop('title',doc).should.include('wbSample ver:');

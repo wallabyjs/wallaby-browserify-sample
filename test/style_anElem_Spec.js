@@ -42,7 +42,7 @@ let style_anElem;// N -> STR
 style_anElem = R.curry(
     (elem) => {
         let thisCsd = elem.style;
-        thisCsd = R.evolve(transformations)(thisCsd);
+        thisCsd.opacity = '0.4';
         return elem
     });
 
@@ -65,7 +65,7 @@ describe(`style_anElem:: ELEM -> ELEM
     describe(`context: function INVOKED..
 `, () => {
         it(`should return and be equal to the @parm: elem`, () => {
-            style_anElem(anElem).should.be.an('object').and.deep.equal(anElem)
+            style_anElem(anElem).should.equal(anElem)
         });
         it(`should have a new elem.style.opacity property`, () => {
             style_anElem(anElem).style.opacity.should.not.equal('');
@@ -74,7 +74,7 @@ describe(`style_anElem:: ELEM -> ELEM
     describe(` elem.style && aStyleObj=elem.style are CSSStyleDeclarations Objects and equal each other
 `, () => {
         it(`should exist and be an object`, () => {
-            anElem.style.should.exist.and.be.a('Object');
+            anElem.style.should.exist;
             anElem.style.should.equal(aStyleObj);
         });
     });
