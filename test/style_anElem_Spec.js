@@ -34,6 +34,7 @@ let set_aCSD = () => {
  * return the element
  */
 let style_anElem;// N -> STR
+
 style_anElem = R.curry(
     (elem) => {
         let thisCsd = elem.style;
