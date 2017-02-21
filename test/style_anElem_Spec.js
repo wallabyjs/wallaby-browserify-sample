@@ -19,12 +19,16 @@ let chai = require('chai'),
 // let _formatOpacity; // a -> STR
 // _formatOpacity = require('../test/format_anElem_Style')._formatOpacity;
 
-//BUILD IT HERE then move to src/
-// style_anElem = require('../src/style_anElem');
-
 //HELPER
 let set_aCSD = () => {
 };
+let transformations = {
+    opacity: R.identity('0.56'),
+    fontSize:R.identity('76%')
+};
+
+//BUILD style_anElem HERE then move to src/
+// style_anElem = require('../src/style_anElem');
 /**
  *style_anElem
  * mutate an ELEM's style object.
@@ -38,25 +42,28 @@ let style_anElem;// N -> STR
 style_anElem = R.curry(
     (elem) => {
         let thisCsd = elem.style;
-        thisCsd.opacity = '0.4';
+        thisCsd = R.evolve(transformations)(thisCsd);
         return elem
     });
 
-describe(`style_anElem:: ELEM -> ELEM`, function () {
+describe(`style_anElem:: ELEM -> ELEM
+`, function () {
     let fn, chptSpns, aSpan, anElem, aStyleObj;
-    mocha.beforeEach(function style_Objs() {
+    mocha.beforeEach(function () {
         loadFixtures('index.html');
         chptSpns = document.querySelectorAll(".chptr span");
         anElem = R.nth(0)(chptSpns);
         aStyleObj = anElem.style;
         fn = style_anElem;
     });
-    describe(`context: the function ITSELF`, function () {
+    describe(`context: the function ITSELF
+`, function () {
         it(`should be a function..`, () => {
             style_anElem.should.be.a('function');
         });
     });
-    describe(`context: function INVOKED..`, () => {
+    describe(`context: function INVOKED..
+`, () => {
         it(`should return and be equal to the @parm: elem`, () => {
             style_anElem(anElem).should.be.an('object').and.deep.equal(anElem)
         });
@@ -64,14 +71,15 @@ describe(`style_anElem:: ELEM -> ELEM`, function () {
             style_anElem(anElem).style.opacity.should.not.equal('');
         });
     });
-
-    describe(` elem.style && aStyleObj=elem.style are CSSStyleDeclarations Objects and equal each other`, () => {
+    describe(` elem.style && aStyleObj=elem.style are CSSStyleDeclarations Objects and equal each other
+`, () => {
         it(`should exist and be an object`, () => {
             anElem.style.should.exist.and.be.a('Object');
             anElem.style.should.equal(aStyleObj);
         });
     });
-    describe(`both elem.style && aStyleObj should set single style properties`, () => {
+    describe(`both elem.style && aStyleObj should set single style properties
+`, () => {
         it(`anElem.style.fontSize = '75% should set a property.`, () => {
             anElem.style.fontSize = '75%';
             anElem.style.fontSize.should.equal('75%');
