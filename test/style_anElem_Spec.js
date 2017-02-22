@@ -20,7 +20,7 @@ let chai = require('chai'),
 // _formatOpacity = require('../test/format_anElem_Style')._formatOpacity;
 
 //HELPER
-let set_aCSD = () => {
+let set_aCSD = function () {
 };
 let transformations = {
     opacity: R.identity('0.56'),
@@ -58,34 +58,34 @@ describe(`style_anElem:: ELEM -> ELEM
     });
     describe(`context: the function ITSELF
 `, function () {
-        it(`should be a function..`, () => {
+        it(`should be a function..`, function () {
             style_anElem.should.be.a('function');
         });
     });
     describe(`context: function INVOKED..
-`, () => {
-        it(`should return and be equal to the @parm: elem`, () => {
+`, function () {
+        it(`should return and be equal to the @parm: elem`, function () {
             style_anElem(anElem).should.equal(anElem)
         });
-        it(`should have a new elem.style.opacity property`, () => {
+        it(`should have a new elem.style.opacity property`, function () {
             style_anElem(anElem).style.opacity.should.not.equal('');
         });
     });
     describe(` elem.style && aStyleObj=elem.style are CSSStyleDeclarations Objects and equal each other
-`, () => {
-        it(`should exist and be an object`, () => {
+`, function () {
+        it(`should exist and be an object`, function () {
             anElem.style.should.exist;
             anElem.style.should.equal(aStyleObj);
         });
     });
     describe(`both elem.style && aStyleObj should set single style properties
-`, () => {
-        it(`anElem.style.fontSize = '75% should set a property.`, () => {
+`, function () {
+        it(`anElem.style.fontSize = '75% should set a property.`, function () {
             anElem.style.fontSize = '75%';
             anElem.style.fontSize.should.equal('75%');
             aStyleObj.fontSize.should.equal('75%');
         });
-        it(` both elem.style && aStyleObj should set properties`, () => {
+        it(` both elem.style && aStyleObj should set properties`, function () {
             aStyleObj.opacity = '0.55';
             anElem.style.opacity.should.equal('0.55');
         });
