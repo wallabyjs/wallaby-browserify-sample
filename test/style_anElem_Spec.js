@@ -6,9 +6,10 @@
 let R = require('ramda');
 let compose = R.compose;
 
-let mocha = require('mocha');
-let describe = mocha.describe;
-let it = mocha.it;
+let mocha = require('mocha'),
+    describe = mocha.describe,
+    context = mocha.describe,
+    it = mocha.it;
 //
 let chai = require('chai'),
     expect = chai.expect,
@@ -24,7 +25,7 @@ let set_aCSD = function () {
 };
 let transformations = {
     opacity: R.identity('0.56'),
-    fontSize:R.identity('76%')
+    fontSize: R.identity('76%')
 };
 
 //BUILD style_anElem HERE then move to src/
@@ -62,7 +63,7 @@ describe(`style_anElem:: ELEM -> ELEM
             style_anElem.should.be.a('function');
         });
     });
-    describe(`context: function INVOKED..
+    context(`context: function INVOKED..
 `, function () {
         it(`should return and be equal to the @parm: elem`, function () {
             style_anElem(anElem).should.equal(anElem)
@@ -78,16 +79,25 @@ describe(`style_anElem:: ELEM -> ELEM
             anElem.style.should.equal(aStyleObj);
         });
     });
-    describe(`both elem.style && aStyleObj should set single style properties
-`, function () {
-        it(`anElem.style.fontSize = '75% should set a property.`, function () {
-            anElem.style.fontSize = '75%';
-            anElem.style.fontSize.should.equal('75%');
-            aStyleObj.fontSize.should.equal('75%');
+});
+describe(` An elemStyle OBJ can be assigned to,  
+    BUT BECAUSE an elem.style IS a readonly object IT CANNOT be assigned to with a CSD object.;
+    `, () => {
+    describe(`R.set(R.lensProp(key), value, elemStyleOBJ  
+    CAN UPDATE an element.`, function () {
+        let chptSpns, anElem, anElemStyle;
+        mocha.beforeEach(function () {
+            loadFixtures('index.html');
+            chptSpns = document.querySelectorAll(".chptr span");
+            anElem = R.nth(0)(chptSpns);
+            anElemStyle = anElem.style;
         });
-        it(` both elem.style && aStyleObj should set properties`, function () {
-            aStyleObj.opacity = '0.55';
-            anElem.style.opacity.should.equal('0.55');
+        let opacityLens, fontSizeLens;
+        it(`setting anElemStyle OBJ w/ lens DOES NOT update an element style.`, () => {
+            anElemStyle = R.set(R.lensProp( 'opacity'),'1.234')( anElemStyle);
+            anElemStyle = R.set(R.lensProp('fontSize'), '46%', anElemStyle);
+            anElem.style.opacity.should.not.equal('1.234');
+            anElem.style.fontSize.should.not.equal('46%');
         });
-    });
+    })
 });
