@@ -15,11 +15,6 @@ let chai = require('chai'),
     expect = chai.expect,
     should = chai.should();
 
-// let weight_aReadClss_Elem; // S->L->N -> N
-// weight_aReadClss_Elem = require('weight_aReadClss_Elem');
-// let _formatOpacity; // a -> STR
-// _formatOpacity = require('../test/format_anElem_Style')._formatOpacity;
-
 //HELPER
 let set_aCSD = function () {
 };
@@ -39,6 +34,7 @@ let transformations = {
  * return the element
  */
 let style_anElem;// N -> STR
+
 style_anElem = R.curry(
     (elem) => {
         let thisCsd = elem.style;
@@ -56,7 +52,7 @@ describe(`style_anElem:: ELEM -> ELEM
         aStyleObj = anElem.style;
         fn = style_anElem;
     });
-    context(`context: the function ITSELF
+    context(`style_anElem() as a FUNCTION
     `, function () {
         it(`should be a function..`, function () {
             style_anElem.should.be.a('function');
@@ -64,20 +60,13 @@ describe(`style_anElem:: ELEM -> ELEM
     });
     context(`style_anElem() INVOKED..
     `, function () {
-        let chptSpns, aSpan, anElem;
-        mocha.beforeEach(function () {
-            loadFixtures('index.html');
-            chptSpns = document.querySelectorAll(".chptr span");
-            anElem = R.nth(0)(chptSpns);
-        });
         it(`should return and be equal to the @parm: elem`, function () {
-            style_anElem(anElem).should.equal(anElem);
-
+            style_anElem(anElem).should.equal(anElem)
         });
         it(`should have a new elem.style.opacity property`, function () {
             anElem.style.opacity.should.equal('');
-            style_anElem(anElem).style.opacity.should.not.equal('');
-            style_anElem(anElem).style.opacity.should.equal('0.4');
+            fn(anElem).style.opacity.should.not.equal('');
+            anElem.style.opacity.should.equal('0.4');
         });
     });
 });

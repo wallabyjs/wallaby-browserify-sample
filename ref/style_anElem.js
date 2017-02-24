@@ -5,3 +5,5 @@
 let _ = require('ramda');
 let compose = _.compose;
 let curry = _.curry;
+
+// modu style_anElement = ()=>{};
