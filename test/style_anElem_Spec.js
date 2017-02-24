@@ -23,24 +23,29 @@ let transformations = {
     fontSize: R.identity('76%')
 };
 
-//BUILD style_anElem HERE then move to src/
-// style_anElem = require('../src/style_anElem');
 /**
- *style_anElem
+ *style_anElem: CSD -> ELEM -> ELEM
  * mutate an ELEM's style object.
- * first get an elem.style object: style =
+ * first instantiate a elemStyleObj: a CSD
  * transform the CSD given some functions
  * set elem.style
  * return the element
  */
-let style_anElem;// N -> STR
-
+let style_anElem;// ELEM -> ELEM
 style_anElem = R.curry(
-    (elem) => {
-        let thisCsd = elem.style;
-        thisCsd.opacity = '0.4';
+    (elem) => { // EL -> EL
+        let csd = elem.style;
+        csd.opacity = '0.4';
         return elem
-    });
+    }
+);
+style_anElem = R.curry( // Elem -> STR -> STR -> Elem
+    (elem, key, val) => {
+        let csd = elem.style;
+        csd[key] = val;
+        return elem
+    }
+);
 
 describe(`style_anElem:: ELEM -> ELEM
 `, function () {
@@ -61,11 +66,11 @@ describe(`style_anElem:: ELEM -> ELEM
     context(`style_anElem() INVOKED..
     `, function () {
         it(`should return and be equal to the @parm: elem`, function () {
-            style_anElem(anElem).should.equal(anElem)
+            style_anElem(anElem, 'opacity', '0.4').should.deep.equal(anElem)
         });
         it(`should have a new elem.style.opacity property`, function () {
             anElem.style.opacity.should.equal('');
-            fn(anElem).style.opacity.should.not.equal('');
+            style_anElem(anElem, 'opacity', '0.4').style.opacity.should.not.equal('');
             anElem.style.opacity.should.equal('0.4');
         });
     });
