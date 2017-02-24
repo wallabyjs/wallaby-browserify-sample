@@ -62,12 +62,20 @@ describe(`style_anElem:: ELEM -> ELEM
             style_anElem.should.be.a('function');
         });
     });
-    context(`context: the function INVOKED..
+    context(`style_anElem() INVOKED..
     `, function () {
+        let chptSpns, aSpan, anElem;
+        mocha.beforeEach(function () {
+            loadFixtures('index.html');
+            chptSpns = document.querySelectorAll(".chptr span");
+            anElem = R.nth(0)(chptSpns);
+        });
         it(`should return and be equal to the @parm: elem`, function () {
-            style_anElem(anElem).should.equal(anElem)
+            style_anElem(anElem).should.equal(anElem);
+
         });
         it(`should have a new elem.style.opacity property`, function () {
+            anElem.style.opacity.should.equal('');
             style_anElem(anElem).style.opacity.should.not.equal('');
             style_anElem(anElem).style.opacity.should.equal('0.4');
         });
