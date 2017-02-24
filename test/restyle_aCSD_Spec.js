@@ -14,12 +14,16 @@ let chai = require('chai'),
 
 const restyler = require('../src/restyle_aCSD');// LST -> LST -> DICT.CSD
 
-describe(`restyleraCSD:: LST.propName -> LST. propValu -> CSD -> CSD`, ()=>{
+describe(`restyle_aCSD:: LST.propName -> LST. propValu -> CSD -> CSD`, ()=>{
     let dom, anElem_styleObj;
     mocha.beforeEach(() => {
         loadFixtures('index.html');
         dom = document;
     });
+    it(`should ..`, () => {
+        // (1).should.equal(0);
+    });
+
     it("should alter key:values.", function () {
         let anElem_styleObj = dom.querySelector('#theFirst').style;
         // BEFORE: hard code
