@@ -4,11 +4,9 @@
 "use strict";
 let R = require('ramda'),
     curry = R.curry;
-
 let mocha = require('mocha'),
     describe = mocha.describe,
     it = mocha.it;
-
 let chai = require('chai'),
     should =  chai.should();
 

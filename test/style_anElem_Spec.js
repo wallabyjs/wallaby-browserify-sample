@@ -15,11 +15,6 @@ let chai = require('chai'),
     expect = chai.expect,
     should = chai.should();
 
-// let weight_aReadClss_Elem; // S->L->N -> N
-// weight_aReadClss_Elem = require('weight_aReadClss_Elem');
-// let _formatOpacity; // a -> STR
-// _formatOpacity = require('../test/format_anElem_Style')._formatOpacity;
-
 //HELPER
 let set_aCSD = function () {
 };
@@ -57,47 +52,21 @@ describe(`style_anElem:: ELEM -> ELEM
         aStyleObj = anElem.style;
         fn = style_anElem;
     });
-    describe(`context: the function ITSELF
-`, function () {
+    context(`style_anElem() as a FUNCTION
+    `, function () {
         it(`should be a function..`, function () {
             style_anElem.should.be.a('function');
         });
     });
-    context(`context: function INVOKED..
-`, function () {
+    context(`style_anElem() INVOKED..
+    `, function () {
         it(`should return and be equal to the @parm: elem`, function () {
             style_anElem(anElem).should.equal(anElem)
         });
         it(`should have a new elem.style.opacity property`, function () {
-            style_anElem(anElem).style.opacity.should.not.equal('');
+            anElem.style.opacity.should.equal('');
+            fn(anElem).style.opacity.should.not.equal('');
+            anElem.style.opacity.should.equal('0.4');
         });
     });
-    describe(` elem.style && aStyleObj=elem.style are CSSStyleDeclarations Objects and equal each other
-`, function () {
-        it(`should exist and be an object`, function () {
-            anElem.style.should.exist;
-            anElem.style.should.equal(aStyleObj);
-        });
-    });
-});
-describe(` An elemStyle OBJ can be assigned to,  
-    BUT BECAUSE an elem.style IS a readonly object IT CANNOT be assigned to with a CSD object.;
-    `, () => {
-    describe(`R.set(R.lensProp(key), value, elemStyleOBJ  
-    CAN UPDATE an element.`, function () {
-        let chptSpns, anElem, anElemStyle;
-        mocha.beforeEach(function () {
-            loadFixtures('index.html');
-            chptSpns = document.querySelectorAll(".chptr span");
-            anElem = R.nth(0)(chptSpns);
-            anElemStyle = anElem.style;
-        });
-        let opacityLens, fontSizeLens;
-        it(`setting anElemStyle OBJ w/ lens DOES NOT update an element style.`, () => {
-            anElemStyle = R.set(R.lensProp( 'opacity'),'1.234')( anElemStyle);
-            anElemStyle = R.set(R.lensProp('fontSize'), '46%', anElemStyle);
-            anElem.style.opacity.should.not.equal('1.234');
-            anElem.style.fontSize.should.not.equal('46%');
-        });
-    })
 });
