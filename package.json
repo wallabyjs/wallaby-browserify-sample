@@ -23,6 +23,7 @@
   "devDependencies": {
     "browserify": "^9.0.7",
     "chai": "^2.2.0",
+    "hbsfy": "^2.7.0",
     "wallabify": "*"
   }
 }

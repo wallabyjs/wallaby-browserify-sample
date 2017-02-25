@@ -1,9 +1,10 @@
 var chai = require('chai');
 var expect = chai.expect;
-var Person = require('../src/Person');
 
-describe('Person', function () {
-  it('should report name', function () {
-    expect(new Person('John').name).to.equal('John');
+var hbs = require('../src/a.hbs');
+
+describe('it', function () {
+  it('should work', function () {
+    expect(hbs).to.be.defined;
   });
 });
