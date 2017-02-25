@@ -11,7 +11,7 @@ let mocha = require('mocha'),
 let chai = require('chai'),
     should =  chai.should();
 
-const restyler = require('../src/restyle_aCSD');// LST -> LST -> DICT.CSD
+const restyler = require('../ref/restyle_aCSD');// LST -> LST -> DICT.CSD
 
 describe(`restyle_aCSD:: LST.propName -> LST. propValu -> CSD -> CSD`, ()=>{
     let dom, anElem_styleObj;

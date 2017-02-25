@@ -7,8 +7,19 @@ let R = require('ramda'),
     curry = R.curry;
 
 
-const setElAttr = curry((str, elem) => {
-    elem.setAttribute('style', str);
+/**
+ *
+ */
+const setElAttr = curry(
+    /**
+     *  ..... setElAttr:: STR->ELEM->ELEM
+     *  usage: 
+     * @param strOfCSS
+     * @param elem
+     * @return {*}
+     */
+    (strOfCSS, elem) => {
+    elem.setAttribute('style', strOfCSS);
     return elem
 });
 module.exports = setElAttr;
