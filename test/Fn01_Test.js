@@ -75,7 +75,7 @@ describe(`Fn00 returns the Rclss Identity of an Element of a Set `, () => {
     describe(`TODO Fn00 should be tested against border and error input `, () => {
         //TODO Fn00 should be tested against border and error input
         let Fn01 = Fn00(currBounds)(elArg.el, R.__, elArg.lst);
-        xit(` invoked it should return an Rclss name`, () => {
+        xit(` invoked it should either show fail or not fail because of modified Fn00`, () => {
             expect(Fn01(0)).to.equal('pst');
             expect(Fn01(1)).to.equal('pst');
             expect(Fn01(2)).to.equal('cur');
@@ -83,4 +83,4 @@ describe(`Fn00 returns the Rclss Identity of an Element of a Set `, () => {
             expect(Fn01(4)).to.equal('fut');
         });
     });
-});
+}});
