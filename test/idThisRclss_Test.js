@@ -35,7 +35,7 @@ describe(`thisID returns the Rclss Identity of an Element of a Set `, () => {
     });
 
 
-    describe(`thisID is a partial invoked  thisID(currBounds, elArg.el, R.__, elArg.lst) `, () => {
+    describe(`This uses the Fn00 w/length:4 version: DCT-> a -> N -> LST -> STR t) `, () => {
         let cut;
         beforeEach(() => {
             cut = thisID(currBounds)('', R.__, []);
@@ -49,7 +49,7 @@ describe(`thisID returns the Rclss Identity of an Element of a Set `, () => {
             expect(cut(4)).to.equal('fut');
         });
     });
-    describe(`Begin testsd against border and error input `, () => {
+    describe(`This uses the Fn01 w/length:3 version: DCT-> a -> LST -> STR `, () => {
         let cut1;
         beforeEach(() => {
             cut1 = thisID1(currBounds)('', []);
