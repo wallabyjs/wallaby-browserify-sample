@@ -11,42 +11,53 @@ let chai = require('chai'),
     should = chai.should,
     expect = chai.expect;
 
-// TEST DATA
-
 /**
  * A style note on naming functions: i.e.  Active Subj Verb DO IDO
- *  Active  Clause: Tom HIT theBall USING aBat          FnName._HIT_USING(IDO.aBat) (DO.theBall)
- *  Passive Clause: theBall wasHIT                      FnName._theBall_wasHIT_WITH (aBat)
- *                                  <BY Tom USING aBat>
- *  Active: thisFn MUTATES allVerses                     FnName._MUTATE_allVerses -> DO
- *  Passive: allVerses areMUTATED                        FnName._allVerses_areMUTATED -> DO
- *                             <BY thisFn USING _MUTATE_aVerse>
+ *  Active  Clause: Tom HIT theBall USING aBat      FnName._HIT_USING(IDO.aBat) (DO.theBall)
+ *  Passive Clause: theBall wasHIT                  FnName._theBall_wasHIT_ (aBat)
+ *                      <USING aBat BY Tom>
+ *
+ *  Active: thisFn MUTATES allVerses                FnName._MUTATE_allVerses: Fn -> SET-> Fn -> SET
+ *                      < USING a function typically named _MUTATE_aVerse>
+ *  Passive: allVerses areMUTATED                   FnName._allVerses_areMUTATED -> DO
+ *                      <USING _MUTATE_aVerse By thisFn>
+ *
+ *
+ *  Active: thisFn APPLIES _MUTATE_aVerse           FnName._APPLY_MUTATE_aVerse: SET -> SET
+ *                      <TO aSet of Verses By thisFn>
+ *
+ *  Passive:_MUTATE_aVerse isAPPLIED                FnName._MUTATE_aVerse_isAPPLIED: SET -> SET
+ *                      <TO allVerses BY thisFn >
  */
 
-// CodeUnderTest
-
+// TEST DATA
 let Noun = [1, 2, 3];
-let _multByThree = curry(a => a * 3);
-let _anArray =  require('../data/testData').arrayStub;
-const _MUTATE_allVerses = R.map(_multByThree);// NP.set -> NP.set
-describe(`Confirm can use a VP_Fn to return a DO`, () => {
-    describe(`_multByThree is a VerbPhrase which can return a Noun `, () => {
-        describe(`the VerbPhrase:_multByThree`, () => {
-            it(`should be a function of len > 0`, () => {
-                expect(_multByThree).to.be.a('function').with.lengthOf(1);
-            });
-        });
-        describe(`the _anArray:  `, () => {
-            it(` invoked it should return a Noun.Set`, () => {
-                expect(_multByThree(10)).to.be.a('number').equal(30);
-            });
-        });
-        describe(`APPLY _MUTATE_allVerses USING _multByThree TO some NOMINAL.
-         i.e. a VerbPhrase: which returns a DObj) `, () => {
-            it(` invoked it should return an Noun.Set`, () => {
-                expect(_MUTATE_allVerses(_anArray)).to.be.an('array').and.to.deep.equal([3,6,9]);
-            });
+let anArrayStub = Noun;
+anArrayStub = require('../data/testData').arrayStub;// -> []
+
+let _aFnStub_ = curry(a => a * 3);// (a -> s)
+
+// CodeUnderTest
+let thisSet_MUTATED_with = require('../src/mutate_allChptVerses').thisSet_MUTATED_with(anArrayStub);      // HAS set WANTS Fn
+let _APPLY_mutateThisVerse_TO = require('../src/mutate_allChptVerses')._APPLY_thisFn(_aFnStub_);  // HAS Fn WANTS set
+
+// TESTS
+describe(`Two Functions can be used to mutateAllVerses`, () => {
+    describe(`#1. thisSet_MUTATED_with(_someFn):: HAS aSet WANTS aFn`, () => {
+        it(`invoked it should be a Set with len > 0`, () => {
+            // expect( R.flip(R.map)(Noun)(_aFnStub_)).to.be.a('array').with.lengthOf(3);
+            expect(thisSet_MUTATED_with(_aFnStub_)).to.be.a('array').with.lengthOf(3);
         });
     });
-});
+    describe(`#2. the _APPLY_mutateThisVerse_TO(  ):: HAS aFn WANTS aSet`, () => {
+        it(` invoked it should return a Noun.Set`, () => {
+            // expect(_APPLY_mutateThisVerse_TO(anArrayStub)).to.be.an('array');
+            expect(_APPLY_mutateThisVerse_TO(anArrayStub))
+                .to.be.an('array')
+                .with.lengthOf(3)
+                .and.to.deep.equal([3, 6, 9]);
+        });
+    });
+})
+;
 
