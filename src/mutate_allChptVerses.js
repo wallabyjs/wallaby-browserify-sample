@@ -20,14 +20,14 @@ let R = require('ramda'),
  * @param fn
  * @param set
  */
-const thisSet_MUTATED_with = R.flip(R.map);    // -> Set (now HAS set WANTS Fn)  -> Fn  -> Set
+const thisSet_MUTATED_by = R.flip(R.map);    // -> Set (now HAS set WANTS Fn)  -> Fn  -> Set
 
 const _APPLY_thisFn = R.map;       //  Fn -> (now HAS Fn WANTS set) -> Set -> Set
 
 // to isolate this to just a document set of verses we will need
 // selectDocSubSet
 
-module.exports = {thisSet_MUTATED_with, _APPLY_thisFn};
+module.exports = {thisSet_MUTATED_by, _APPLY_thisFn};
 
 /**
  * A style note on naming functions: i.e.  Active Subj Verb DO IDO

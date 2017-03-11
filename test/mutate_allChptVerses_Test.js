@@ -38,15 +38,15 @@ anArrayStub = require('../data/testData').arrayStub;// -> []
 let _aFnStub_ = curry(a => a * 3);// (a -> s)
 
 // CodeUnderTest
-let thisSet_MUTATED_with = require('../src/mutate_allChptVerses').thisSet_MUTATED_with(anArrayStub);      // HAS set WANTS Fn
+let ChprVerses_MUTATED_by = require('../src/mutate_allChptVerses').thisSet_MUTATED_by(anArrayStub);      // HAS set WANTS Fn
 let _APPLY_mutateThisVerse_TO = require('../src/mutate_allChptVerses')._APPLY_thisFn(_aFnStub_);  // HAS Fn WANTS set
 
 // TESTS
 describe(`Two Functions can be used to mutateAllVerses`, () => {
-    describe(`#1. thisSet_MUTATED_with(_someFn):: HAS aSet WANTS aFn`, () => {
+    describe(`#1. ChprVerses_MUTATED_by(_someFn):: HAS aSet WANTS aFn`, () => {
         it(`invoked it should be a Set with len > 0`, () => {
             // expect( R.flip(R.map)(Noun)(_aFnStub_)).to.be.a('array').with.lengthOf(3);
-            expect(thisSet_MUTATED_with(_aFnStub_))
+            expect(ChprVerses_MUTATED_by(_aFnStub_))
                 .to.be.a('array')
                 .with.lengthOf(3)
                 .and.to.deep.equal([3, 6, 9]);
