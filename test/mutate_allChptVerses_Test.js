@@ -41,7 +41,7 @@ let _aFnStub_ = curry(a => a * 3);// (a -> s)
 let ChprVerses_MUTATED_by = require('../src/mutate_allChptVerses').thisSet_MUTATED_by(anArrayStub);      // HAS set WANTS Fn
 let _APPLY_mutateThisVerse_TO = require('../src/mutate_allChptVerses')._APPLY_thisFn(_aFnStub_);  // HAS Fn WANTS set
 
-// TESTS
+// TESTS with Stubs NEXT TODO REAL DATA IN main.js
 describe(`Two Functions can be used to mutateAllVerses`, () => {
     describe(`#1. ChprVerses_MUTATED_by(_someFn):: HAS aSet WANTS aFn`, () => {
         it(`invoked it should be a Set with len > 0`, () => {
