@@ -46,7 +46,10 @@ describe(`Two Functions can be used to mutateAllVerses`, () => {
     describe(`#1. thisSet_MUTATED_with(_someFn):: HAS aSet WANTS aFn`, () => {
         it(`invoked it should be a Set with len > 0`, () => {
             // expect( R.flip(R.map)(Noun)(_aFnStub_)).to.be.a('array').with.lengthOf(3);
-            expect(thisSet_MUTATED_with(_aFnStub_)).to.be.a('array').with.lengthOf(3);
+            expect(thisSet_MUTATED_with(_aFnStub_))
+                .to.be.a('array')
+                .with.lengthOf(3)
+                .and.to.deep.equal([3, 6, 9]);
         });
     });
     describe(`#2. the _APPLY_mutateThisVerse_TO(  ):: HAS aFn WANTS aSet`, () => {
