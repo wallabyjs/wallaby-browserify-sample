@@ -55,42 +55,5 @@ describe(`Over View: this Fn is a part of pipe that
         xit(`partialed more it should  to be function of length 1`, () => {
             expect(thisID(currBounds)('', R.__, [])).to.be.a('function').with.lengthOf(1);
         });
-
     });
-    // xdescribe(`This uses the Fn00 w/length:4 version: DCT-> a -> N -> LST -> STR t) `, () => {
-    //     let cut;
-    //     beforeEach(() => {
-    //         cut = thisID(currBounds)('', R.__, []);
-    //     });
-    //     it(` invoked it should return an Rclss name`,
-    //         () => {
-    //             expect(cut(0)).to.equal('pst');
-    //             expect(cut(1)).to.equal('pst');
-    //             expect(cut(2)).to.equal('cur');
-    //             expect(cut(3)).to.equal('cur');
-    //             expect(cut(4)).to.equal('fut');
-    //         });
-    // });
-    // xdescribe(`This uses the Fn01 w/length:3 version: DCT-> a -> LST -> STR `, () => {
-    //     let cut1;
-    //     beforeEach(() => {
-    //         cut1 = thisID1(currBounds)('', []);
-    //     });
-    //     it(`
-    //     Test: thisID invoked with elemNdx < elemList.length and > elemList.length;
-    //     The returned names are valid.
-    //     BUT are they HARMFUL when passes on to the next Fn?
-    //     OR will they ever be used?
-    //     The input elemList WILL ALWAYS = 0 OR greater until it's length`, () => {
-    //         expect(cut1(-11)).to.equal('pst');
-    //         expect(cut1(-1)).to.equal('pst');
-    //         expect(cut1(0)).to.equal('pst');
-    //         expect(cut1(1)).to.equal('pst');
-    //         expect(cut1(2)).to.equal('cur');
-    //         expect(cut1(3)).to.equal('cur');
-    //         expect(cut1(4)).to.equal('fut');
-    //         expect(cut1(elArg.lst.length)).to.equal('fut', 'Even though list.length as an index is beyond the range of the list.');
-    //         expect(cut1(10)).to.equal('fut');
-    //     });
-    // });
 });
