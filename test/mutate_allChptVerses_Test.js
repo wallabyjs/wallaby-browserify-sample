@@ -30,21 +30,20 @@ let chai = require('chai'),
  *                      <TO allVerses BY thisFn >
  */
 
-// TEST DATA
-let Noun = [1, 2, 3];
-let aStubSet = Noun;
-aStubSet = require('../data/testData').arrayStub;// -> []
-
-let aStubFn = curry(a => a * 3);// (a -> s)
-
-// CodeUnderTest
-let aStubSet_MUTATED_by = require('../src/mutate_allChptVerses')
-    .thisSet_MUTATED_by(aStubSet);      // now HAS set WANTS Fn
-let _APPLY_aStubFn_TO = require('../src/mutate_allChptVerses')
-    ._APPLY_thisFn_to(aStubFn);  // now HAS Fn WANTS set
-
-// TESTS with Stubs NEXT TODO REAL DATA IN main.js
+// TESTS with Stubs
 describe(`Two Functions can be used to mutateAllVerses`, () => {
+    // TEST DATA
+    let Noun = [1, 2, 3];
+    let aStubSet = require('../data/testData').arrayStub;// -> []
+
+    let aStubFn = curry(a => a * 3);// (a -> s)
+
+    // CodeUnderTest
+    let aStubSet_MUTATED_by = require('../src/mutate_allChptVerses')
+        .thisSet_MUTATED_by(aStubSet);      // now HAS set WANTS Fn
+    let _APPLY_aStubFn_TO = require('../src/mutate_allChptVerses')
+        ._APPLY_thisFn_to(aStubFn);  // now HAS Fn WANTS set
+
     describe(`#1. aStubSet_MUTATED_by(_someFn):: HAS aSet WANTS aFn`, () => {
         it(`invoked it should be a Set with len > 0`, () => {
             // expect( R.flip(R.map)(Noun)(aStubFn)).to.be.a('array').with.lengthOf(3);
@@ -70,24 +69,36 @@ describe(`Two Functions can be used to mutateAllVerses`, () => {
     });
 
 });
-// describe(`there are 2functions to mutate All the Verses`, () => {
-//     describe(`#1. aStubSet_MUTATED_by(_someFn ):: HAS aSet WANTS aFn`, () => {
-//         it(`should return aSet given aFn`, () => {
-//             // expect( R.flip(R.map)(Noun)(aStubSet)).to.be.a('array').with.lengthOf(3);
-//             expect(aStubSet_MUTATED_by(aStubSet))
-//                 .to.be.a('array')
-//                 .with.lengthOf(3)
-//                 .and.to.deep.equal([3, 6, 9]);
-//         });
-//     });
-//     describe(`#2. _APPLY_aStubFn_TO( aSet ):: HAS aFn WANTS aSet`, () => {
-//         it(`should return aSet give aSet`, () => {
-//             // expect(_APPLY_aStubFn_TO(aStubSet)).to.be.an('array');
-//             expect(_APPLY_aStubFn_TO(aStubSet))
-//                 .to.be.an('array')
-//                 .with.lengthOf(3)
-//                 .and.to.deep.equal([3, 6, 9]);
-//         });
-//     });
-// });
+
+describe(`Now, use a Fn03:: (STR.selector -> SET.document) -> SET.CHptVerses
+    let aStubSet = require('../data/testData').arrayStub;// -> []
+    AND use it to produce #3 allChptrVerses_MUTATED_by(_someFn )`, () => {
+    let aStubSet = require('../data/testData').arrayStub;// -> []
+    let aStubFn = curry(a => a * 3);// (a -> s)
+
+    // CodeUnderTest
+    let allChptVerses_MUTATED_by = require('../src/mutate_allChptVerses')
+        .thisSet_MUTATED_by(aStubSet);      // now HAS set WANTS Fn
+
+    let Fn03 = (str, doc) => doc.querySelectorAll(str);
+
+    describe(`FIRST,Fn03::(STR.selector -> SET.document) -> SET.ChptVerses`, () => {
+        xit(`expect GIVE aSTR.selector, GET aSet.ChptVerses`, () => {
+            expect(_APPLY_aStubFn_TO(aStubSet)).to.be.an('array');
+            // expect(_APPLY_aStubFn_TO(aStubSet))
+            //     .to.be.an('array')
+            //     .with.lengthOf(3)
+            //     .and.to.deep.equal([3, 6, 9]);
+        });
+    });
+    xdescribe(`#3. allChptrVerses_MUTATED_by(_someFn ):: HAS aSet WANTS aFn`, () => {
+        it(`should return aSet given aFn`, () => {
+            // expect( R.flip(R.map)(Noun)(aStubSet)).to.be.a('array').with.lengthOf(3);
+            expect(aStubSet_MUTATED_by(aStubSet))
+                .to.be.a('array')
+                .with.lengthOf(3)
+                .and.to.deep.equal([3, 6, 9]);
+        });
+    });
+});
 
