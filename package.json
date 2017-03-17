@@ -4,6 +4,7 @@
   "description": "Wallaby.js with browserify sample",
   "main": "index.js",
   "scripts": {
+    "watch": "watchify main.js -o bundle.js -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
