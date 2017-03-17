@@ -67,7 +67,6 @@ describe(`Two Functions can be used to mutateAllVerses`, () => {
             expect(0).to.equal(0);
         });
     });
-
 });
 
 describe(`Now, use a Fn03:: (STR.selector -> SET.document) -> SET.CHptVerses
