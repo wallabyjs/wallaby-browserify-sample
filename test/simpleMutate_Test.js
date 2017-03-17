@@ -45,27 +45,30 @@ describe(`map(mutate_aVerse)(HTML document/chapter)
         loadFixtures('index.html');
         doc = document;
     });
-    xdescribe(`first confirm the Document`, () => {
+    describe(`first confirm the Document`, () => {
         it(`should not be 'null'`, () => {
-            expect(document).to.exist.and.not.to.be.a('null');
+            expect(doc).to.exist.and.not.to.be.a('null');
         });
     });
     describe(`then confirm the document has an element 'chptr'`, () => {
-        _aChpt = document.querySelector('#chptr');//NOTE use of actual div class=chptr
-        it(`should.be an HTML element.`, () => {
-            (_aChpt).should.exist;
+        // let _aChpt = document.querySelector('body, div, .chptr');//NOTE use of actual div class=chptr
+        let _querySelector = R.invoker(1, 'querySelector');
+        let _aChpt = _querySelector('body  div .chptr');//NOTE use of actual div class=chptr
+        it(`should.be an div.chptr element.`, () => {
+            expect(_aChpt(doc)).to.exist.and.not.to.be.a('null');
         });
-        it(`should have an element: 'div.chptr`);
-        expect(_aChpt).tagName
-            .to.be.equal('chptr');
-    });
-    xdescribe(`next confirm the Fn:_mutate_aVerse`, () => {
-        it(`should not be 'null'`, () => {
-            expect(document).to.exist.and.not.to.be.a('null');
-            it(`should have an element: 'div.chptr`);
-            let Chpt = document.querySelector('.chptr');
-            expect(Chpt.className)
+        it(`should have an element: 'div.chptr`, () => {
+            expect(_aChpt(doc).className)
                 .to.be.equal('chptr');
+        });
+        xdescribe(`next confirm the Fn:_mutate_aVerse`, () => {
+            it(`should not be 'null'`, () => {
+                expect(document).to.exist.and.not.to.be.a('null');
+                it(`should have an element: 'div.chptr`);
+                let Chpt = document.querySelector('.chptr');
+                expect(Chpt.className)
+                    .to.be.equal('chptr');
+            });
         });
     });
 });
