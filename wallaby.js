@@ -28,6 +28,8 @@ module.exports = function (wallaby) {
             {pattern: 'test/*Test.js', load: false}
         ],
 
+
+
         compilers: {
             '**/*.js': wallaby.compilers.babel({
                 presets: ['es2015']
