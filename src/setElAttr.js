@@ -10,9 +10,9 @@ let R = require('ramda'),
 /**
  *
  */
-const setElAttr = curry(
+const setStyleAttr = curry(
     /**
-     *  ..... setElAttr:: STR->ELEM->ELEM
+     *  ..... setStyleAttr:: STR->ELEM->ELEM
      *  usage: 
      * @param strOfCSS
      * @param elem
@@ -22,4 +22,4 @@ const setElAttr = curry(
     elem.setAttribute('style', strOfCSS);
     return elem
 });
-module.exports = setElAttr;
+module.exports = setStyleAttr;

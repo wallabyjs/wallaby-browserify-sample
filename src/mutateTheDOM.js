@@ -9,7 +9,7 @@ let R = require('ramda'),
     compose = R.compose;
 
 let mutateTheFirstLine = require(
-    '../src/setElAttr');//    STR.css->ELM->ELM
+    '../src/setStyleAttr');//    STR.css->ELM->ELM
 let mutateTitle = require(
     '../src/mutateTitle_VersionNumber');
 

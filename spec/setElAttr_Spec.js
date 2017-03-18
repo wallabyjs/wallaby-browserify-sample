@@ -17,7 +17,7 @@ let chai = require('chai'),
     should = chai.should();
 
 //CODE UNDER TST
-let setElAttr = require('../src/setElAttr');
+let setStyleAttr = require('../src/setStyleAttr');
 
 describe(`setStyleElem:: STR -> ELEM -> ELEM
 `, function () {
@@ -26,15 +26,15 @@ describe(`setStyleElem:: STR -> ELEM -> ELEM
         loadFixtures('index.html');
         chptSpns = document.querySelectorAll(".chptr span");
         anElem = R.nth(0)(chptSpns);
-        fn = setElAttr;
+        fn = setStyleAttr;
     });
-    context(`JUST THE FUNCTION - setElAttr()
+    context(`JUST THE FUNCTION - setStyleAttr()
     `, function () {
         it(`should be a function w/ artity:2..`, function () {
             fn.should.be.a('function').with.lengthOf(2);
         });
     });
-    context(`INVOKED setElAttr(str, elem)
+    context(`INVOKED setStyleAttr(str, elem)
     `, function () {
         it(`should return and be equal to the @parm: elem`, function () {
             fn('opacity:0.4', anElem).should.equal(anElem)
@@ -45,7 +45,7 @@ describe(`setStyleElem:: STR -> ELEM -> ELEM
             anElem.style.opacity.should.equal('0.4');
         });
     });
-    context(`INVOKED setElAttr( WITH str OF multiple Properties
+    context(`INVOKED setStyleAttr( WITH str OF multiple Properties
      e.g."opacity:0.4; color:red; font-size:59%" 
     `, function () {
         it(`should STILL have a new elem.style.opacity property`, function () {
