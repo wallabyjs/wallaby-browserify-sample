@@ -1,5 +1,5 @@
 /**
- * simpleMutate.js
+ * @0700 20 march 2017*  BUT it is hardcoded and inflexible and too narrow.
  */
 "use strict";
 
@@ -18,20 +18,16 @@ let chai = require('chai'),
     should = chai.should(),
     expect = chai.expect;
 
-// CodeUnderTest --- these will be moved to src/....js after building these tests.
-let _querySelector = R.invoker(1, 'querySelector');
-let _aChpt = _querySelector('body  div .chptr');//DOC->SPAN.  NOTE use of actual div class=chptr with a training 'r'
-let _children = curry(elem => elem.children);
-let _allVerses = pipe(_aChpt, _children);// ELEM -> [SPANS]
+let H = require('../h/H');
 
-let _mutate_aVerse = (el, ndx, set) => {
-    return el
-};
+/**
+ // * USAGE: _allChptVersesFrom(document) -> allChptVerses
+ */
+let _allChptVersesFrom = H.Spans_FROM_theDocument_GIVEN_aSelector('body  div .chptr span');//
 
-describe(`in English this is a Fn that RETURNS aSet_ofVerses WHEN thisFn IS APPLIED TO theDocument
+describe(`in English this is a Fn that RETURNS aSet_ofVerses FROM theDocument GIVEN aQuerySTR.
 
- More broadly        this is a Fn that RETURNS aSet_ofSpans WHEN thisFn IS APPLIED TO theDocument 
- rephrased in passioveVoice                    aSet_ofSpans isRETURNED WHEN thisFn IS APPLIED TO theDocument
+ BUT it is inflexible and too narrow: 20 march 2017.
     `, () => {
     let doc;
     mocha.beforeEach(function () {
@@ -39,7 +35,7 @@ describe(`in English this is a Fn that RETURNS aSet_ofVerses WHEN thisFn IS APPL
         doc = document;
     });
 
-    describe(`FIRST - the Data Fn: _allVerses 
+    describe(`FIRST - the Data Fn: _allChptVerses 
      this is a verbose series of tests: from begin to final Fn..`, () => {
         describe(`first confirm the Document
     `, () => {
@@ -47,52 +43,52 @@ describe(`in English this is a Fn that RETURNS aSet_ofVerses WHEN thisFn IS APPL
                 expect(doc).to.exist.and.not.to.be.a('null');
             });
         });
-        describe(`confirm Fn:_aChpt(doc) HAS an element 'chptr'
-    `, () => {
-            it(`should.be an div.chptr element.`, () => {
-                expect(_aChpt(doc)).to.exist.and.not.to.be.a('null');
-            });
-            it(`should have an element: 'chptr`, () => {
-                expect(_aChpt(doc).className)
-                    .to.be.equal('chptr');
-            });
-        });
-        describe(`_aChpt(doc)should HAVE children'
-        `, () => {
-            it(`should have at least one child`, () => {
-                expect(_aChpt(doc).childElementCount)
-                    .to.be.gt(1);
-            });
-            it(`should have a SPAN first Child`, () => {
-                expect(_aChpt(doc).children[0].tagName)
-                    .eql('SPAN');
-            });
-
-        });
-        describe(`confirm the Fn: _children(_aChpt(doc)) RETURNS all the Verses [Spans] 
-    `, () => {
-            it(`should arrayLike`, () => {
-                expect(R.isArrayLike(_children(_aChpt(doc)))).isT;
-            });
-            it(`should have at least 0ne child`, () => {
-                expect(_children(_aChpt(doc)).length).to.be.gt(0);
-            });
-            it(`should have a Span first Child`, () => {
-                expect(_children(_aChpt(doc))[0].tagName)
-                    .eql('SPAN');
-            });
-        });
+        //     describe(`confirm Fn:_aChpt(doc) HAS an element 'chptr'
+        // `, () => {
+        //         it(`should.be an div.chptr element.`, () => {
+        //             expect(_aChpt(doc)).to.exist.and.not.to.be.a('null');
+        //         });
+        //         it(`should have an element: 'chptr`, () => {
+        //             expect(_aChpt(doc).className)
+        //                 .to.be.equal('chptr');
+        //         });
+        //     });
+        //     describe(`_aChpt(doc)should HAVE children'
+        //     `, () => {
+        //         it(`should have at least one child`, () => {
+        //             expect(_aChpt(doc).childElementCount)
+        //                 .to.be.gt(1);
+        //         });
+        //         it(`should have a SPAN first Child`, () => {
+        //             expect(_aChpt(doc).children[0].tagName)
+        //                 .eql('SPAN');
+        //         });
+        //
+        //     });
+        //     describe(`confirm the Fn: _children(_aChpt(doc)) RETURNS all the Verses [Spans]
+        // `, () => {
+        //         it(`should arrayLike`, () => {
+        //             expect(R.isArrayLike(_children(_aChpt(doc)))).isT;
+        //         });
+        //         it(`should have at least 0ne child`, () => {
+        //             expect(_children(_aChpt(doc)).length).to.be.gt(0);
+        //         });
+        //         it(`should have a Span first Child`, () => {
+        //             expect(_children(_aChpt(doc))[0].tagName)
+        //                 .eql('SPAN');
+        //         });
+        // });
         describe(`now  confirm the Fn:_allVerse(doc) RETURNS all the Verses [Spans].
     
-            This is the final setOf_Verses to map the Fn: _mutate_aVerse on to.`, () => {
+            In context we now have setOf_Verses which a Fn: _mutate_aVersecan use TO MUTATE all of them.`, () => {
             it(`should be arrayLike`, () => {
-                expect(R.isArrayLike(_allVerses(doc))).ok;
+                expect(R.isArrayLike(_allChptVersesFrom(doc))).ok;
             });
             it(`should have at least 0ne child`, () => {
-                expect(_allVerses(doc).length).to.be.gt(0);
+                expect(_allChptVersesFrom(doc).length).to.be.gt(0);
             });
             it(`should have a Span first Child`, () => {
-                expect(_allVerses(doc)[0].tagName)
+                expect(_allChptVersesFrom(doc)[0].tagName)
                     .equal('SPAN');
             });
         });
