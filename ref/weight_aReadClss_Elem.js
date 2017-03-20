@@ -24,7 +24,7 @@ let identity = R.identity;
 let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 let _ReadClss_CsdLimits; // STR.readClssName -> DCT.readClss_CsdLimits
-_ReadClss_CsdLimits = require('../src/get_aReadClss_CsdLimits');
+_ReadClss_CsdLimits = require('get_aReadClss_CsdLimits');
 //
 // let _formatOpacity; // a -> STR
 // _formatOpacity = require('../src/Elem_Style_Formatters')._formatOpacity;
