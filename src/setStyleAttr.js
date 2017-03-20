@@ -6,20 +6,20 @@ let R = require('ramda'),
     compose = R.compose,
     curry = R.curry;
 
-
 /**
  *
  */
-const setElAttr = curry(
+const setStyleAttr = curry(
     /**
-     *  ..... setElAttr:: STR->ELEM->ELEM
-     *  usage: 
+     *  ..... setStyleAttr:: STR->ELEM->ELEM
+     * mutates an Element style Attribute, not CSD
+     * USAGE:
      * @param strOfCSS
      * @param elem
-     * @return {*}
+     * @return elem
      */
     (strOfCSS, elem) => {
     elem.setAttribute('style', strOfCSS);
     return elem
 });
-module.exports = setElAttr;
+module.exports = setStyleAttr;
