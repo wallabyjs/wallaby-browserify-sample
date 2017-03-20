@@ -6,17 +6,17 @@ let R = require('ramda'),
     compose = R.compose,
     curry = R.curry;
 
-
 /**
  *
  */
 const setStyleAttr = curry(
     /**
      *  ..... setStyleAttr:: STR->ELEM->ELEM
-     *  usage: 
+     * mutates an Element style Attribute, not CSD
+     * USAGE:
      * @param strOfCSS
      * @param elem
-     * @return {*}
+     * @return elem
      */
     (strOfCSS, elem) => {
     elem.setAttribute('style', strOfCSS);

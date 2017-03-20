@@ -18,25 +18,6 @@ let chai = require('chai'),
     should = chai.should(),
     expect = chai.expect;
 
-/**
- * A style note on naming functions: i.e.  Active Subj Verb DO IDO
- *  Active  Clause: Tom HIT theBall USING aBat      FnName._HIT_USING(IDO.aBat) (DO.theBall)
- *  Passive Clause: theBall wasHIT                  FnName._theBall_wasHIT_ (aBat)
- *                      <USING aBat BY Tom>
- *
- *  Active: thisFn MUTATES allVerses                FnName._MUTATE_allVerses: Fn -> SET-> Fn -> SET
- *                      < USING a function typically named _MUTATE_aVerse>
- *  Passive: allVerses areMUTATED                   FnName._allVerses_areMUTATED -> DO
- *                      <USING _MUTATE_aVerse By thisFn>
- *
- *
- *  Active: thisFn APPLIES _MUTATE_aVerse           FnName._APPLY_MUTATE_aVerse: SET -> SET
- *                      <TO aSet of Verses By thisFn>
- *
- *  Passive:_MUTATE_aVerse isAPPLIED                FnName._MUTATE_aVerse_isAPPLIED: SET -> SET
- *                      <TO allVerses BY thisFn >
- */
-
 // CodeUnderTest --- these will be moved to src/....js after building these tests.
 let _querySelector = R.invoker(1, 'querySelector');
 let _aChpt = _querySelector('body  div .chptr');//DOC->SPAN.  NOTE use of actual div class=chptr with a training 'r'
@@ -47,10 +28,11 @@ let _mutate_aVerse = (el, ndx, set) => {
     return el
 };
 
-describe(`map(mutate_aVerse)(aSet of HTML document/chapter/Verses)
+describe(`in English this is a Fn that RETURNS aSet_ofVerses WHEN thisFn IS APPLIED TO theDocument
 
-    I want to mutate all of the Verses in a Chapter;
-    This is accomplished by map('mutate_aVerse)(document)`, () => {
+ More broadly        this is a Fn that RETURNS aSet_ofSpans WHEN thisFn IS APPLIED TO theDocument 
+ rephrased in passioveVoice                    aSet_ofSpans isRETURNED WHEN thisFn IS APPLIED TO theDocument
+    `, () => {
     let doc;
     mocha.beforeEach(function () {
         loadFixtures('index.html');
@@ -102,7 +84,7 @@ describe(`map(mutate_aVerse)(aSet of HTML document/chapter/Verses)
         });
         describe(`now  confirm the Fn:_allVerse(doc) RETURNS all the Verses [Spans].
     
-        This is the final setOf_Verses to map the Fn: _mutate_aVerse on to.`, () => {
+            This is the final setOf_Verses to map the Fn: _mutate_aVerse on to.`, () => {
             it(`should be arrayLike`, () => {
                 expect(R.isArrayLike(_allVerses(doc))).ok;
             });
@@ -110,19 +92,10 @@ describe(`map(mutate_aVerse)(aSet of HTML document/chapter/Verses)
                 expect(_allVerses(doc).length).to.be.gt(0);
             });
             it(`should have a Span first Child`, () => {
-                expect((_allVerses(doc))[0].tagName)
-                    .equal('SPAN');//   NOTE: double quotes:(_allVerses(doc))
+                expect(_allVerses(doc)[0].tagName)
+                    .equal('SPAN');
             });
         });
-
-    });
-    describe(`SECOND: the map Fn: _mutate_aVerse`, () => {
-        describe(`Fn:_mutate_aVerse`, () => {
-            it(`should exis'`, () => {
-                expect(_mutate_aVerse).to.be.a('function');
-            });
-        });
-
     });
 });
 

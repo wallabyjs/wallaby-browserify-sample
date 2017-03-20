@@ -17,7 +17,7 @@ let R = require('ramda'),
 
 const thisSet_MUTATED_by =curry(
     /**
-     *  .....   thisSet_MUTATED_by
+     *  .....   thisSet_MUTATED_by:: SET -> Fn -> SET
      * FIRST -> aSet (now HAS set,  WANTS Fn)  -> Fn  ->  TO RET aSet
      * @param set
      * @param fn
@@ -26,8 +26,8 @@ const thisSet_MUTATED_by =curry(
 
 const _APPLY_thisFn_to = curry(
     /**
-     *
-     * //  Fn -> (now HAS Fn, WANTS set) -> Set -> Set
+     *  .... _APPLY_thisFn_to:  Fn -> Set -> Set
+     *  (now HAS Fn, WANTS set)
      * @param fn
      * @param set
      */
