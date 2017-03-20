@@ -15,7 +15,7 @@ let chai = require('chai'),
     should = chai.should();
 
 //CODE UNDER TST
-let setStyleAttr = require('../src/setStyleAttr');
+let setStyleAttr = require('../src/ElemStyleAttr_isMUTATED_FROM');
 let CUT_Fn = setStyleAttr;
 
 describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]: 
