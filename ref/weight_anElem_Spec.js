@@ -15,16 +15,16 @@ let expect = chai.expect;
 let roundToTwoPlaces = require('../h/roundToTwoPlaces');
 
 let _ReadClss_CsdLimits; // STR.readClssName -> DCT.readClss_CsdLimits
-_ReadClss_CsdLimits = require('../src/get_aReadClss_CsdLimits');
+_ReadClss_CsdLimits = require('get_aReadClss_CsdLimits');
 
 let _formatOpacity; // a -> STR
-_formatOpacity = require('../src/format_anElem_Style')._formatOpacity;
+_formatOpacity = require('format_anElem_Style')._formatOpacity;
 
 let _formatFontSize;// N -> STR
-_formatFontSize = require('../src/format_anElem_Style')._formatFontSize;
+_formatFontSize = require('format_anElem_Style')._formatFontSize;
 
 // CODE UNDER TEST
-let _ElemWTER = require('../src/weight_aReadClss_Elem')._ElemWTER;// D->L->N -> N
+let _ElemWTER = require('weight_aReadClss_Elem')._ElemWTER;// D->L->N -> N
 
 describe(`_ElemWTER:: D -> L -> N -> N returns this_Elem's relative Weight 
         asFnOf  Its_ReadClss 
@@ -48,7 +48,7 @@ describe(`_ElemWTER:: D -> L -> N -> N returns this_Elem's relative Weight
 
 // NOW CODE for a specific ReadClass'a elements
 let weight_aReadClss_Elem;// S->L->N -> N
-weight_aReadClss_Elem = require('../src/weight_aReadClss_Elem').weight_aReadClss_Elem;// D->L->N -> N
+weight_aReadClss_Elem = require('weight_aReadClss_Elem').weight_aReadClss_Elem;// D->L->N -> N
 
 describe("a weight_aReadClss_Elem(expects a ReadClss Name as its 1st arg and return an Elements relative weight.", function () {
     let arg1 = 'pst';

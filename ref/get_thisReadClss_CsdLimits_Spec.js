@@ -24,7 +24,7 @@ let CsdLimits = require('../data/all_CsdLimits');
 //     fut: {csdBeg:1, csdEnd:.4}};
 
 //CODE
-let a_ReadClss_CsdLimits = require('../src/get_aReadClss_CsdLimits');
+let a_ReadClss_CsdLimits = require('get_aReadClss_CsdLimits');
 
 describe(`a_ReadClss_CsdLimits(STR) -> DCT:: returns a NAMED ReadClass CsdLimits DCT,
    e.g. Pst_CsdLimits`, function () {
