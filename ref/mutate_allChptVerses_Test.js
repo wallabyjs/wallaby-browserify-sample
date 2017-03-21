@@ -39,9 +39,9 @@ describe(`Two Functions can be used to mutateAllVerses`, () => {
     let aStubFn = curry(a => a * 3);// (a -> s)
 
     // CodeUnderTest
-    let aStubSet_MUTATED_by = require('../src/mutate_allChptVerses')
+    let aStubSet_MUTATED_by = require('../test/mutate_allChptVerses')
         .thisSet_MUTATED_by(aStubSet);      // now HAS set WANTS Fn
-    let _APPLY_aStubFn_TO = require('../src/mutate_allChptVerses')
+    let _APPLY_aStubFn_TO = require('../test/mutate_allChptVerses')
         ._APPLY_thisFn_to(aStubFn);  // now HAS Fn WANTS set
 
     describe(`#1. aStubSet_MUTATED_by(_someFn):: HAS aSet WANTS aFn`, () => {
@@ -76,7 +76,7 @@ describe(`Now, use a Fn03:: (STR.selector -> SET.document) -> SET.CHptVerses
     let aStubFn = curry(a => a * 3);// (a -> s)
 
     // CodeUnderTest
-    let allChptVerses_MUTATED_by = require('../src/mutate_allChptVerses')
+    let allChptVerses_MUTATED_by = require('../test/mutate_allChptVerses')
         .thisSet_MUTATED_by(aStubSet);      // now HAS set WANTS Fn
 
     let Fn03 = (str, doc) => doc.querySelectorAll(str);

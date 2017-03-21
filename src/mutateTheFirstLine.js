@@ -6,5 +6,5 @@
 //
 let R = require('ramda');
 
-let mutateTheFirstLIne = require('../src/ElemStyleAttr_isMUTATED_FROM');//TYPE SIG::  STR.CSS->ELEM.verse->ELEM
+let mutateTheFirstLIne = require('mutate_anElemStyleAttr_');//TYPE SIG::  STR.CSS->ELEM.verse->ELEM
 module.exports = mutateTheFirstLIne;

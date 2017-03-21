@@ -15,11 +15,12 @@ let chai = require('chai'),
     should = chai.should();
 
 //CODE UNDER TST
-let setStyleAttr = require('../src/ElemStyleAttr_isMUTATED_FROM');
-let CUT_Fn = setStyleAttr;
+let mutate_StyleAttr = require('../src/mutate_anElemStyleAttr_');
+let CUT_Fn = mutate_StyleAttr;
 
-describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]: 
-    it mutates the Element it is applied to. CUT_Fn:: STR -> ELEM -> ELEM
+describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]: STR -> ELEM -> ELEM
+ 
+    it ACCEPTS and APPLIES aCSS_like String TO anElement
 `, function () {
     let doc, chptSpns, baseElem, anElem;
     mocha.beforeEach(function () {
@@ -27,7 +28,7 @@ describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]:
         doc = document;
         chptSpns = document.querySelectorAll("body .chptr, span");
         anElem = R.nth(0, chptSpns);
-        CUT_Fn = setStyleAttr;
+        CUT_Fn = mutate_StyleAttr;
     });
     context(`The CUT_Fn HAS Params (CssStr, Elem): 
     `, function () {
@@ -68,3 +69,4 @@ describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]:
     });
 });
 
+//

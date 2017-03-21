@@ -1,6 +1,3 @@
-/**
- * @0700 20 march 2017*  BUT it is hardcoded and inflexible and too narrow.
- */
 "use strict";
 
 let R = require('ramda'),

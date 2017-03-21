@@ -9,9 +9,10 @@ let R = require('ramda'),
 /**
  *
  */
-const ElemStyleAttr_isMUTATED_FROM = curry(
+const MUTATE_anElemStyleAttr_ = curry(
     /**
-     *  ..... ElemStyleAttr_isMUTATED_FROM:: STR->ELEM->ELEM
+     *  ..... MUTATES_anElemStyleAttr
+     *  ..... MUTATE_anElemStyleAttr_:: STR->ELEM->ELEM
      * mutates an Element style Attribute, not CSD
      * USAGE:
      * @param strOfCSS
@@ -19,7 +20,7 @@ const ElemStyleAttr_isMUTATED_FROM = curry(
      * @return elem
      */
     (strOfCSS, elem) => {
-    elem.setAttribute('style', strOfCSS);
+        elem.setAttribute('style', strOfCSS);
     return elem
 });
-module.exports = ElemStyleAttr_isMUTATED_FROM;
+module.exports = MUTATE_anElemStyleAttr_;
