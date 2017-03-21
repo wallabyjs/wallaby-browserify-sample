@@ -19,7 +19,7 @@ describe(`restyle_aCSD:: LST.propName -> LST. propValu -> CSD -> CSD`, ()=>{
         loadFixtures('index.html');
         dom = document;
     });
-    it(`should ..`, () => {
+    it(`should USE THIS A CONFIRM wallaby WORKS`, () => {
         // (1).should.equal(0);
     });
 
