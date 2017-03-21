@@ -9,18 +9,19 @@ let R = require('ramda'),
 /**
  *
  */
-const MUTATE_anElemStyleAttr_ = curry(
+const mutate_anElemStyleAttr_ = curry(
     /**
-     *  ..... MUTATES_anElemStyleAttr
-     *  ..... MUTATE_anElemStyleAttr_:: STR->ELEM->ELEM
+     *  ..... mutateS_anElemStyleAttr
+     *  ..... mutate_anElemStyleAttr_:: STR->ELEM->ELEM
      * mutates an Element style Attribute, not CSD
      * USAGE:
-     * @param strOfCSS
+     * @param css_str
      * @param elem
      * @return elem
      */
-    (strOfCSS, elem) => {
-        elem.setAttribute('style', strOfCSS);
+    (css_str, elem) => {
+        elem.setAttribute('style', css_str)
+        k;
     return elem
 });
-module.exports = MUTATE_anElemStyleAttr_;
+module.exports = mutate_anElemStyleAttr_;

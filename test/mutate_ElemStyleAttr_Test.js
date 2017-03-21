@@ -18,9 +18,9 @@ let chai = require('chai'),
 let mutate_StyleAttr = require('../src/mutate_anElemStyleAttr_');
 let CUT_Fn = mutate_StyleAttr;
 
-describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]: STR -> ELEM -> ELEM
+describe(`CUT_Fn:: mutate_StyleAttr:: STR -> ELEM -> ELEM
  
-    it ACCEPTS and APPLIES aCSS_like String TO anElement
+    it ACCEPTS and APPLIES aCSS_like String TO anElement.
 `, function () {
     let doc, chptSpns, baseElem, anElem;
     mocha.beforeEach(function () {
@@ -30,13 +30,19 @@ describe(`setStyleElem IS the CodeUnderTest [CUT_Fn]: STR -> ELEM -> ELEM
         anElem = R.nth(0, chptSpns);
         CUT_Fn = mutate_StyleAttr;
     });
-    context(`The CUT_Fn HAS Params (CssStr, Elem): 
+    context(`CUT_Fn HAS Params (CssStr, Elem): 
     `, function () {
         it(`should be a function w/ artity:2..`, function () {
             CUT_Fn.should.be.a('function').with.lengthOf(2);
         });
+        it(`should expect the Css Param to be a STR.
+            
+            not an object since an ATtr uses CSS not JS naming.`, () => {
+            (1).should.equal(0);
+        });
+
     });
-    context(`The CUT_Fn( WITH a CSS_ like Str param: '{key:valu, k:v, ...}, 
+    context(`CUT_Fn Param( WITH a CSS_ like Str param: '{key:valu, k:v, ...}, 
         APPLIED TO (anElem) -> MUTATES -> that Element
         e.g.CSS_ like -"opacity:0.4; color:red; font-size:59%" 
     `, function () {
