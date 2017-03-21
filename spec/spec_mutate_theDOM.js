@@ -9,7 +9,7 @@ let mocha = require('mocha'),
 let chai = require('chai'),
     should =  chai.should();
 
-let mutateTheDom = require('../src/mutateTheDOM');//STR->ELEM->ELEM
+let mutateTheDom = require('../src/mutate_theDOM');//STR->ELEM->ELEM
 
 describe(`mutateTheDOM:: (Fn -> Dom) -> Dom. 
     It composes functions to mutate internal elements of the an HTML document.

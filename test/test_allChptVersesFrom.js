@@ -55,4 +55,3 @@ describe(`in English allChptVersesFrom is a Fn that RETURNS aSet_ofVerses FROM t
         });
     });
 });
-
