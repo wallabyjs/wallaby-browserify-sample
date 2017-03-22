@@ -8,31 +8,43 @@ let R = require('ramda'),
     pipe = R.pipe,
     compose = R.compose;
 
-let mocha = require('mocha'),
-    describe = mocha.describe,
-    context = mocha.describe,
-    it = mocha.it;
-//
+// let mocha = require('mocha'); DO NOT USE this already a mocha config file
+
 let chai = require('chai'),
     expect = chai.expect,
     should = chai.should();
 
 // CODE UNDER TST
-let H = require('../h/H');
-let _thisSet_MUTATED_by = H._thisSet_MUTATED_by;
-let _APPLY_thisFn_to = H._APPLY_thisFn_to;
-let _data = H.Spans_FROM_theDocument_GIVEN_aSelector;
+// let H = require('../h/H');
 let Fn = (el, ndx, set) => {
+    return el
 };
 
-const mutate_allChptVerses = (document) => {
-    return _thisSet_MUTATED_by(document, Fn)
-};
+let CUT = pipe(R.addIndex, R.map);
 
-describe(`mutate_allChptVerses:: DOC -> [SPAN.verse]
-    I can choose input:_APPLY_thisFn_to(Fn, Doc)||thisSet_MUTATED_by(Doc,Fn)`, () => {
-    describe(`let's choose Fn:thisSet_MUTATED_by(aDocument)..
-        and use `, () => {
+describe(`mutate_allChptVerses:: this combines aMAP(eachElem_En, aSET) -> aSET
 
+    `, () => {
+    describe(`CUT: = _mutate_allVerses 
+    `, () => {
+        let aSet;
+        beforeEach(() => {
+            aSet = [1, 2, 3, 4];
+        });
+        it(`is a function.`, () => {
+            expect(CUT)
+                .to.be.a('function')
+                .with.lengthOf(1);  // why not arity:2? BECAUSE currying RETURNS A function!
+        });
+        it(`is still a function after invoking it with the Fn.`, () => {
+            expect(CUT(Fn))
+                .to.be.a('function')
+                .with.lengthOf(1);
+        });
+        it(` RETURNS aSet GIVEN aFn && aSet.`, () => {
+            expect(CUT(Fn)(aSet))
+                .to.be.a('array')
+                .with.lengthOf(aSet.length);
+        });
     });
 });

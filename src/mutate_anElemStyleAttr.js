@@ -5,9 +5,6 @@
 let R = require('ramda'),
     curry = R.curry;
 
-/**
- *
- */
 const mutate_anElemStyleAttr = curry(
     /**
      *  ..... mutateS_anElemStyleAttr
