@@ -11,7 +11,10 @@ let mocha = require('mocha')
 let chai = require('chai')
     // , should = chai.should()
 ;
-
+describe(`In general the code style is 
+    Fn( Fn, Data) -> Fn..
+AND Fn(Fn, Data) -> Data  at the end of the project.`, () => {
+});
 describe(`I will try and use FUNCTIONS beginning with 'mutate_...' 
 
     They will be general late on, but for now I list them in project specific names.

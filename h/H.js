@@ -48,7 +48,7 @@ const _APPLY_thisFn_to = curry(
     (fn, set) => R.addindex(R.map)(fn, set));
 
 module.exports = {
-    _thisSet_MUTATED_by,
-    _APPLY_thisFn_to,
-    Spans_FROM_theDocument_GIVEN_aSelector
+    _thisSet_MUTATED_by //
+    , _APPLY_thisFn_to
+    , Spans_FROM_theDocument_GIVEN_aSelector //
 };
