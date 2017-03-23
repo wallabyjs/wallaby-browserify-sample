@@ -17,4 +17,4 @@ const mutate_anElemStyleAttr = curry(
      */
     (css_str, elem) => elem.setAttribute('style', css_str)
 );
-module.exports = mutate_anElemStyleAttr;
+module.exports = mutate_anElemStyleAttr;// STR -> ELEM -> ELEM
