@@ -1,19 +1,21 @@
 "use strict";
 
-let R = require('ramda'),
-    pipe = R.pipe,
-    compose = R.compose,
-    map = R.map,
-    curry = R.curry;
+let R = require('ramda')
+//     , pipe = R.pipe
+//     , compose = R.compose
+//     , map = R.map
+//     , curry = R.curry
+;
 
 let mocha = require('mocha'),
     describe = mocha.describe,
     it = mocha.it;
 
 
-let chai = require('chai'),
-    should = chai.should(),
-    expect = chai.expect;
+let chai = require('chai')
+    , should = chai.should()
+    , expect = chai.expect
+;
 
 let H = require('../h/H');
 
