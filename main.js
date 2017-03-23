@@ -23,7 +23,7 @@ let mutate_anElem = curry(
 
 // ************* DATA
 let allSpans = doc => doc.querySelectorAll('div .chptr, span');// ->  SET
-let n_Spans = R.slice(1, 3);// SET -> SET
+let n_Spans = R.slice(2, 3);// SET -> SET
 let aSet = pipe(allSpans, n_Spans);
 
 
