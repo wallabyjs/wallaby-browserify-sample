@@ -23,14 +23,14 @@ let mutate_anElem = curry(
 );
 
 // ************* DATA
-let n_Spans = R.slice(2, 3); // SET -> SET
+let n_Spans = R.slice(2, 5); // SET -> SET
 
 let allSpans = doc => doc.querySelectorAll('div .chptr, span'); // () -> SET
 let aSet = pipe(allSpans, n_Spans); // SET -> SET
 // let ChptVerses = doc => require('./src/ret_ChptVerses')(doc); // () -> SET
 // let aSet = pipe(ChptVerses, n_Spans); // BROKEN using ChptVerses// SET -> SET
 
-
+//
 // ************* MAIN: CodeUnderTest:: MAP_aSet(FN)(DATA)
 let MAP_aSet = require('./h/mutate_aSet'); // (Fn -> SET) -> SET
 
