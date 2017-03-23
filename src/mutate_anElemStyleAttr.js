@@ -1,5 +1,5 @@
 /**
- * Created by CLIF on 11/28/2016.
+ * mutate_anElemStyleAttr()
  */
 "use strict";
 let R = require('ramda'),
