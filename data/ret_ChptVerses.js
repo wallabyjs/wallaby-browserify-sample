@@ -14,6 +14,6 @@ let H = require('../h/H');
  * for the Arg: STR of which Verse
  * USAGE: ret_allChptVerses(document) -> allChptVerses
  */
-const ret_ChptVerse = curry(H.Spans_FROM_theDocument_GIVEN_aSelector('div .chptr span')); //
+const ret_ChptVerses = curry(doc => doc.querySelectorAll('div .chptr span')); //
 
-module.exports = ret_ChptVerse; // Document -> [aSet]
+module.exports = ret_ChptVerses; // Document -> [aSet]
