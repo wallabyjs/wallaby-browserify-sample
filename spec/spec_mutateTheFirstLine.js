@@ -7,7 +7,7 @@ let mocha = require('mocha'),    describe = mocha.describe,    it = mocha.it;
 let chai = require('chai'),     should =  chai.should();
 
 let _mutate;
-_mutate = require('../src/mutate_anElemStyleAttr');//    STR->ELM->ELM
+_mutate = require('../h/alter/anElemStyleAttr');//    STR->ELM->ELM
 
 describe(`mutateElemStyleProp:: Dom -> Dom.
 Is a hardCoded test stub to use with other stubs in mutateTheDOM.js`, function () {

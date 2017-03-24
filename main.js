@@ -10,7 +10,7 @@ let TRK = "wbSample/main.js";
 console.log("< IN >" + TRK);
 
 // ************* FUNCTIONS
-let mutate_anAttr = require('./src/mutate_anElemStyleAttr');
+let mutate_anAttr = require('./h/alter/anElemStyleAttr');
 let mutate_anElem = curry(
     /**
      *
@@ -23,7 +23,7 @@ let mutate_anElem = curry(
 );
 
 // ************* DATA
-let n_Spans = R.slice(2, 5); // SET -> SET
+let n_Spans = R.slice(4, 5); // SET -> SET
 
 let allSpans = doc => doc.querySelectorAll('div .chptr, span'); // () -> SET
 let aSet = pipe(allSpans, n_Spans); // SET -> SET

@@ -1,5 +1,5 @@
 /**
- * mutate_anElemStyleAttr()
+ * h/alter/anElemStyleAttr()
  */
 "use strict";
 let R = require('ramda'),

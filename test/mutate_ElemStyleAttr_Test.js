@@ -15,7 +15,7 @@ let chai = require('chai'),
     should = chai.should();
 
 //CODE UNDER TST
-let mutate_StyleAttr = require('../src/mutate_anElemStyleAttr');
+let mutate_StyleAttr = require('../h/alter/anElemStyleAttr');
 let CUT_Fn = mutate_StyleAttr;
 
 describe(`CUT_Fn:: mutate_StyleAttr:: STR -> ELEM -> ELEM
