@@ -25,7 +25,7 @@ let redify_anElem = curry(
 
 // ************* DATA
 let select_aFewVerses = R.slice(0, 2); // SET -> SET
-// let ret_allChprVerses = doc => doc.querySelectorAll('div .chptr, span'); // (doc) -> SET
+let ret_allChprVerses = doc => doc.querySelectorAll('div .chptr, span'); // (doc) -> SET
 let aSet = pipe(ret_allChprVerses, select_aFewVerses); // SET -> SET
 
 // ************* MAIN: CodeUnderTest:: MAP_aSet(FN)(DATA)
@@ -34,7 +34,6 @@ let MAP_aSet = require('./h/alter/aSet'); // (Fn -> SET) -> SET
 const RED_ify_aSetOfVerses = doc => {
     MAP_aSet(redify_anElem, aSet(doc));
 };
-
 // ************* INVOKE this Fn as the main
 RED_ify_aSetOfVerses(document);
 

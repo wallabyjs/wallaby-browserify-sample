@@ -1,10 +1,10 @@
 "use strict";
 
 let R = require('ramda')
+    , curry = R.curry
 //     , pipe = R.pipe
 //     , compose = R.compose
 //     , map = R.map
-    , curry = R.curry
 ;
 
 let H = require('../h/H');
