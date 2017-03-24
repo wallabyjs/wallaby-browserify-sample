@@ -18,16 +18,16 @@ AND Fn(Fn, Data) -> Data  at the end of the project.`, () => {
 describe(`I will try and use FUNCTIONS beginning with 'mutate_...' 
 
     They will be general late on, but for now I list them in project specific names.
-    e.g. mutate_allChptVerses(document) ACTUALLY STEMS FROM 
+    e.g. mutate_ChptVerses(document) ACTUALLY STEMS FROM 
          mutate_aSet(querySelectStr, documents)
          `, () => {
-    describe(`mutate_allChptVerses..`, () => {
+    describe(`mutate_ChptVerses..`, () => {
 
     });
     describe(`mutate_aChptVerse..`, () => {
 
     });
-    describe(`mutate_allVerseStyleAttrs..`, () => {
+    describe(`mutate_VerseStyleAttrs..`, () => {
 
     });
     describe(`mutate_aStyleAttr..`, () => {

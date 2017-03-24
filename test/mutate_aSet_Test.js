@@ -3,26 +3,28 @@
  */
 "use strict";
 
-let R = require('ramda'),
-    curry = R.curry,
-    pipe = R.pipe,
-    compose = R.compose;
+let R = require('ramda')
+    // ,curry = R.curry
+    // ,pipe = R.pipe
+    // ,compose = R.compose
+;
 
 // let mocha = require('mocha'); DO NOT USE this already a mocha config file
 
-let chai = require('chai'),
-    expect = chai.expect,
-    should = chai.should();
+let chai = require('chai')
+    , expect = chai.expect
+    // ,should = chai.should()
+;
 
 // CODE UNDER TEST
-let mutate_aSet = require('../h/mutate_aSet');
+let mutate_aSet = require('../h/alter/aSet');
 
 let Fn = (el, ndx, set) => {
     return [el, ndx, set.length]
 };
 
 
-describe(`mutate_aSet:: this is the COMBINER/MAPPER OF (eachElem_En && aSET) -> aSET
+describe(`mutate_aSet:: this is the COMBINER/MAPPER OF (eachElemEn && aSET) -> aSET
 
     `, () => {
     describe(`mutate_aSet: = _mutate_allVerses 
