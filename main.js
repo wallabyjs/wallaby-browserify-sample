@@ -11,7 +11,8 @@ console.log("< IN >" + TRK);
 
 // ************* FUNCTIONS
 let mutate_anAttr = require('./h/alter/anElemStyleAttr');
-let mutate_anElem = curry(
+let Redify_anAtttr = mutate_anAttr("color:red");
+let redify_anElem = curry(
     /**
      *
      * @param el
@@ -19,20 +20,19 @@ let mutate_anElem = curry(
      * @param set
      * @return : a modified Elem
      */
-    (el, ndx, set) => mutate_anAttr("opacity:0.6; color:red")(el)
+    (el, ndx, set) => Redify_anAtttr(el)
 );
 
 // ************* DATA
-let n_Spans = R.slice(4, 5); // SET -> SET
-
-let allSpans = doc => doc.querySelectorAll('div .chptr, span'); // () -> SET
-let aSet = pipe(allSpans, n_Spans); // SET -> SET
+let select_aFewVerses = R.slice(0, 2); // SET -> SET
+// let ret_allChprVerses = doc => doc.querySelectorAll('div .chptr, span'); // (doc) -> SET
+let aSet = pipe(ret_allChprVerses, select_aFewVerses); // SET -> SET
 
 // ************* MAIN: CodeUnderTest:: MAP_aSet(FN)(DATA)
 let MAP_aSet = require('./h/alter/aSet'); // (Fn -> SET) -> SET
 
 const RED_ify_aSetOfVerses = doc => {
-    MAP_aSet(mutate_anElem, aSet(doc));
+    MAP_aSet(redify_anElem, aSet(doc));
 };
 
 // ************* INVOKE this Fn as the main
