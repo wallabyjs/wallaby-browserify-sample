@@ -8,7 +8,6 @@ let mocha = require('mocha'),
     it = mocha.it;
 let chai = require('chai'),
     should = chai.should();
-//TODO put all these in h/
 // ***************************
 
 let elem;
