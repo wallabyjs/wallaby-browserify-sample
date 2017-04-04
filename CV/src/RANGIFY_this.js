@@ -6,5 +6,5 @@
 let R = require('ramda')
 ;
 
-const RANGIFY_this = R.pipe(R.length, R.range(0)); // LST.[a] -> LST>[N])
-module.exports = RANGIFY_this; // LST.[a] -> LST>[N]
+const RANGIFY_this = R.pipe(R.length, R.range(0)); // [a] -> [N])
+module.exports = RANGIFY_this; // LST.[a] -> LST.[N]
