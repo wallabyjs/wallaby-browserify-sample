@@ -8,7 +8,7 @@ let R = require('ramda')
 //     , compose = R.compose
 //     , map = R.map
 //     , curry = R.curry
-    , always = R.always
+//     , always = R.always
 ;
 
 let chai = require('chai')
@@ -16,15 +16,14 @@ let chai = require('chai')
     , expect = chai.expect
 ;
 
-// CODE UNDER TEST
+// CODE UNDER TEST// todo _> add f(focusNdx) to affect the transforms that EVOLVE_RCBounds USES. 170407 @ 1950
 let EVOLVE_RCBounds;
-// EVOLVE_RCBounds = require('../src/EVOLVE_RCBounds'); // LST.[a] -> LST>[N]
-let transforms = {focus: {beg: always(111)}};
-EVOLVE_RCBounds = R.evolve(transforms); // DICT -> DICT
+let transforms;
+EVOLVE_RCBounds = (trans, dict) => R.evolve(trans, dict); // DICT -> DICT
 
-describe(`the Fn: EVOLVE_RCBounds( N ) -> RCB
+describe(`the Fn: EVOLVE_RCBounds( Fn:transforms ) -> RCB
     
-    USAGE:
+    // USAGE: EVOLVE_RCBounds WITH the defaultRCBounds partialed, EVOLVES it WITH the transforms Object. It is a f(focusNdx) 
     `, function () {
     beforeEach(function () {
         this.defaultRCB = {focus: {beg: 0, len: 2}};
@@ -37,18 +36,27 @@ describe(`the Fn: EVOLVE_RCBounds( N ) -> RCB
             expect(this.defaultRCB.focus).to.be.an('object').and.to.have.all.keys(['beg', 'len']);
         });
     });
-    describe(`CONFIRM EVOLVE_RCBounds is a function wanting a Transforms Fn.
-    `, function () {
-        it(`should be a function with one argument.
-    `, function () {
-            expect(this.CUT).to.be.an('function');
+    describe(`CONFIRM EVOLVE_RCBounds is a function wanting a Transforms Fn.`, function () {
+        it(`should be a function with one argument.    `, function () {
+            expect(this.CUT).to.be.a('function').and.to.have.lengthOf(1);
         });
     });
-    xdescribe(`A new focusClss beginning, EVOLVES the boundaries between RClsses.
-    `, function () {
-        it(`should be a Dictionary with at least 2 keys.
-    `, function () {
-            expect(this.CUT).to.be.an('object');
+    describe(`CONFIRM EVOLVE_RCBounds(aTransforms) CAN ALTER the RCBounds DICT.    `, function () {
+        it(`can return an altered RCBounds `, function () {
+            transforms = {focus: {beg: R.add(20)}};
+            expect(this.CUT(transforms).focus).to.be.an('object').and.to.have.all.keys(['beg', 'len']);
+        });
+        it(`should see an altered key:value    `, function () {
+            transforms = {focus: {beg: R.always(20)}};
+            expect(this.CUT(transforms).focus.beg).to.equal(20);
+        });
+    });
+    describe(`CONFIRM EVOLVE_RCBounds(aTransforms W/O AN EXISTING Key) WILL NOT ALTER the RCBounds DICT.    `, function () {
+        it(`should see UNALTERED key:value    `, function () {
+            transforms = {focus: {WRONG: R.always(20)}};
+            //
+            expect(this.CUT(transforms).focus.beg).to.not.equal(20);
+            expect(this.CUT(transforms).focus.beg).to.equal(0);
         });
     });
 });
