@@ -18,9 +18,11 @@ let chai = require('chai')
 // CODE UNDER TEST
 const RANGIFY_this = require('../src/RANGIFY_this'); // LST.[a] -> LST>[N]
 
-describe(`the Fn:RANGIFY_this returns a Lst of NUM.indexes.
+describe(`the Fn:  RANGIFY_this() returns a Lst of NUM.indexes.
     
-    USAGE: it REDUCES the ChptVerseS nodeList to just its Indexes`, function () {
+    USAGE: it will REDUCE the ChptVerseS nodeList to just its Indexes
+    for use in ReadClss Weighting
+    `, function () {
     beforeEach(function () {
         this.stubCV = ['verse1', 'verse2', 'verse3', 'verse4'];
     });
